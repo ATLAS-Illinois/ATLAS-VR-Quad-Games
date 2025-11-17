@@ -31,6 +31,7 @@ public class SecretProgression : MonoBehaviour
     [SerializeField] private GameObject lincolnOnePager;
 
     [SerializeField] private GameObject lincolnNoseSensor;
+    [SerializeField] private EnableCollision GhostifyLibrary;
     
 
     private void GoToLevel2()
@@ -119,6 +120,7 @@ public class SecretProgression : MonoBehaviour
         lincolnNoseSensor.GetComponent<SensorColor>().FoundSensor();
         thisChapter = 8;
         ch3Text.AdvanceChecklist();
+        GhostifyLibrary.DisableCollision();
     }
 
 
