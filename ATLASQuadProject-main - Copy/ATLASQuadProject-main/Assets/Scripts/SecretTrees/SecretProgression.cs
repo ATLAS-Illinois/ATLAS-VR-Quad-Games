@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,6 +33,9 @@ public class SecretProgression : MonoBehaviour
 
     [SerializeField] private GameObject lincolnNoseSensor;
     [SerializeField] private EnableCollision GhostifyLibrary;
+    [SerializeField] private GameObject allLibraryComponents;
+
+    private int internalCounter = 0;
     
 
     private void GoToLevel2()
@@ -56,6 +60,7 @@ public class SecretProgression : MonoBehaviour
         insideLincolnTable.SetActive(false);
         insideLincolnSensor.SetActive(false);
         lincolnNoseSensor.SetActive(false);
+        allLibraryComponents.SetActive(false);
     }
 
     private void GoToLevel3()
@@ -121,6 +126,7 @@ public class SecretProgression : MonoBehaviour
         thisChapter = 8;
         ch3Text.AdvanceChecklist();
         GhostifyLibrary.DisableCollision();
+        allLibraryComponents.SetActive(true);
     }
 
 
@@ -128,6 +134,7 @@ public class SecretProgression : MonoBehaviour
     // Player must stay on the checklist to proceed however.
     private void Update()
     {
+        internalCounter++;
         if (thisChapter >= 3 && ch3Paper.GetComponent<DetectIfGrabbed>().IsGrabbed && ch3Paper.GetComponent<PageNo>().pageNumber == 10)
         {
             // If the 1st condition is not met, the 2nd one is skipped.
@@ -151,5 +158,10 @@ public class SecretProgression : MonoBehaviour
         if (thisChapter == 2 && ch2Paper.GetComponent<DetectIfGrabbed>().IsGrabbed &&
             Vector3.Distance(ch2Paper.transform.position, ch3Table.transform.position) < 20f)
                 GoToLevel3();
+        //if (internalCounter == 1200)
+        //{
+        //    FinishHunt(); // Comment out once done beta testing
+        //}
+        
     }
 }
