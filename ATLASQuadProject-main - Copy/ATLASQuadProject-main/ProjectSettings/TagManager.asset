@@ -9,6 +9,8 @@ TagManager:
   - EasterEggPaper
   - EasterEggNarration2
   - EasterEggNarration1
+  - SnapPoint
+  - EndSnapPoint
   layers:
   - Default
   - TransparentFX
