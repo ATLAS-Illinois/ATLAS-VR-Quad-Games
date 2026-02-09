@@ -158,10 +158,10 @@ public class SecretProgression : MonoBehaviour
         if (thisChapter == 2 && ch2Paper.GetComponent<DetectIfGrabbed>().IsGrabbed &&
             Vector3.Distance(ch2Paper.transform.position, ch3Table.transform.position) < 20f)
                 GoToLevel3();
-        if (internalCounter == 1200)
-        {
-            FinishHunt(); // Comment out once done beta testing
-        }
+        //if (internalCounter == 1200)
+        //{
+        //    FinishHunt(); // Comment out once done beta testing
+        //}
 
     }
 }
