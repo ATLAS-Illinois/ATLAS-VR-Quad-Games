@@ -11,6 +11,7 @@ public class Arrow : MonoBehaviour
     private Rigidbody rb;
     private Grabbable grabbable;
     private Collider col;
+    private Vector3 respawnPoint;
 
     public bool IsHeldByHand { get; private set; } = false;
     public bool IsNocked { get; private set; } = false;
@@ -21,6 +22,8 @@ public class Arrow : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         grabbable = GetComponent<Grabbable>();
         col = GetComponent<Collider>();
+
+        respawnPoint = transform.position;
 
         rb.angularDrag = 1.0f; // Some angular drag for stability
         rb.drag = 0.1f; // Some linear drag to simulate air resistance
@@ -131,6 +134,21 @@ public class Arrow : MonoBehaviour
 
             // Smoothly apply the rotation
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.fixedDeltaTime * 15f);
+        }
+
+        if (transform.position.y <= -20f)
+        {
+            transform.SetPositionAndRotation(respawnPoint, Quaternion.identity);
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+
+
+            HasLaunched = false;
+            IsHeldByHand = false;
+            IsNocked = false;
+            rb.useGravity = false;
+            rb.isKinematic = false;
+
+            Awake(); // can call to show what to do upon awakening
         }
     }
 }
