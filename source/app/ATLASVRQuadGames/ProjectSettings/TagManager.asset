@@ -11,6 +11,7 @@ TagManager:
   - EasterEggNarration1
   - SnapPoint
   - EndSnapPoint
+  - Arrow
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - Grabbables
   - Player
   - Obstacles
-  - 
+  - Arrow
   - 
   - 
   - 

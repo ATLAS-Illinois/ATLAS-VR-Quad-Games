@@ -103,7 +103,7 @@ public class Arrow : MonoBehaviour
 
         HasLaunched = true;
 
-        StartCoroutine(BrieflyDisableCollider(0.1f));
+        StartCoroutine(BrieflyDisableCollider(0.3f));
     }
 
     // ... (Collision and IEnumerator code stays the same) ...
