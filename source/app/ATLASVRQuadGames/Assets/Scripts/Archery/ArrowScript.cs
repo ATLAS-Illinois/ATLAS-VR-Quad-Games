@@ -2,6 +2,7 @@ using UnityEngine;
 using Oculus.Interaction;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Animations;
 
 [RequireComponent(typeof(Grabbable), typeof(Rigidbody), typeof(Collider))]
 public class Arrow : MonoBehaviour
@@ -75,7 +76,6 @@ public class Arrow : MonoBehaviour
 
         // The code below is half working, and is meant to fix slight misalignments when nocking.
         transform.localPosition = Vector3.zero;
-        transform.localRotation = Quaternion.identity;
 
     }
 
@@ -113,7 +113,8 @@ public class Arrow : MonoBehaviour
         {
             rb.isKinematic = true;
             rb.useGravity = false;
-            transform.SetParent(collision.transform);
+            //transform.SetParent(collision.transform);
+            transform.localScale = new Vector3(3, 3, 3);
         }
     }
 
@@ -132,8 +133,15 @@ public class Arrow : MonoBehaviour
             // Create a rotation that looks in the direction of the current velocity
             Quaternion lookRotation = Quaternion.LookRotation(rb.velocity);
 
+            transform.Rotate(180f * Time.fixedDeltaTime * Vector3.forward);
+
             // Smoothly apply the rotation
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.fixedDeltaTime * 15f);
+        }
+
+        if (IsNocked)
+        {
+            transform.localRotation = Quaternion.Euler(0, 0, 90);
         }
 
         if (transform.position.y <= -20f)
@@ -150,5 +158,10 @@ public class Arrow : MonoBehaviour
 
             Awake(); // can call to show what to do upon awakening
         }
+    }
+
+    private void LateUpdate()
+    {
+        
     }
 }
