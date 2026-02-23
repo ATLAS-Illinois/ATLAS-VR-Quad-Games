@@ -34517,7 +34517,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpHeight: 1.2
   gravity: -9.81
-  airSpeed: 5
+  airSpeed: 7
   airDamping: 0.1
 --- !u!1 &2077696717
 GameObject:
