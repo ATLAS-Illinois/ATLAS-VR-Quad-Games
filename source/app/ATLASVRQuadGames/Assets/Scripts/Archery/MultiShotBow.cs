@@ -11,6 +11,10 @@ public class MultiShotBow : MonoBehaviour
     [SerializeField]
     private MetaStringInteraction stringInteraction;
 
+    [Tooltip("The bow object that guides the arrow")]
+    [SerializeField]
+    private Transform bowObject;
+
     [Tooltip("The empty GameObject where the arrow snaps to")]
     [SerializeField]
     private Transform nockPoint;
@@ -72,7 +76,7 @@ public class MultiShotBow : MonoBehaviour
 
         Debug.Log("Arrow Nocked!");
         // Tell the arrow it's nocked (disables its physics/grab)
-        arrow.Nock(nockPoint);
+        arrow.Nock(nockPoint, bowObject);
 
         currentArrows.Add(arrow);
         isArrowNocked = true;

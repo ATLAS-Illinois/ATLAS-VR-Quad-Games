@@ -418,6 +418,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePowerMultiplier: 50
+  bowTransform: {fileID: 0}
+  nockTransform: {fileID: 0}
 --- !u!114 &108000917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -694,6 +696,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePowerMultiplier: 50
+  bowTransform: {fileID: 0}
+  nockTransform: {fileID: 0}
 --- !u!114 &155690063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -974,6 +978,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePowerMultiplier: 50
+  bowTransform: {fileID: 0}
+  nockTransform: {fileID: 0}
 --- !u!114 &160411343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1188,6 +1194,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePowerMultiplier: 50
+  bowTransform: {fileID: 0}
+  nockTransform: {fileID: 0}
 --- !u!114 &200714447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1904,6 +1912,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePowerMultiplier: 50
+  bowTransform: {fileID: 0}
+  nockTransform: {fileID: 0}
 --- !u!114 &284790208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2118,6 +2128,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePowerMultiplier: 50
+  bowTransform: {fileID: 0}
+  nockTransform: {fileID: 0}
 --- !u!114 &315784734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2332,6 +2344,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePowerMultiplier: 50
+  bowTransform: {fileID: 0}
+  nockTransform: {fileID: 0}
 --- !u!114 &342152041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2877,6 +2891,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePowerMultiplier: 50
+  bowTransform: {fileID: 0}
+  nockTransform: {fileID: 0}
 --- !u!114 &434955858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4264,6 +4280,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePowerMultiplier: 50
+  bowTransform: {fileID: 0}
+  nockTransform: {fileID: 0}
 --- !u!114 &831818704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4478,6 +4496,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePowerMultiplier: 50
+  bowTransform: {fileID: 0}
+  nockTransform: {fileID: 0}
 --- !u!114 &875241300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4897,6 +4917,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePowerMultiplier: 50
+  bowTransform: {fileID: 0}
+  nockTransform: {fileID: 0}
 --- !u!114 &942866715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5111,6 +5133,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePowerMultiplier: 50
+  bowTransform: {fileID: 0}
+  nockTransform: {fileID: 0}
 --- !u!114 &946685650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5456,6 +5480,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stringInteraction: {fileID: 252187233}
   nockPoint: {fileID: 257152065}
+  bowObject: {fileID: 1017752401}
   fireDirectionGuide: {fileID: 582578780}
   topLimb: {fileID: 0}
   bottomLimb: {fileID: 0}
@@ -5511,6 +5536,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stringInteraction: {fileID: 252187233}
+  bowObject: {fileID: 1017752401}
   nockPoint: {fileID: 257152065}
   fireDirectionGuide: {fileID: 582578780}
   topLimb: {fileID: 0}
@@ -5735,6 +5761,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePowerMultiplier: 50
+  bowTransform: {fileID: 0}
+  nockTransform: {fileID: 0}
 --- !u!114 &1094851236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5936,6 +5964,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePowerMultiplier: 50
+  bowTransform: {fileID: 0}
+  nockTransform: {fileID: 0}
 --- !u!114 &1110515108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6443,6 +6473,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePowerMultiplier: 50
+  bowTransform: {fileID: 0}
+  nockTransform: {fileID: 0}
 --- !u!114 &1270807993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6685,6 +6717,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePowerMultiplier: 50
+  bowTransform: {fileID: 0}
+  nockTransform: {fileID: 0}
 --- !u!114 &1354141273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6988,6 +7022,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePowerMultiplier: 50
+  bowTransform: {fileID: 0}
+  nockTransform: {fileID: 0}
 --- !u!114 &1424309278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7299,6 +7335,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePowerMultiplier: 50
+  bowTransform: {fileID: 0}
+  nockTransform: {fileID: 0}
 --- !u!114 &1485894323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8130,6 +8168,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePowerMultiplier: 50
+  bowTransform: {fileID: 0}
+  nockTransform: {fileID: 0}
 --- !u!114 &1783828782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8373,6 +8413,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePowerMultiplier: 50
+  bowTransform: {fileID: 0}
+  nockTransform: {fileID: 0}
 --- !u!114 &1813732382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9029,6 +9071,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePowerMultiplier: 50
+  bowTransform: {fileID: 0}
+  nockTransform: {fileID: 0}
 --- !u!114 &2049201245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9349,6 +9393,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePowerMultiplier: 50
+  bowTransform: {fileID: 0}
+  nockTransform: {fileID: 0}
 --- !u!114 &2093685985
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,6 +1,10 @@
 using System;
 using UnityEngine;
 
+/*
+ NOTE: THIS CLASS IS OBSOLETE
+ */
+
 public class BowController : MonoBehaviour
 {
     [Header("References")]
@@ -11,6 +15,10 @@ public class BowController : MonoBehaviour
     [Tooltip("The empty GameObject where the arrow snaps to")]
     [SerializeField]
     private Transform nockPoint;
+
+    [Tooltip("The bow object that guides the arrow")]
+    [SerializeField]
+    private Transform bowObject;
 
     [Tooltip("The same object used as the Direction Reference on the String (e.g., PullDirectionGuide)")]
     [SerializeField]
@@ -73,7 +81,7 @@ public class BowController : MonoBehaviour
         isArrowNocked = true;
 
         // Tell the arrow it's nocked (disables its physics/grab)
-        currentArrow.Nock(nockPoint);
+        currentArrow.Nock(nockPoint, bowObject);
     }
 
     // Called every frame the string's pull amount changes
