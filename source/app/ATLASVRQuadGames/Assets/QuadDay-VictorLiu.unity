@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.55021423, g: 0.50685334, b: 0.44964263, a: 1}
+  m_IndirectSpecularColor: {r: 0.5502142, g: 0.5068534, b: 0.44964263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -19484,10 +19484,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11400010, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
-      propertyPath: JumpForce
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400010, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
@@ -19506,10 +19502,6 @@ PrefabInstance:
     - target: {fileID: 11400010, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       propertyPath: RotationAmount
       value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400010, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
-      propertyPath: GravityModifier
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11400010, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       propertyPath: RotationRatchet
@@ -19562,9 +19554,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100008, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2069966430}
-    - targetCorrespondingSourceObject: {fileID: 100008, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2069966435}
   m_SourcePrefab: {fileID: 100100000, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
 --- !u!4 &1168436628 stripped
 Transform:
@@ -34503,22 +34492,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff61e9fa125daae42861809cce774015, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2069966435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1817975638}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4baa3f5bf970bf047bf8b125902ad77c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jumpHeight: 1.2
-  gravity: -9.81
-  airSpeed: 5
-  airDamping: 0.1
 --- !u!1 &2077696717
 GameObject:
   m_ObjectHideFlags: 0
@@ -35604,5 +35577,5 @@ SceneRoots:
   - {fileID: 2046131270}
   - {fileID: 252774308}
   - {fileID: 1382454278}
-  - {fileID: 950892109}
   - {fileID: 1164196718}
+  - {fileID: 950892109}
