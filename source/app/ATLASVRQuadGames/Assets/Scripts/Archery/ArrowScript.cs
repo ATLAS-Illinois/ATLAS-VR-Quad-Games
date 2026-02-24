@@ -2,6 +2,7 @@ using UnityEngine;
 using Oculus.Interaction;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Animations;
 
 [RequireComponent(typeof(Grabbable), typeof(Rigidbody), typeof(Collider))]
 public class Arrow : MonoBehaviour
@@ -11,6 +12,10 @@ public class Arrow : MonoBehaviour
     private Rigidbody rb;
     private Grabbable grabbable;
     private Collider col;
+    private Vector3 respawnPoint;
+
+    public Transform bowTransform = null;
+    public Transform nockTransform = null;
 
     public bool IsHeldByHand { get; private set; } = false;
     public bool IsNocked { get; private set; } = false;
@@ -21,6 +26,8 @@ public class Arrow : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         grabbable = GetComponent<Grabbable>();
         col = GetComponent<Collider>();
+
+        respawnPoint = transform.position;
 
         rb.angularDrag = 1.0f; // Some angular drag for stability
         rb.drag = 0.1f; // Some linear drag to simulate air resistance
@@ -59,7 +66,7 @@ public class Arrow : MonoBehaviour
     }
 
     // Called by BowController when arrow is nocked
-    public void Nock(Transform nockPoint)
+    public void Nock(Transform nockPoint, Transform bowObject)
     {
         IsHeldByHand = false;
         IsNocked = true;
@@ -67,12 +74,12 @@ public class Arrow : MonoBehaviour
         rb.isKinematic = true;
         rb.useGravity = false;
 
-        transform.SetParent(nockPoint);
+        bowTransform = bowObject;
+        nockTransform = nockPoint;
 
-
+        //transform.SetParent(nockPoint);
         // The code below is half working, and is meant to fix slight misalignments when nocking.
-        transform.localPosition = Vector3.zero;
-        transform.localRotation = Quaternion.identity;
+        //transform.localPosition = Vector3.zero;
 
     }
 
@@ -80,7 +87,10 @@ public class Arrow : MonoBehaviour
     public void UnNock()
     {
         IsNocked = false;
-        transform.SetParent(null); // Detach from bow
+        //transform.SetParent(null); // Detach from bow
+
+        bowTransform = null;
+        nockTransform = null;
 
         // Reset physics
         rb.isKinematic = false;
@@ -90,7 +100,9 @@ public class Arrow : MonoBehaviour
     public void Fire(Vector3 fireDirection, float pullValue)
     {
         IsNocked = false;
-        transform.SetParent(null);
+        //transform.SetParent(null);
+        bowTransform = null;
+        nockTransform = null;
 
         rb.isKinematic = false;
         rb.useGravity = true;
@@ -100,7 +112,7 @@ public class Arrow : MonoBehaviour
 
         HasLaunched = true;
 
-        StartCoroutine(BrieflyDisableCollider(0.1f));
+        StartCoroutine(BrieflyDisableCollider(0.3f));
     }
 
     // ... (Collision and IEnumerator code stays the same) ...
@@ -110,7 +122,8 @@ public class Arrow : MonoBehaviour
         {
             rb.isKinematic = true;
             rb.useGravity = false;
-            transform.SetParent(collision.transform);
+            //transform.SetParent(collision.transform);
+            transform.localScale = new Vector3(3, 3, 3);
         }
     }
 
@@ -129,8 +142,35 @@ public class Arrow : MonoBehaviour
             // Create a rotation that looks in the direction of the current velocity
             Quaternion lookRotation = Quaternion.LookRotation(rb.velocity);
 
+            transform.Rotate(180f * Time.fixedDeltaTime * Vector3.forward);
+
             // Smoothly apply the rotation
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.fixedDeltaTime * 15f);
         }
+
+        if (transform.position.y <= -20f)
+        {
+            transform.SetPositionAndRotation(respawnPoint, Quaternion.identity);
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+
+
+            HasLaunched = false;
+            IsHeldByHand = false;
+            IsNocked = false;
+            rb.useGravity = false;
+            rb.isKinematic = false;
+
+            Awake(); // can call to show what to do upon awakening
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if (nockTransform && bowTransform)
+        {
+            transform.position = nockTransform.position;
+            transform.rotation = bowTransform.rotation * Quaternion.Euler(0, 270, 0);
+            Debug.Log("I exist");
+        }   
     }
 }

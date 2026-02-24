@@ -1,24 +1,23 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
-/*
- NOTE: THIS CLASS IS OBSOLETE
- */
-
-public class BowController : MonoBehaviour
+public class MultiShotBow : MonoBehaviour
 {
     [Header("References")]
     [Tooltip("The MetaStringInteraction script on your string")]
     [SerializeField]
     private MetaStringInteraction stringInteraction;
 
-    [Tooltip("The empty GameObject where the arrow snaps to")]
-    [SerializeField]
-    private Transform nockPoint;
-
     [Tooltip("The bow object that guides the arrow")]
     [SerializeField]
     private Transform bowObject;
+
+    [Tooltip("The empty GameObject where the arrow snaps to")]
+    [SerializeField]
+    private Transform nockPoint;
 
     [Tooltip("The same object used as the Direction Reference on the String (e.g., PullDirectionGuide)")]
     [SerializeField]
@@ -38,7 +37,7 @@ public class BowController : MonoBehaviour
     private float maxLimbBend = 30f; // Max rotation in degrees
 
     // Private State
-    private Arrow currentArrow = null;
+    private List<Arrow> currentArrows = new List<Arrow> { };
     private bool isArrowNocked = false;
     private Vector3 nockRestLocalPosition;
 
@@ -74,14 +73,13 @@ public class BowController : MonoBehaviour
     // This is called by the NockSocket script
     public void NockArrow(Arrow arrow)
     {
-        if (isArrowNocked) return;
 
         Debug.Log("Arrow Nocked!");
-        currentArrow = arrow;
-        isArrowNocked = true;
-
         // Tell the arrow it's nocked (disables its physics/grab)
-        currentArrow.Nock(nockPoint, bowObject);
+        arrow.Nock(nockPoint, bowObject);
+
+        currentArrows.Add(arrow);
+        isArrowNocked = true;
     }
 
     // Called every frame the string's pull amount changes
@@ -111,7 +109,7 @@ public class BowController : MonoBehaviour
     // Called once when the string is released
     private void FireArrow(float finalPullAmount)
     {
-        if (!isArrowNocked || currentArrow == null)
+        if (!isArrowNocked || currentArrows.Count == 0)
         {
             // No arrow to fire, just reset bow
             UpdateBowTension(0f);
@@ -130,12 +128,14 @@ public class BowController : MonoBehaviour
 
         Debug.Log("Firing arrow with power: " + finalPullAmount);
 
-        // Tell the arrow to fly
-        currentArrow.Fire(launchDirection, finalPullAmount);
+        // Find an arrow to fly
+        int ind = UnityEngine.Random.Range(0, currentArrows.Count);
+        Arrow arrow = currentArrows[ind];
+        currentArrows.RemoveAt(ind);
+        if (arrow != null) arrow.Fire(launchDirection, finalPullAmount);
 
         // Reset state
-        isArrowNocked = false;
-        currentArrow = null;
+        if (currentArrows.Count == 0) isArrowNocked = false;
 
         // Reset bow visuals
         UpdateBowTension(0f);

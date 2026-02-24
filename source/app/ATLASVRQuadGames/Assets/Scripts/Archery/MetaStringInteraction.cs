@@ -96,6 +96,8 @@ public class MetaStringInteraction : MonoBehaviour
             // finalStringPos remains at worldRestPos (set above)
             currentPullValue = 0f;
             PullAmountChanged?.Invoke(0f);
+            transform.rotation = Quaternion.Euler(0, 270, 0);
+
         }
 
         // --- 2. FORCE THE OBJECT TO ITS FINAL POSITION (Rest or Constrained) ---
