@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Reflection;
+using System.Security.Claims;
+using UnityEngine;
 
 public class SmoothJump : MonoBehaviour
 {
 	private OVRPlayerController ovr;
 	private CharacterController controller;
+	private PlayerClimbController climb;
 
 	[Header("Jump Settings")]
 	public float jumpHeight = 1.2f;
@@ -24,6 +26,7 @@ public class SmoothJump : MonoBehaviour
 	{
 		ovr = GetComponent<OVRPlayerController>();
 		controller = GetComponent<CharacterController>();
+		climb = GetComponent<PlayerClimbController>(); // Find the climb script
 		ovr.GravityModifier = 0f;
 
 		moveThrottleField = typeof(OVRPlayerController)
@@ -32,6 +35,12 @@ public class SmoothJump : MonoBehaviour
 
 	void Update()
 	{
+		if (climb != null && climb.isOnLadder)
+		{
+			verticalVelocity = 0; // Reset velocity so we don't "shoot" up when exiting
+			return;
+		}
+
 		bool isGrounded = controller.isGrounded;
 
 		// 1. GET CURRENT THROTTLE
