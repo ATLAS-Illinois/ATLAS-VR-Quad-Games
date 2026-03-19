@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Reflection;
 
 public class PlayerParkourRespawn : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class PlayerParkourRespawn : MonoBehaviour
 	public float respawnHeightOffset = 3.0f;
 
 	private CharacterController controller;
+	private bool isRespawning = false; // The "Crash-Proof" lock
 
 	void Start()
 	{
@@ -22,19 +24,43 @@ public class PlayerParkourRespawn : MonoBehaviour
 
 	public void Respawn()
 	{
-		if (currentRespawn == null) return;
+		if (isRespawning || currentRespawn == null) return;
+		isRespawning = true;
 
-		// THE FIX: Disable controller so transform.position actually works
+		// 1. Tell the SPECIFIC platform to play its 2-second effect
+		RespawnPoint pointScript = currentRespawn.GetComponent<RespawnPoint>();
+		if (pointScript != null)
+		{
+			pointScript.PlayEffect();
+		}
+
+		// 2. Teleport Logic
 		if (controller != null) controller.enabled = false;
 
-		Vector3 respawnPos = currentRespawn.position + Vector3.up * respawnHeightOffset;
+		transform.position = currentRespawn.position + Vector3.up * respawnHeightOffset;
 
-		// Move the whole OVRPlayerController root
-		transform.position = respawnPos;
+		// 3. Clear Momentum (prevents the physics engine from crashing)
+		ClearMomentum();
 
-		// Re-enable controller
 		if (controller != null) controller.enabled = true;
 
-		Debug.Log("Player respawned at " + currentRespawn.name);
+		// Unlock after a tiny delay so we don't double-trigger
+		Invoke(nameof(ResetRespawnLock), 0.1f);
+	}
+
+	private void ClearMomentum()
+	{
+		var ovr = GetComponent<OVRPlayerController>();
+		if (ovr != null)
+		{
+			var field = typeof(OVRPlayerController).GetField("MoveThrottle",
+				BindingFlags.NonPublic | BindingFlags.Instance);
+			if (field != null) field.SetValue(ovr, Vector3.zero);
+		}
+	}
+
+	private void ResetRespawnLock()
+	{
+		isRespawning = false;
 	}
 }

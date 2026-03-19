@@ -6,19 +6,41 @@ public class RespawnPoint : MonoBehaviour
 {
 	public int stageNumber;
 
+	[Header("Visual Effect")]
+	[Tooltip("The specific teleporter effect child for THIS platform.")]
+	public GameObject respawnEffectObject;
+
+	void Start()
+	{
+		// Make sure it starts hidden
+		if (respawnEffectObject != null)
+			respawnEffectObject.SetActive(false);
+	}
+
+	public void PlayEffect()
+	{
+		if (respawnEffectObject != null)
+		{
+			StartCoroutine(EffectTimer());
+		}
+	}
+
+	private IEnumerator EffectTimer()
+	{
+		respawnEffectObject.SetActive(true);
+		yield return new WaitForSeconds(2.0f);
+		respawnEffectObject.SetActive(false);
+	}
+
 	private void OnTriggerEnter(Collider other)
 	{
 		GameObject root = other.transform.root.gameObject;
 		PlayerParkourRespawn respawn = root.GetComponent<PlayerParkourRespawn>();
 
-		if (respawn != null)
+		if (respawn != null && respawn.currentRespawn != transform)
 		{
-			// Only update if this is a newer stage or a different point
-			if (respawn.currentRespawn != transform)
-			{
-				respawn.SetRespawnPoint(transform);
-				Debug.Log("Stage " + stageNumber + " Saved!");
-			}
+			respawn.SetRespawnPoint(transform);
+			Debug.Log($"Stage {stageNumber} Saved!");
 		}
 	}
 }
