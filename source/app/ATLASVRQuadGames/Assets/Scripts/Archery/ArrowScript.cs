@@ -20,6 +20,7 @@ public class Arrow : MonoBehaviour
     public bool IsHeldByHand { get; private set; } = false;
     public bool IsNocked { get; private set; } = false;
     public bool HasLaunched { get; private set; } = false;
+    private bool hasScored = false;
 
     private void Awake()
     {
@@ -124,6 +125,22 @@ public class Arrow : MonoBehaviour
             rb.useGravity = false;
             //transform.SetParent(collision.transform);
             transform.localScale = new Vector3(3, 3, 3);
+        }
+    }
+
+    // For point calculation
+    private void OnTriggerEnter(Collider other)
+    {
+        if (hasScored) return;
+
+        if (other.CompareTag("TargetRing"))
+        {
+            TargetRing ring = other.GetComponent<TargetRing>();
+            if (ring != null)
+            {
+                ScoreManager.instance.AddScore(ring.points);
+                hasScored = true; // Prevent multiple scoring from the same arrow
+            }
         }
     }
 
