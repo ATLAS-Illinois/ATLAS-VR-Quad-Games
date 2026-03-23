@@ -12,6 +12,7 @@ TagManager:
   - SnapPoint
   - EndSnapPoint
   - Arrow
+  - TargetRing
   layers:
   - Default
   - TransparentFX
