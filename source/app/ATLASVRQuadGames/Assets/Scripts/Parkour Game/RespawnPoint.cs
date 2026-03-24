@@ -39,8 +39,10 @@ public class RespawnPoint : MonoBehaviour
 
 		if (respawn != null && respawn.currentRespawn != transform)
 		{
-			respawn.SetRespawnPoint(transform);
-			Debug.Log($"Stage {stageNumber} Saved!");
+			// Pass BOTH the transform and the stageNumber
+			respawn.SetRespawnPoint(transform, stageNumber);
+
+			Debug.Log("Stage " + stageNumber + " Saved!");
 		}
 	}
 }

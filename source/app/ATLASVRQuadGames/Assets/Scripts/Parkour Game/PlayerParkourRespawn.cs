@@ -2,24 +2,49 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Reflection;
+using System.Linq;
 
 public class PlayerParkourRespawn : MonoBehaviour
 {
 	public Transform currentRespawn;
 	public float respawnHeightOffset = 3.0f;
 
+	[Header("Progression")]
+	public int maxStageReached = 0; // The "gatekeeper" for the Waystone
+	public bool bypassLevelRestriction = false;
+
 	private CharacterController controller;
-	private bool isRespawning = false; // The "Crash-Proof" lock
+	private bool isRespawning = false;
 
 	void Start()
 	{
 		controller = GetComponent<CharacterController>();
 	}
 
-	public void SetRespawnPoint(Transform point)
+	// Called when physically hitting a RespawnPoint trigger
+	public void SetRespawnPoint(Transform point, int stageNum)
 	{
 		currentRespawn = point;
-		Debug.Log("Respawn point set to: " + point.name);
+
+		if (stageNum > maxStageReached)
+		{
+			maxStageReached = stageNum;
+			Debug.Log($"Max Level Updated: {maxStageReached}");
+		}
+	}
+
+	public void SetRespawnByLevel(int levelID)
+	{
+		if (!bypassLevelRestriction && levelID > maxStageReached) return;
+
+		RespawnPoint target = FindObjectsOfType<RespawnPoint>()
+			.FirstOrDefault(p => p.stageNumber == levelID);
+
+		if (target != null)
+		{
+			currentRespawn = target.transform;
+			Debug.Log($"Waystone set respawn to Stage: {levelID}");
+		}
 	}
 
 	public void Respawn()
@@ -27,24 +52,14 @@ public class PlayerParkourRespawn : MonoBehaviour
 		if (isRespawning || currentRespawn == null) return;
 		isRespawning = true;
 
-		// 1. Tell the SPECIFIC platform to play its 2-second effect
 		RespawnPoint pointScript = currentRespawn.GetComponent<RespawnPoint>();
-		if (pointScript != null)
-		{
-			pointScript.PlayEffect();
-		}
+		if (pointScript != null) pointScript.PlayEffect();
 
-		// 2. Teleport Logic
 		if (controller != null) controller.enabled = false;
-
 		transform.position = currentRespawn.position + Vector3.up * respawnHeightOffset;
-
-		// 3. Clear Momentum (prevents the physics engine from crashing)
 		ClearMomentum();
-
 		if (controller != null) controller.enabled = true;
 
-		// Unlock after a tiny delay so we don't double-trigger
 		Invoke(nameof(ResetRespawnLock), 0.1f);
 	}
 
@@ -53,14 +68,10 @@ public class PlayerParkourRespawn : MonoBehaviour
 		var ovr = GetComponent<OVRPlayerController>();
 		if (ovr != null)
 		{
-			var field = typeof(OVRPlayerController).GetField("MoveThrottle",
-				BindingFlags.NonPublic | BindingFlags.Instance);
+			var field = typeof(OVRPlayerController).GetField("MoveThrottle", BindingFlags.NonPublic | BindingFlags.Instance);
 			if (field != null) field.SetValue(ovr, Vector3.zero);
 		}
 	}
 
-	private void ResetRespawnLock()
-	{
-		isRespawning = false;
-	}
+	private void ResetRespawnLock() => isRespawning = false;
 }
