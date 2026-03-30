@@ -16,17 +16,27 @@ public class Arrow : MonoBehaviour
 
     public Transform bowTransform = null;
     public Transform nockTransform = null;
+    private Transform stickPoint;
 
     public bool IsHeldByHand { get; private set; } = false;
     public bool IsNocked { get; private set; } = false;
     public bool HasLaunched { get; private set; } = false;
     private bool hasScored = false;
 
+    private TrailRenderer trail;
+    public GameObject arrowTracer;
+    private Transform fletchingPoint;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         grabbable = GetComponent<Grabbable>();
         col = GetComponent<Collider>();
+
+        trail = GetComponentInChildren<TrailRenderer>();
+        trail.emitting = false;
+
+        fletchingPoint = transform.Find("Fletching");
 
         respawnPoint = transform.position;
 
@@ -78,17 +88,16 @@ public class Arrow : MonoBehaviour
         bowTransform = bowObject;
         nockTransform = nockPoint;
 
-        //transform.SetParent(nockPoint);
+        transform.SetParent(nockPoint);
         // The code below is half working, and is meant to fix slight misalignments when nocking.
-        //transform.localPosition = Vector3.zero;
-
+        transform.localPosition = Vector3.zero;
     }
 
     // New function to handle taking the arrow OFF the string
     public void UnNock()
     {
         IsNocked = false;
-        //transform.SetParent(null); // Detach from bow
+        transform.SetParent(null); // Detach from bow
 
         bowTransform = null;
         nockTransform = null;
@@ -101,7 +110,7 @@ public class Arrow : MonoBehaviour
     public void Fire(Vector3 fireDirection, float pullValue)
     {
         IsNocked = false;
-        //transform.SetParent(null);
+        transform.SetParent(null);
         bowTransform = null;
         nockTransform = null;
 
@@ -113,18 +122,48 @@ public class Arrow : MonoBehaviour
 
         HasLaunched = true;
 
-        StartCoroutine(BrieflyDisableCollider(0.3f));
+        trail.Clear();
+        trail.emitting = true;
+
+        StartCoroutine(BrieflyDisableCollider(0.15f));
     }
 
     // ... (Collision and IEnumerator code stays the same) ...
     private void OnCollisionEnter(Collision collision)
     {
+
         if (rb.velocity.magnitude > 0.5f && !IsNocked && !rb.isKinematic)
         {
             rb.isKinematic = true;
             rb.useGravity = false;
-            //transform.SetParent(collision.transform);
-            transform.localScale = new Vector3(3, 3, 3);
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+
+            trail.emitting = false;
+
+            // Raycast backwards along the arrow's flight path
+            Vector3 dir = transform.forward;
+            RaycastHit hit;
+
+            int layerMask = LayerMask.GetMask("Default"); // Ensure it only hits the environment and targets, not the arrow itself
+
+            if (Physics.Raycast(transform.position - dir * 0.2f, dir, out hit, 1f, layerMask))
+            {
+                float penetrationDepth = 0.55f;
+
+                transform.position = hit.point - dir * penetrationDepth;
+                transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
+
+                // Find parent with no scaling and rotation
+                MovingTarget mover = hit.collider.GetComponentInParent<MovingTarget>();
+                if (mover != null)
+                {
+                    // Parent to the clean parent
+                    transform.SetParent(mover.transform, true);
+                }
+            }
+
+            Instantiate(arrowTracer, fletchingPoint.position, fletchingPoint.rotation, fletchingPoint);
         }
     }
 
@@ -149,6 +188,15 @@ public class Arrow : MonoBehaviour
         col.enabled = false;
         yield return new WaitForSeconds(duration);
         col.enabled = true;
+    }
+
+    private void Update()
+    {
+        if (stickPoint != null)
+        {
+            transform.position = stickPoint.position;
+            transform.rotation = stickPoint.rotation;
+        }
     }
 
     private void FixedUpdate()
@@ -187,7 +235,7 @@ public class Arrow : MonoBehaviour
         {
             transform.position = nockTransform.position;
             transform.rotation = bowTransform.rotation * Quaternion.Euler(0, 270, 0);
-            Debug.Log("I exist");
+            //Debug.Log("I exist");
         }   
     }
 }

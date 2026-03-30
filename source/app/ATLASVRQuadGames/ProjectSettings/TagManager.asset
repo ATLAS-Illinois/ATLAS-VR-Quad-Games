@@ -12,6 +12,7 @@ TagManager:
   - SnapPoint
   - EndSnapPoint
   - Arrow
+  - TargetRing
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - Player
   - Obstacles
   - Arrow
-  - 
+  - Bow
   - 
   - 
   - 
