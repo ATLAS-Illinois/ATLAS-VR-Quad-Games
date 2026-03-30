@@ -10,6 +10,9 @@ public class SmoothJump : MonoBehaviour
 	private CharacterController controller;
 	private PlayerClimbController climb;
 
+	[Header("State Flags")]
+	public bool isAtWaystone = false;
+
 	[Header("Jump Settings")]
 	public float jumpHeight = 1.2f;
 	public float gravity = -15.0f;
@@ -26,7 +29,7 @@ public class SmoothJump : MonoBehaviour
 	{
 		ovr = GetComponent<OVRPlayerController>();
 		controller = GetComponent<CharacterController>();
-		climb = GetComponent<PlayerClimbController>(); // Find the climb script
+		climb = GetComponent<PlayerClimbController>();
 		ovr.GravityModifier = 0f;
 
 		moveThrottleField = typeof(OVRPlayerController)
@@ -37,17 +40,14 @@ public class SmoothJump : MonoBehaviour
 	{
 		if (climb != null && climb.isOnLadder)
 		{
-			verticalVelocity = 0; // Reset velocity so we don't "shoot" up when exiting
+			verticalVelocity = 0;
 			return;
 		}
 
 		bool isGrounded = controller.isGrounded;
 
-		// 1. GET CURRENT THROTTLE
-		// We read what OVR calculated this frame before we mess with it
 		Vector3 currentThrottle = (Vector3)moveThrottleField.GetValue(ovr);
 
-		// 2. CALCULATE AIR INPUT
 		Vector2 primaryAxis = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
 		Vector3 forward = transform.forward;
 		Vector3 right = transform.right;
@@ -57,34 +57,27 @@ public class SmoothJump : MonoBehaviour
 
 		if (isGrounded)
 		{
-			// Reset our air tracker when we hit the floor
 			horizontalMove = Vector3.zero;
 
 			if (verticalVelocity < 0) verticalVelocity = -1f;
 
-			if (OVRInput.GetDown(OVRInput.Button.One))
+			// Only jump if we are NOT at the waystone
+			if (!isAtWaystone && OVRInput.GetDown(OVRInput.Button.One))
 			{
-				// Physics: v = sqrt(h * -2 * g)
 				verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
 			}
 
-			// --- THE GROUND FIX ---
-			// Keep OVR's horizontal (X, Z), only override the vertical (Y)
 			currentThrottle.y = verticalVelocity * Time.deltaTime;
 		}
 		else
 		{
-			// --- THE AIR CONTROL ---
-			// Smoothly move toward our target air direction
 			horizontalMove = Vector3.Lerp(horizontalMove, targetAirMove, airDamping);
 			verticalVelocity += gravity * Time.deltaTime;
 
-			// In the air, we overwrite everything to ensure "Parkour" feel
 			currentThrottle = horizontalMove * Time.deltaTime;
 			currentThrottle.y = verticalVelocity * Time.deltaTime;
 		}
 
-		// 3. INJECT BACK INTO OVR
 		if (moveThrottleField != null)
 		{
 			moveThrottleField.SetValue(ovr, currentThrottle);
