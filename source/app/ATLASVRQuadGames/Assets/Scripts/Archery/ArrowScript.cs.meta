@@ -3,7 +3,11 @@ guid: cd7e02f5b65db074fa784e407b4c8c3f
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - bowTransform: {instanceID: 0}
+  - nockTransform: {instanceID: 0}
+  - trail: {instanceID: 0}
+  - ArrowImpactFlash: {fileID: 6992577449615137027, guid: 1f0505ecd5029914a93a6a8cb44b26db, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
