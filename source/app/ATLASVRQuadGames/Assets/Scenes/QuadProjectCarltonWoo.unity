@@ -4861,7 +4861,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDistance: {x: -9, y: 0, z: 0}
-  cycleTime: 4
+  cycleTime: 8
   timeOffset: 0
 --- !u!54 &218023525
 Rigidbody:
@@ -12649,7 +12649,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDistance: {x: 6, y: 0, z: 0}
-  cycleTime: 4
+  cycleTime: 8
   timeOffset: 0
 --- !u!54 &494532307
 Rigidbody:
@@ -13943,6 +13943,108 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 856ddc11c4d1bd54885aa67f69f72cdf, type: 3}
+--- !u!1001 &578751147
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1335572802}
+    m_Modifications:
+    - target: {fileID: 3944615827996002566, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 125
+      objectReference: {fileID: 0}
+    - target: {fileID: 3944615827996002566, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4454217627723126977, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_Name
+      value: Waystone Instructions (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508727808303785899, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.0244714
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508727808303785899, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508727808303785899, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.9877638
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508727808303785899, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 14.952
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508727808303785899, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 8.036003
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508727808303785899, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6.154
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508727808303785899, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.8433914
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508727808303785899, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508727808303785899, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.53729963
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508727808303785899, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508727808303785899, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508727808303785899, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508727808303785899, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7900083511430270183, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_text
+      value: "Y to increase \nX to decrease\nB to change your increment\nand A to
+        set\nSimply walk off into the void net to respawn at your set location"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7900083511430270183, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_fontSize
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7900083511430270183, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_margin.w
+      value: -1.6560667
+      objectReference: {fileID: 0}
+    - target: {fileID: 7900083511430270183, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 12
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8907059243861008307, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+  m_SourcePrefab: {fileID: 100100000, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+--- !u!4 &578751148 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4508727808303785899, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+  m_PrefabInstance: {fileID: 578751147}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &584638519
 GameObject:
   m_ObjectHideFlags: 0
@@ -16860,6 +16962,109 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 7895332203970146629, guid: f222748f1796b2e49a56a2fbf7563247, type: 3}
+--- !u!1001 &700129125
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1335572802}
+    m_Modifications:
+    - target: {fileID: 3944615827996002566, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 4454217627723126977, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_Name
+      value: Waystone Instructions
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508727808303785899, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.0244714
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508727808303785899, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508727808303785899, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.9877638
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508727808303785899, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 17.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508727808303785899, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 8.036003
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508727808303785899, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6.154
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508727808303785899, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.5372995
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508727808303785899, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508727808303785899, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.8433915
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508727808303785899, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508727808303785899, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508727808303785899, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 245
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508727808303785899, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7900083511430270183, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_text
+      value: 'This is a waystone
+
+        It allows you to teleport to any level
+        you have already completed
+
+        Simply walk up to it and it will show
+        you your current level'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7900083511430270183, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_fontSize
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7900083511430270183, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_margin.w
+      value: -1.6560667
+      objectReference: {fileID: 0}
+    - target: {fileID: 7900083511430270183, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 12
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8907059243861008307, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+  m_SourcePrefab: {fileID: 100100000, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+--- !u!4 &700129126 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4508727808303785899, guid: cfb47311901d034479815e5e598f98b9, type: 3}
+  m_PrefabInstance: {fileID: 700129125}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &701465213
 GameObject:
   m_ObjectHideFlags: 0
@@ -23630,7 +23835,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDistance: {x: 0, y: 0, z: -5}
-  cycleTime: 4
+  cycleTime: 8
   timeOffset: 0
 --- !u!54 &1047063031
 Rigidbody:
@@ -26092,7 +26297,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDistance: {x: 7, y: 0, z: 0}
-  cycleTime: 4
+  cycleTime: 8
   timeOffset: 0
 --- !u!54 &1153991342
 Rigidbody:
@@ -30547,6 +30752,8 @@ Transform:
   m_Children:
   - {fileID: 1960051127}
   - {fileID: 1723306645}
+  - {fileID: 700129126}
+  - {fileID: 578751148}
   m_Father: {fileID: 556475519}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1337735684 stripped
@@ -32243,7 +32450,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDistance: {x: 4, y: 0, z: 0}
-  cycleTime: 4
+  cycleTime: 8
   timeOffset: 0
 --- !u!54 &1406871869
 Rigidbody:
@@ -32991,7 +33198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDistance: {x: 7, y: 0, z: 0}
-  cycleTime: 4
+  cycleTime: 8
   timeOffset: 0
 --- !u!54 &1436262594
 Rigidbody:
@@ -34030,7 +34237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDistance: {x: 2, y: 0, z: 0}
-  cycleTime: 4
+  cycleTime: 8
   timeOffset: 0
 --- !u!54 &1478072504
 Rigidbody:
@@ -34876,8 +35083,8 @@ Transform:
   m_GameObject: {fileID: 1514356255}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 78.1, y: -5.949997, z: 52.5}
-  m_LocalScale: {x: 150, y: 2, z: 150}
+  m_LocalPosition: {x: 84.9, y: -5.949997, z: 51.1}
+  m_LocalScale: {x: 160, y: 2, z: 160}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 556475519}
@@ -35571,12 +35778,12 @@ PrefabInstance:
       propertyPath: m_text
       value: 'Your default checkpoint is at the start, Checkpoint 0
 
-        You''ll
-        learn how to set checkpoints as you go!'
+        Jump
+        onto the platform in front of you to set your first checkpoint!'
       objectReference: {fileID: 0}
     - target: {fileID: 7900083511430270183, guid: cfb47311901d034479815e5e598f98b9, type: 3}
       propertyPath: m_fontSize
-      value: 14
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 7900083511430270183, guid: cfb47311901d034479815e5e598f98b9, type: 3}
       propertyPath: m_margin.w
@@ -35584,7 +35791,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7900083511430270183, guid: cfb47311901d034479815e5e598f98b9, type: 3}
       propertyPath: m_fontSizeBase
-      value: 14
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -38022,7 +38229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDistance: {x: -4, y: 0, z: 0}
-  cycleTime: 4
+  cycleTime: 8
   timeOffset: 0
 --- !u!54 &1608437290
 Rigidbody:
@@ -42661,7 +42868,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDistance: {x: 0, y: 0, z: -6}
-  cycleTime: 4
+  cycleTime: 8
   timeOffset: 0
 --- !u!54 &1823699229
 Rigidbody:
@@ -45467,7 +45674,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDistance: {x: 0, y: 0, z: 6}
-  cycleTime: 4
+  cycleTime: 8
   timeOffset: 0
 --- !u!54 &1967719525
 Rigidbody:
