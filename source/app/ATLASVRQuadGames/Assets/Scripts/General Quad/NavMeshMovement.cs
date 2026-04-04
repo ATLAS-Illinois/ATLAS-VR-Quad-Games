@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -61,7 +62,8 @@ public class NavMeshMovement : MonoBehaviour
         agent.acceleration = agentAcceleration;
         agent.stoppingDistance = baitStopDistance;
 
-        currentCoroutine = StartCoroutine(Wander());
+        //currentCoroutine = StartCoroutine(Wander());
+        currentCoroutine = StartCoroutine(RunTowardsPlayer());
     }
 
     /// <summary>
@@ -234,54 +236,99 @@ public class NavMeshMovement : MonoBehaviour
         immobileFromBait = false;
     }
 
+    IEnumerator RunTowardsPlayer()
+    {
+        Vector3 directionTowardsPlayer = (transform.position - player.position).normalized * -1;
+        agent.speed = baseSpeed;
+
+        Vector3 avoidTarget = transform.position + directionTowardsPlayer * (avoidDistance);
+
+        NavMeshHit navHit;
+        NavMesh.SamplePosition(avoidTarget, out navHit, avoidDistance, NavMesh.AllAreas);
+
+        if (animator != null)
+        {
+            animator.SetBool("Moving", true);
+        }
+
+        Debug.Log("Chasing player until position: " + navHit.position);
+        agent.SetDestination(navHit.position);
+
+        while (agent.pathPending || agent.remainingDistance > agent.stoppingDistance)
+        {
+            yield return null;
+        }
+
+        if (animator != null)
+        {
+            animator.SetBool("Moving", false);
+        }
+    }
+
+    public int noFrames = 0;
+
     /// <summary>
     /// Update is called once per frame. It is used to check the distance between the player, 
     /// bait, and the GameObject.
     /// </summary>
     void Update()
     {
-        if (immobileFromBait)
+        if (currentCoroutine == null)
         {
-            return;
-        }
-        if (hasReachedBait)
+            currentCoroutine = StartCoroutine(RunTowardsPlayer());
+        } else if (noFrames == 120)
         {
-            hasReachedBait = false;
-            if (currentCoroutine != null)
-            {
-                StopCoroutine(currentCoroutine);
-            }
-            currentCoroutine = StartCoroutine(BaitCooldown());
-            return;
+            noFrames = 0;
+            StopCoroutine(currentCoroutine);
+            currentCoroutine = StartCoroutine(RunTowardsPlayer());
+        } else
+        {
+            noFrames++;
         }
+        
 
-        float distanceFromPlayer = Vector3.Distance(transform.position, player.position);
-        float distanceFromBait = Vector3.Distance(transform.position, bait.position);
-        float playerToBaitDistance = Vector3.Distance(player.position, bait.position);
+        //if (immobileFromBait)
+        //{
+        //    return;
+        //}
+        //if (hasReachedBait)
+        //{
+        //    hasReachedBait = false;
+        //    if (currentCoroutine != null)
+        //    {
+        //        StopCoroutine(currentCoroutine);
+        //    }
+        //    currentCoroutine = StartCoroutine(BaitCooldown());
+        //    return;
+        //}
 
-        // Checks if:
-        // 1. object is within a certain distance of the bait
-        // 2. object is away from the player
-        // 3. player is away from the bait
-        bool baitDistanceConditionals = distanceFromBait <= baitDetectionDistance &&
-                                        distanceFromPlayer > avoidDistance &&
-                                        playerToBaitDistance > avoidDistance;
+        //float distanceFromPlayer = Vector3.Distance(transform.position, player.position);
+        //float distanceFromBait = Vector3.Distance(transform.position, bait.position);
+        //float playerToBaitDistance = Vector3.Distance(player.position, bait.position);
 
-        if (baitDistanceConditionals)
-        {
-            if (currentCoroutine != null)
-            {
-                StopCoroutine(currentCoroutine);
-            }
-            currentCoroutine = StartCoroutine(MoveToBait());
-        }
-        else if (distanceFromPlayer < avoidDistance && !isAvoiding)
-        {
-            if (currentCoroutine != null)
-            {
-                StopCoroutine(currentCoroutine);
-            }
-            currentCoroutine = StartCoroutine(Avoid());
-        }
+        ////// Checks if:
+        ////// 1. object is within a certain distance of the bait
+        ////// 2. object is away from the player
+        ////// 3. player is away from the bait
+        //bool baitDistanceConditionals = distanceFromBait <= baitDetectionDistance &&
+        //                                distanceFromPlayer > avoidDistance &&
+        //                                playerToBaitDistance > avoidDistance;
+
+        //if (baitDistanceConditionals)
+        //{
+        //    if (currentCoroutine != null)
+        //    {
+        //        StopCoroutine(currentCoroutine);
+        //    }
+        //    currentCoroutine = StartCoroutine(MoveToBait());
+        //}
+        //else if (distanceFromPlayer < avoidDistance && !isAvoiding)
+        //{
+        //    if (currentCoroutine != null)
+        //    {
+        //        StopCoroutine(currentCoroutine);
+        //    }
+        //    currentCoroutine = StartCoroutine(Avoid());
+        //}
     }
 }
