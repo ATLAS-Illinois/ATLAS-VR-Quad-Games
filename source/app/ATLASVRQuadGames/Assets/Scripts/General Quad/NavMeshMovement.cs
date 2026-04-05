@@ -22,6 +22,9 @@ public class NavMeshMovement : MonoBehaviour
     private Transform player;
 
     [SerializeField]
+    private Transform goldenDonut;
+
+    [SerializeField]
     private Transform bait;
 
     private Animator animator;
@@ -35,6 +38,9 @@ public class NavMeshMovement : MonoBehaviour
     private bool isAvoiding = false;
     private bool recentlyAvoided = false;
     private int increment = 1;
+
+    // because the player approached the mammoth's golden donut. Who wouldn't be angry?
+    public bool enraged = false;
 
     /// <summary>
     /// Start is called before the first frame update.
@@ -61,9 +67,10 @@ public class NavMeshMovement : MonoBehaviour
         agent.speed = agentSpeed;
         agent.acceleration = agentAcceleration;
         agent.stoppingDistance = baitStopDistance;
+        enraged = false;
 
         //currentCoroutine = StartCoroutine(Wander());
-        currentCoroutine = StartCoroutine(RunTowardsPlayer());
+        //currentCoroutine = StartCoroutine(RunTowardsDonut());
     }
 
     /// <summary>
@@ -236,12 +243,12 @@ public class NavMeshMovement : MonoBehaviour
         immobileFromBait = false;
     }
 
-    IEnumerator RunTowardsPlayer()
+    IEnumerator RunTowardsDonut()
     {
-        Vector3 directionTowardsPlayer = (transform.position - player.position).normalized * -1;
+        Vector3 directionTowardsDonut = (transform.position - goldenDonut.position).normalized * -1;
         agent.speed = baseSpeed;
 
-        Vector3 avoidTarget = transform.position + directionTowardsPlayer * (avoidDistance);
+        Vector3 avoidTarget = transform.position + directionTowardsDonut * (avoidDistance);
 
         NavMeshHit navHit;
         NavMesh.SamplePosition(avoidTarget, out navHit, avoidDistance, NavMesh.AllAreas);
@@ -251,7 +258,7 @@ public class NavMeshMovement : MonoBehaviour
             animator.SetBool("Moving", true);
         }
 
-        Debug.Log("Chasing player until position: " + navHit.position);
+        Debug.Log("Chasing donut until position: " + navHit.position);
         agent.SetDestination(navHit.position);
 
         while (agent.pathPending || agent.remainingDistance > agent.stoppingDistance)
@@ -271,20 +278,36 @@ public class NavMeshMovement : MonoBehaviour
     /// Update is called once per frame. It is used to check the distance between the player, 
     /// bait, and the GameObject.
     /// </summary>
+    /// 
+
+
+
+
     void Update()
     {
-        if (currentCoroutine == null)
+        if (enraged)
         {
-            currentCoroutine = StartCoroutine(RunTowardsPlayer());
-        } else if (noFrames == 120)
+            if (currentCoroutine == null)
+            {
+                currentCoroutine = StartCoroutine(RunTowardsDonut());
+            }
+            else if (noFrames == 120)
+            {
+                noFrames = 0;
+                StopCoroutine(currentCoroutine);
+                currentCoroutine = StartCoroutine(RunTowardsDonut());
+            }
+            else
+            {
+                noFrames++;
+            }
+        } 
+        else
         {
-            noFrames = 0;
-            StopCoroutine(currentCoroutine);
-            currentCoroutine = StartCoroutine(RunTowardsPlayer());
-        } else
-        {
-            noFrames++;
+            Vector3 directionTowardsPlayer = (transform.position - player.position).normalized * -1;
+            agent.SetDestination(transform.position + 0.001f * directionTowardsPlayer);
         }
+        
         
 
         //if (immobileFromBait)
