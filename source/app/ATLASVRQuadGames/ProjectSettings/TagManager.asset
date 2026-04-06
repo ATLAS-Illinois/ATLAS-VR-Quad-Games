@@ -13,6 +13,7 @@ TagManager:
   - EndSnapPoint
   - Arrow
   - TargetRing
+  - Quiver
   layers:
   - Default
   - TransparentFX
@@ -25,8 +26,8 @@ TagManager:
   - Obstacles
   - Arrow
   - Bow
-  - 
-  - 
+  - Anchor
+  - Holstered
   - 
   - 
   - 

@@ -9,6 +9,7 @@ public class Arrow : MonoBehaviour
 {
     [SerializeField] private float firePowerMultiplier = 20f;
 
+
     private Rigidbody rb;
     private Grabbable grabbable;
     private Collider col;
@@ -17,19 +18,22 @@ public class Arrow : MonoBehaviour
     public Transform bowTransform = null;
     public Transform nockTransform = null;
     private Transform stickPoint;
+    private Transform fletchingPoint;
+
+    private TrailRenderer trail;
+    public GameObject arrowTracer;
 
     public bool IsHeldByHand { get; private set; } = false;
     public bool IsNocked { get; private set; } = false;
     public bool HasLaunched { get; private set; } = false;
-    private bool hasScored = false;
-
-    private TrailRenderer trail;
-    public GameObject arrowTracer;
-    private Transform fletchingPoint;
+    private bool HasScored = false;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        rb.isKinematic = true;
+        rb.useGravity = false;
+
         grabbable = GetComponent<Grabbable>();
         col = GetComponent<Collider>();
 
@@ -42,6 +46,9 @@ public class Arrow : MonoBehaviour
 
         rb.angularDrag = 1.0f; // Some angular drag for stability
         rb.drag = 0.1f; // Some linear drag to simulate air resistance
+
+        // Remember the initial local position and rotation for resetting when picking back up
+
     }
 
     private void OnEnable()
@@ -69,6 +76,9 @@ public class Arrow : MonoBehaviour
             // Ensure physics are ready for holding
             rb.isKinematic = false;
             rb.useGravity = true;
+
+            // Detach from any parent (quiver, bow) when grabbed
+            transform.SetParent(null, true);
         }
         else if (pointerEvent.Type == PointerEventType.Unselect)
         {
@@ -170,7 +180,7 @@ public class Arrow : MonoBehaviour
     // For point calculation
     private void OnTriggerEnter(Collider other)
     {
-        if (hasScored) return;
+        if (HasScored) return;
 
         if (other.CompareTag("TargetRing"))
         {
@@ -178,7 +188,7 @@ public class Arrow : MonoBehaviour
             if (ring != null)
             {
                 ScoreManager.instance.AddScore(ring.points);
-                hasScored = true; // Prevent multiple scoring from the same arrow
+                HasScored = true; // Prevent multiple scoring from the same arrow
             }
         }
     }
