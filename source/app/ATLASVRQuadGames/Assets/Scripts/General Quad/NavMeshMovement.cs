@@ -304,6 +304,10 @@ public class NavMeshMovement : MonoBehaviour
         } 
         else
         {
+            if (currentCoroutine != null)
+            {
+                StopCoroutine(currentCoroutine);
+            }
             Vector3 directionTowardsPlayer = (transform.position - player.position).normalized * -1;
             agent.SetDestination(transform.position + 0.001f * directionTowardsPlayer);
         }
