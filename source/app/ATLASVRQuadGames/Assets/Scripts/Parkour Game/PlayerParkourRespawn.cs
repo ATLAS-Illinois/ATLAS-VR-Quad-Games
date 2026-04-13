@@ -11,6 +11,7 @@ public class PlayerParkourRespawn : MonoBehaviour
 
 	[Header("Progression")]
 	public int maxStageReached = 0; // The "gatekeeper" for the Waystone
+	public int currentStageNumber = 0; // Tracks the CURRENT active level
 	public bool bypassLevelRestriction = false;
 
 	private CharacterController controller;
@@ -25,6 +26,7 @@ public class PlayerParkourRespawn : MonoBehaviour
 	public void SetRespawnPoint(Transform point, int stageNum)
 	{
 		currentRespawn = point;
+		currentStageNumber = stageNum; // Update the active ID
 
 		if (stageNum > maxStageReached)
 		{
@@ -43,6 +45,7 @@ public class PlayerParkourRespawn : MonoBehaviour
 		if (target != null)
 		{
 			currentRespawn = target.transform;
+			currentStageNumber = levelID; // Sync the ID here
 			Debug.Log($"Waystone set respawn to Stage: {levelID}");
 		}
 	}

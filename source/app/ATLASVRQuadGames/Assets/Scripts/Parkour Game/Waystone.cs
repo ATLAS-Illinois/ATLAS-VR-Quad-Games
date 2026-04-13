@@ -10,10 +10,13 @@ public class Waystone : MonoBehaviour
 	public TextMeshProUGUI levelText;
 	public TextMeshProUGUI statusText;
 
+	[Header("Settings")]
+	public float messageDuration = 3.0f; // Editable in Inspector
+	private int levelIncrement = 1;      // Starts at 1
+
 	private int selectedLevel = 0;
 	private bool playerInRange = false;
 
-	// Player Script References
 	private PlayerParkourRespawn playerScript;
 	private SmoothJump jumpScript;
 
@@ -26,25 +29,41 @@ public class Waystone : MonoBehaviour
 	{
 		if (!playerInRange || playerScript == null) return;
 
-		// Y (Increase)
+		// B Button (Right Controller) - Toggle Increment
+		if (OVRInput.GetDown(OVRInput.Button.Two))
+		{
+			ToggleIncrement();
+		}
+
+		// Y (Left Controller) - Increase by Increment
 		if (OVRInput.GetDown(OVRInput.Button.Four))
 		{
-			selectedLevel++;
+			selectedLevel += levelIncrement;
 			UpdateUI();
 		}
 
-		// X (Decrease)
+		// X (Left Controller) - Decrease by Increment
 		if (OVRInput.GetDown(OVRInput.Button.Three))
 		{
-			if (selectedLevel > 0) selectedLevel--;
+			selectedLevel -= levelIncrement;
+			if (selectedLevel < 0) selectedLevel = 0; // Don't go below 0
 			UpdateUI();
 		}
 
-		// A (Confirm)
+		// A (Right Controller) - Confirm
 		if (OVRInput.GetDown(OVRInput.Button.One))
 		{
 			ConfirmSelection();
 		}
+	}
+
+	void ToggleIncrement()
+	{
+		// Toggle between 1 and 10
+		levelIncrement = (levelIncrement == 1) ? 10 : 1;
+
+		// Show the player what the current "speed" is
+		ShowStatusMessage("Increment: " + levelIncrement, Color.cyan);
 	}
 
 	void UpdateUI()
@@ -93,7 +112,7 @@ public class Waystone : MonoBehaviour
 	{
 		statusText.text = message;
 		statusText.color = color;
-		yield return new WaitForSeconds(5.0f);
+		yield return new WaitForSeconds(messageDuration);
 		statusText.text = "";
 	}
 
@@ -102,13 +121,16 @@ public class Waystone : MonoBehaviour
 		if (other.transform.root.CompareTag("Player"))
 		{
 			playerInRange = true;
-
-			// Get both scripts from the player
 			playerScript = other.transform.root.GetComponent<PlayerParkourRespawn>();
 			jumpScript = other.transform.root.GetComponent<SmoothJump>();
 
-			// Disable jumping!
 			if (jumpScript != null) jumpScript.isAtWaystone = true;
+
+			// NEW: Sync the Waystone's number with the Player's current level
+			if (playerScript != null)
+			{
+				selectedLevel = playerScript.currentStageNumber;
+			}
 
 			UpdateUI();
 		}
@@ -119,10 +141,7 @@ public class Waystone : MonoBehaviour
 		if (other.transform.root.CompareTag("Player"))
 		{
 			playerInRange = false;
-
-			// Re-enable jumping when they walk away!
 			if (jumpScript != null) jumpScript.isAtWaystone = false;
-
 			if (statusText != null) statusText.text = "";
 		}
 	}

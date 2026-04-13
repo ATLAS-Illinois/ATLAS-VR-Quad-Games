@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -21,6 +22,9 @@ public class NavMeshMovement : MonoBehaviour
     private Transform player;
 
     [SerializeField]
+    private Transform goldenDonut;
+
+    [SerializeField]
     private Transform bait;
 
     private Animator animator;
@@ -34,6 +38,9 @@ public class NavMeshMovement : MonoBehaviour
     private bool isAvoiding = false;
     private bool recentlyAvoided = false;
     private int increment = 1;
+
+    // because the player approached the mammoth's golden donut. Who wouldn't be angry?
+    public bool enraged = false;
 
     /// <summary>
     /// Start is called before the first frame update.
@@ -60,8 +67,10 @@ public class NavMeshMovement : MonoBehaviour
         agent.speed = agentSpeed;
         agent.acceleration = agentAcceleration;
         agent.stoppingDistance = baitStopDistance;
+        enraged = false;
 
-        currentCoroutine = StartCoroutine(Wander());
+        //currentCoroutine = StartCoroutine(Wander());
+        //currentCoroutine = StartCoroutine(RunTowardsDonut());
     }
 
     /// <summary>
@@ -234,54 +243,119 @@ public class NavMeshMovement : MonoBehaviour
         immobileFromBait = false;
     }
 
+    IEnumerator RunTowardsDonut()
+    {
+        Vector3 directionTowardsDonut = (transform.position - goldenDonut.position).normalized * -1;
+        agent.speed = baseSpeed;
+
+        Vector3 avoidTarget = transform.position + directionTowardsDonut * (avoidDistance);
+
+        NavMeshHit navHit;
+        NavMesh.SamplePosition(avoidTarget, out navHit, avoidDistance, NavMesh.AllAreas);
+
+        if (animator != null)
+        {
+            animator.SetBool("Moving", true);
+        }
+
+        Debug.Log("Chasing donut until position: " + navHit.position);
+        agent.SetDestination(navHit.position);
+
+        while (agent.pathPending || agent.remainingDistance > agent.stoppingDistance)
+        {
+            yield return null;
+        }
+
+        if (animator != null)
+        {
+            animator.SetBool("Moving", false);
+        }
+    }
+
+    public int noFrames = 0;
+
     /// <summary>
     /// Update is called once per frame. It is used to check the distance between the player, 
     /// bait, and the GameObject.
     /// </summary>
+    /// 
+
+
+
+
     void Update()
     {
-        if (immobileFromBait)
+        if (enraged)
         {
-            return;
-        }
-        if (hasReachedBait)
-        {
-            hasReachedBait = false;
-            if (currentCoroutine != null)
+            if (currentCoroutine == null)
             {
-                StopCoroutine(currentCoroutine);
+                currentCoroutine = StartCoroutine(RunTowardsDonut());
             }
-            currentCoroutine = StartCoroutine(BaitCooldown());
-            return;
-        }
-
-        float distanceFromPlayer = Vector3.Distance(transform.position, player.position);
-        float distanceFromBait = Vector3.Distance(transform.position, bait.position);
-        float playerToBaitDistance = Vector3.Distance(player.position, bait.position);
-
-        // Checks if:
-        // 1. object is within a certain distance of the bait
-        // 2. object is away from the player
-        // 3. player is away from the bait
-        bool baitDistanceConditionals = distanceFromBait <= baitDetectionDistance &&
-                                        distanceFromPlayer > avoidDistance &&
-                                        playerToBaitDistance > avoidDistance;
-
-        if (baitDistanceConditionals)
+            else if (noFrames == 120)
+            {
+                noFrames = 0;
+                StopCoroutine(currentCoroutine);
+                currentCoroutine = StartCoroutine(RunTowardsDonut());
+            }
+            else
+            {
+                noFrames++;
+            }
+        } 
+        else
         {
             if (currentCoroutine != null)
             {
                 StopCoroutine(currentCoroutine);
             }
-            currentCoroutine = StartCoroutine(MoveToBait());
+            Vector3 directionTowardsPlayer = (transform.position - player.position).normalized * -1;
+            agent.SetDestination(transform.position + 0.001f * directionTowardsPlayer);
         }
-        else if (distanceFromPlayer < avoidDistance && !isAvoiding)
-        {
-            if (currentCoroutine != null)
-            {
-                StopCoroutine(currentCoroutine);
-            }
-            currentCoroutine = StartCoroutine(Avoid());
-        }
+        
+        
+
+        //if (immobileFromBait)
+        //{
+        //    return;
+        //}
+        //if (hasReachedBait)
+        //{
+        //    hasReachedBait = false;
+        //    if (currentCoroutine != null)
+        //    {
+        //        StopCoroutine(currentCoroutine);
+        //    }
+        //    currentCoroutine = StartCoroutine(BaitCooldown());
+        //    return;
+        //}
+
+        //float distanceFromPlayer = Vector3.Distance(transform.position, player.position);
+        //float distanceFromBait = Vector3.Distance(transform.position, bait.position);
+        //float playerToBaitDistance = Vector3.Distance(player.position, bait.position);
+
+        ////// Checks if:
+        ////// 1. object is within a certain distance of the bait
+        ////// 2. object is away from the player
+        ////// 3. player is away from the bait
+        //bool baitDistanceConditionals = distanceFromBait <= baitDetectionDistance &&
+        //                                distanceFromPlayer > avoidDistance &&
+        //                                playerToBaitDistance > avoidDistance;
+
+        //if (baitDistanceConditionals)
+        //{
+        //    if (currentCoroutine != null)
+        //    {
+        //        StopCoroutine(currentCoroutine);
+        //    }
+        //    currentCoroutine = StartCoroutine(MoveToBait());
+        //}
+        //else if (distanceFromPlayer < avoidDistance && !isAvoiding)
+        //{
+        //    if (currentCoroutine != null)
+        //    {
+        //        StopCoroutine(currentCoroutine);
+        //    }
+        //    currentCoroutine = StartCoroutine(Avoid());
+        //}
     }
 }
