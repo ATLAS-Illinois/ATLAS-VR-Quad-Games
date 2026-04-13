@@ -9,8 +9,7 @@ public class Arrow : MonoBehaviour
 {
     [SerializeField] private float firePowerMultiplier = 20f;
 
-
-    private Rigidbody rb;
+    [HideInInspector] public Rigidbody rb;
     private Grabbable grabbable;
     private Collider col;
     private Vector3 respawnPoint;
@@ -20,13 +19,14 @@ public class Arrow : MonoBehaviour
     private Transform stickPoint;
     private Transform fletchingPoint;
 
-    private TrailRenderer trail;
+    [HideInInspector] public TrailRenderer trail;
     public GameObject arrowTracer;
+    private GameObject activeTracer;
 
     public bool IsHeldByHand { get; private set; } = false;
     public bool IsNocked { get; private set; } = false;
-    public bool HasLaunched { get; private set; } = false;
-    private bool HasScored = false;
+    [HideInInspector] public bool HasLaunched = false;
+    [HideInInspector] public bool HasScored = false;
 
     private void Awake()
     {
@@ -46,9 +46,6 @@ public class Arrow : MonoBehaviour
 
         rb.angularDrag = 1.0f; // Some angular drag for stability
         rb.drag = 0.1f; // Some linear drag to simulate air resistance
-
-        // Remember the initial local position and rotation for resetting when picking back up
-
     }
 
     private void OnEnable()
@@ -135,7 +132,7 @@ public class Arrow : MonoBehaviour
         trail.Clear();
         trail.emitting = true;
 
-        StartCoroutine(BrieflyDisableCollider(0.15f));
+        StartCoroutine(BrieflyDisableCollider(0.1f));
     }
 
     // ... (Collision and IEnumerator code stays the same) ...
@@ -172,8 +169,18 @@ public class Arrow : MonoBehaviour
                     transform.SetParent(mover.transform, true);
                 }
             }
+            if (collision.collider.CompareTag("TargetRing"))
+            {
+                activeTracer = Instantiate(arrowTracer, fletchingPoint.position, fletchingPoint.rotation, fletchingPoint);
+            }
+        }
+    }
 
-            Instantiate(arrowTracer, fletchingPoint.position, fletchingPoint.rotation, fletchingPoint);
+    public void DisableTracer()
+    {
+        if (activeTracer != null)
+        {
+            activeTracer.SetActive(false);
         }
     }
 
@@ -227,7 +234,6 @@ public class Arrow : MonoBehaviour
         {
             transform.SetPositionAndRotation(respawnPoint, Quaternion.identity);
             GetComponent<Rigidbody>().velocity = Vector3.zero;
-
 
             HasLaunched = false;
             IsHeldByHand = false;

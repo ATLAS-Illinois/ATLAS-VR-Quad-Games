@@ -10,7 +10,12 @@ public class QuiverScript : MonoBehaviour
     private Rigidbody rb;
     private Grabbable grabbable;
     public GameObject snapPointMarker;
-  
+
+    private Vector3 quiverInitialPos;
+    private Quaternion quiverInitialRot;
+    private Transform quiverParent;
+
+    public ArrowRetrieval[] arrowRetrievals;
     public List<HandGrabInteractable> arrows;
     public Transform holsterPoint;
     
@@ -22,9 +27,35 @@ public class QuiverScript : MonoBehaviour
     {
         grabbable = GetComponent<Grabbable>();
         rb = GetComponent<Rigidbody>();
-        rb.isKinematic = true;
-
         snapPointMarker.SetActive(false); // Hide snap marker by default
+
+        // Store quiver original transform for resetting
+        quiverInitialPos = transform.localPosition;
+        quiverInitialRot = transform.localRotation;
+        quiverParent = transform.parent;
+    }
+
+    public void ResetQuiverArrows()
+    {
+        // Reset quiver physics and layer
+        rb.isKinematic = false;
+        rb.useGravity = true;
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+
+        // Reset quiver layer
+        gameObject.layer = LayerMask.NameToLayer("Arrow");
+
+        // Reset quiver transform
+        transform.SetParent(quiverParent);
+        transform.localPosition = quiverInitialPos;
+        transform.localRotation = quiverInitialRot;
+
+        // Reset each arrow in the quiver
+        foreach (var arrow in arrowRetrievals)
+        {
+            arrow.ReturnToQuiver();
+        }
     }
 
     private void OnEnable()

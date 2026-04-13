@@ -6,7 +6,7 @@ public class AnchorFollow : MonoBehaviour
 {
     public Transform camera;
     public Transform rigRoot;
-    public Vector3 localOffset = new Vector3(0.25f, -0.45f, 0f);
+    public Vector3 localOffset;
     // Update is called once per frame
     void LateUpdate()
     {
