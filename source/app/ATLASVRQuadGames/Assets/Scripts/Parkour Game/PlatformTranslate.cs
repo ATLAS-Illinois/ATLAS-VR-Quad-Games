@@ -16,6 +16,11 @@ public class PlatformTranslate : MonoBehaviour
 	// List to keep track of players/objects standing on the platform
 	private List<CharacterController> passengers = new List<CharacterController>();
 
+	public static List<PlatformTranslate> allPlatforms = new List<PlatformTranslate>();
+
+	void OnEnable() { allPlatforms.Add(this); }
+	void OnDisable() { allPlatforms.Remove(this); }
+
 	void Start()
 	{
 		startPosition = transform.position;
@@ -69,5 +74,13 @@ public class PlatformTranslate : MonoBehaviour
 		{
 			passengers.Remove(cc);
 		}
+	}
+	public static void ClearAllPassengers()
+	{
+		foreach (PlatformTranslate platform in allPlatforms)
+		{
+			platform.passengers.Clear();
+		}
+		Debug.Log("All platform passenger lists cleared!");
 	}
 }

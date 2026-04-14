@@ -97,9 +97,14 @@ public class ParkourTimerManager : MonoBehaviour
 	void TeleportBack()
 	{
 		if (startPlatformPoint == null) return;
+
+		PlatformTranslate.ClearAllPassengers();
+
 		if (controller != null) controller.enabled = false;
+
 		transform.position = startPlatformPoint.position;
 		transform.rotation = startPlatformPoint.rotation;
+
 		if (controller != null) controller.enabled = true;
 	}
 
