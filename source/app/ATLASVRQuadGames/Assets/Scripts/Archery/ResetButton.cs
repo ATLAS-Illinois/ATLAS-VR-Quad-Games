@@ -27,10 +27,9 @@ public class ResetButton : MonoBehaviour
         if (!handInside)
             return;
         
-        // Require a controller button press while hand is in trigger
+        // Require a controller button press while hand is in trigger to reset quiver + arrows
         if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
         {
-            Debug.Log("Reset button pressed, resetting quiver and arrows.");
             quiver.ResetQuiverArrows();
         }
     }

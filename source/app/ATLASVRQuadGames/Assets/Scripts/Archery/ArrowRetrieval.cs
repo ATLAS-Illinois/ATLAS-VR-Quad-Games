@@ -16,6 +16,15 @@ public class ArrowRetrieval : MonoBehaviour
         rb = GetComponent<Rigidbody>(); 
     }
 
+    void Update()
+    {
+        // Return arrow to quiver if arrow falls distance below initial location (below floor)
+        if (transform.position.y < transform.parent.TransformPoint(initialLocalPos).y - 15f)
+        {
+            ReturnToQuiver();
+        }     
+    }
+
     public void ReturnToQuiver()
     {
         // Reset arrow state

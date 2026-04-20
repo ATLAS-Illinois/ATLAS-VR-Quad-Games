@@ -15,9 +15,9 @@ public class QuiverScript : MonoBehaviour
     private Quaternion quiverInitialRot;
     private Transform quiverParent;
 
-    public ArrowRetrieval[] arrowRetrievals;
-    public List<HandGrabInteractable> arrows;
-    public Transform holsterPoint;
+    public ArrowRetrieval[] arrowRetrievals; // This list  is used for teleporting the arrows on retrieval
+    public List<HandGrabInteractable> arrows; // This list is for disabling arrow interactions when grabbing quiver
+    public Transform holsterPoint; // Quiver anchor point
     
     private int handsInQuiver = 0;
     [HideInInspector] public bool IsHeldByHand = false;
@@ -44,7 +44,7 @@ public class QuiverScript : MonoBehaviour
         rb.angularVelocity = Vector3.zero;
 
         // Reset quiver layer
-        gameObject.layer = LayerMask.NameToLayer("Arrow");
+        gameObject.layer = LayerMask.NameToLayer("Quiver");
 
         // Reset quiver transform
         transform.SetParent(quiverParent);
@@ -70,6 +70,7 @@ public class QuiverScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Collider:" + other);
         var interactor = other.GetComponentInParent<IInteractor>();
         if (interactor != null)
         {
@@ -106,15 +107,19 @@ public class QuiverScript : MonoBehaviour
 
     public void HolsterSnap(Transform holster)
     {
+        // Quiver snaps only when released
         if (!IsHeldByHand)
         {
+            // Stopping quiver drift/jitter
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
             rb.isKinematic = true;
             rb.useGravity = false;
 
-            gameObject.layer = LayerMask.NameToLayer("Holstered");
+            // This layer can be grabbed but doesn't have collisions with other objects
+            gameObject.layer = LayerMask.NameToLayer("Anchor");
 
+            // Attach quiver to holster anchor, reset local transform for clean snap
             transform.SetParent(holster, true);
             transform.localPosition = Vector3.zero;
             transform.localRotation = Quaternion.identity;
@@ -133,11 +138,14 @@ public class QuiverScript : MonoBehaviour
                 snapPointMarker.SetActive(true);
             }
 
+            // Enable physics when held, stays true if dropped outside of snap zone
             rb.isKinematic = false;
             rb.useGravity = true;
 
-            gameObject.layer = LayerMask.NameToLayer("Arrow");
+            // Back to normal interaction layer
+            gameObject.layer = LayerMask.NameToLayer("Quiver");
 
+            // Detached from anchor/parent so quiver moves freely
             transform.SetParent(null, true);
         }
         else if (pointerEvent.Type == PointerEventType.Unselect)
