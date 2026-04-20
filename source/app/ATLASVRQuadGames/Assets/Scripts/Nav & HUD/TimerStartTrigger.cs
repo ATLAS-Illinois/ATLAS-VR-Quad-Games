@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class TimerStartTrigger : MonoBehaviour
 {
-	public float challengeTime = 10.0f;
+	public float timeForThisChallenge = 15.0f; // Set this in Inspector
 	public Transform spawnPoint;
-	public TowerController targetTower; // <-- Drag your Tower here
+	public TowerController targetTower;
 
 	private void OnTriggerEnter(Collider other)
 	{
@@ -15,9 +15,9 @@ public class TimerStartTrigger : MonoBehaviour
 			var manager = other.transform.root.GetComponent<ParkourTimerManager>();
 			if (manager != null)
 			{
-				manager.StartTimer(challengeTime, spawnPoint != null ? spawnPoint : transform);
+				// Send the time unique to THIS platform to the manager
+				manager.StartChallenge(timeForThisChallenge, spawnPoint != null ? spawnPoint : transform);
 
-				// Reset the tower so it's solid again for the new run
 				if (targetTower != null) targetTower.SetTowerColliders(true);
 			}
 		}

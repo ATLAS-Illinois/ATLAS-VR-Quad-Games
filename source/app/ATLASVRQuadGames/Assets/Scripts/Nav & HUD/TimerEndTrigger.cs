@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class TimerEndTrigger : MonoBehaviour
 {
-	public TowerController targetTower; // <-- Drag your Tower here
+	public TowerController targetTower;
 
 	private void OnTriggerEnter(Collider other)
 	{
 		if (other.transform.root.CompareTag("Player"))
 		{
 			var manager = other.transform.root.GetComponent<ParkourTimerManager>();
-			if (manager != null)
-			{
-				manager.StopTimer();
 
-				// Disable the tower colliders!
+			// Check if the timer is actually running before letting them finish
+			if (manager != null && manager.isStarted)
+			{
+				manager.FinishChallenge();
+
+				// Disable the tower
 				if (targetTower != null) targetTower.SetTowerColliders(false);
 			}
 		}

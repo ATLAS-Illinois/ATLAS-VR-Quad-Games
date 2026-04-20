@@ -6,31 +6,31 @@ using TMPro;
 public class ParkourTimerManager : MonoBehaviour
 {
 	[Header("UI Reference")]
-	// This is like your 'respawnEffectObject' - the thing we hide/show
 	public GameObject timerHUDObject;
 	public TextMeshProUGUI countdownText;
 
 	[Header("Settings")]
 	public Color normalColor = Color.white;
 	public Color warningColor = Color.red;
+	public Color successColor = Color.green; // Added for clarity
+
+	[Header("State")]
+	public bool isStarted = false;
 
 	private float timeRemaining;
-	private bool isTimerActive = false;
 	private Transform startPlatformPoint;
 	private CharacterController controller;
 
 	void Start()
 	{
 		controller = GetComponent<CharacterController>();
-
-		// HIDE FROM START (Exactly like your Respawn script)
-		if (timerHUDObject != null)
-			timerHUDObject.SetActive(false);
+		if (timerHUDObject != null) timerHUDObject.SetActive(false);
+		isStarted = false;
 	}
 
 	void Update()
 	{
-		if (!isTimerActive) return;
+		if (!isStarted) return;
 
 		if (timeRemaining > 0)
 		{
@@ -43,74 +43,81 @@ public class ParkourTimerManager : MonoBehaviour
 		}
 	}
 
-	public void StartTimer(float seconds, Transform startPoint)
+	public void StartChallenge(float seconds, Transform startPoint)
 	{
-		// Cancel any pending "Hide" so it doesn't vanish early
 		CancelInvoke("HideHUD");
 
 		timeRemaining = seconds;
 		startPlatformPoint = startPoint;
-		isTimerActive = true;
-
-		if (countdownText != null) countdownText.color = normalColor;
-
-		// SHOW (Exactly like your EffectTimer)
-		if (timerHUDObject != null)
-			timerHUDObject.SetActive(true);
-	}
-
-	public void StopTimer()
-	{
-		if (!isTimerActive) return;
-		isTimerActive = false;
+		isStarted = true;
 
 		if (countdownText != null)
 		{
-			countdownText.text = "CLEARED!";
-			countdownText.color = Color.green;
+			countdownText.color = normalColor;
+			countdownText.text = timeRemaining.ToString("F1");
 		}
 
-		// Wait then Hide
+		if (timerHUDObject != null) timerHUDObject.SetActive(true);
+	}
+
+	public void FinishChallenge()
+	{
+		if (!isStarted) return;
+		isStarted = false;
+
+		if (countdownText != null)
+		{
+			// Set to COMPLETED and turn GREEN
+			countdownText.text = "COMPLETED!";
+			countdownText.color = successColor;
+		}
+		Invoke("HideHUD", 2f);
+	}
+
+	void TimerFailed()
+	{
+		isStarted = false;
+
+		if (countdownText != null)
+		{
+			// Set to OUT OF TIME and turn RED
+			countdownText.text = "OUT OF TIME!";
+			countdownText.color = warningColor;
+		}
+
+		PlatformTranslate.ClearAllPassengers();
+		TeleportBack();
 		Invoke("HideHUD", 2f);
 	}
 
 	void UpdateUI()
 	{
 		if (countdownText == null) return;
-		countdownText.text = timeRemaining.ToString("F1");
-		countdownText.color = (timeRemaining <= 3f) ? warningColor : normalColor;
-	}
 
-	void TimerFailed()
-	{
-		isTimerActive = false;
-		if (countdownText != null)
+		countdownText.text = timeRemaining.ToString("F1");
+
+		// Flash Red when close to failing
+		if (timeRemaining <= 3f)
 		{
-			countdownText.text = "OUT OF TIME!";
 			countdownText.color = warningColor;
 		}
-
-		TeleportBack();
-		Invoke("HideHUD", 2f);
+		else
+		{
+			countdownText.color = normalColor;
+		}
 	}
 
 	void TeleportBack()
 	{
 		if (startPlatformPoint == null) return;
-
-		PlatformTranslate.ClearAllPassengers();
-
 		if (controller != null) controller.enabled = false;
-
 		transform.position = startPlatformPoint.position;
 		transform.rotation = startPlatformPoint.rotation;
-
 		if (controller != null) controller.enabled = true;
 	}
 
 	void HideHUD()
 	{
-		if (timerHUDObject != null)
-			timerHUDObject.SetActive(false);
+		if (timerHUDObject != null) timerHUDObject.SetActive(false);
 	}
 }
