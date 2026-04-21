@@ -6,13 +6,21 @@
         "GUID:fe685ec1767f73d42b749ea8045bfe43",
         "GUID:2a230cb87a1d3ba4a98bdc0ddae76e6c",
         "GUID:dc960734dc080426fa6612f1c5fe95f3",
-        "GUID:f64c9ebcd7899c3448a08dc9f9ddbe30"
+        "GUID:f64c9ebcd7899c3448a08dc9f9ddbe30",
+        "GUID:4504b1a6e0fdcc3498c30b266e4a63bf",
+        "GUID:8bbcefc153e1f1b4a98680670797dd16",
+        "GUID:1c28d8b71ced07540b7c271537363cc6",
+        "GUID:e545cc0678493234a9368f4e470c29e8"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
-    "precompiledReferences": [],
+    "precompiledReferences": [
+        "Microsoft.CognitiveServices.Speech.csharp.dll",
+        "zxing.unity.dll",
+        ""
+    ],
     "autoReferenced": true,
     "defineConstraints": [],
     "versionDefines": [],
