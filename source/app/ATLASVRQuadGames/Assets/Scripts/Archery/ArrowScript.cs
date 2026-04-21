@@ -8,37 +8,37 @@ using UnityEngine.Animations;
 public class Arrow : MonoBehaviour
 {
     [SerializeField] private float firePowerMultiplier = 20f;
-
-    private Rigidbody rb;
+    [HideInInspector] public Rigidbody rb;
     private Grabbable grabbable;
     private Collider col;
-    private Vector3 respawnPoint;
 
     public Transform bowTransform = null;
     public Transform nockTransform = null;
-    private Transform stickPoint;
+    private Transform fletchingPoint; // Point on arrow where arrow tracer appears at
+
+    [HideInInspector] public TrailRenderer trail; // White arrow trail
+    public GameObject arrowTracer; // Actual tracer prefab
+    private GameObject activeTracer; // Used to deactivate tracer on retrieval
 
     public bool IsHeldByHand { get; private set; } = false;
     public bool IsNocked { get; private set; } = false;
-    public bool HasLaunched { get; private set; } = false;
-    private bool hasScored = false;
-
-    private TrailRenderer trail;
-    public GameObject arrowTracer;
-    private Transform fletchingPoint;
+    [HideInInspector] public bool HasLaunched = false;
+    [HideInInspector] public bool HasScored = false;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        rb.isKinematic = true;
+        rb.useGravity = false;
+
         grabbable = GetComponent<Grabbable>();
         col = GetComponent<Collider>();
 
+        // Turn arrow trail off until fired from bow
         trail = GetComponentInChildren<TrailRenderer>();
         trail.emitting = false;
 
         fletchingPoint = transform.Find("Fletching");
-
-        respawnPoint = transform.position;
 
         rb.angularDrag = 1.0f; // Some angular drag for stability
         rb.drag = 0.1f; // Some linear drag to simulate air resistance
@@ -46,11 +46,13 @@ public class Arrow : MonoBehaviour
 
     private void OnEnable()
     {
+        // Listening for grab/release pointer events
         grabbable.WhenPointerEventRaised += HandlePointerEvent;
     }
 
     private void OnDisable()
     {
+        // Stop listening for grab/release pointer events
         grabbable.WhenPointerEventRaised -= HandlePointerEvent;
     }
 
@@ -59,6 +61,8 @@ public class Arrow : MonoBehaviour
         if (pointerEvent.Type == PointerEventType.Select)
         {
             IsHeldByHand = true;
+            rb.isKinematic = false;
+            rb.useGravity = true;
 
             // If we grab the arrow while it's nocked, we "Un-Nock" it
             if (IsNocked)
@@ -66,9 +70,8 @@ public class Arrow : MonoBehaviour
                 UnNock();
             }
 
-            // Ensure physics are ready for holding
-            rb.isKinematic = false;
-            rb.useGravity = true;
+            // Detach from any parent (quiver, bow) when grabbed
+            transform.SetParent(null, true);
         }
         else if (pointerEvent.Type == PointerEventType.Unselect)
         {
@@ -89,7 +92,6 @@ public class Arrow : MonoBehaviour
         nockTransform = nockPoint;
 
         transform.SetParent(nockPoint);
-        // The code below is half working, and is meant to fix slight misalignments when nocking.
         transform.localPosition = Vector3.zero;
     }
 
@@ -110,6 +112,7 @@ public class Arrow : MonoBehaviour
     public void Fire(Vector3 fireDirection, float pullValue)
     {
         IsNocked = false;
+        HasLaunched = true;
         transform.SetParent(null);
         bowTransform = null;
         nockTransform = null;
@@ -120,15 +123,13 @@ public class Arrow : MonoBehaviour
         float fireForce = pullValue * firePowerMultiplier;
         rb.AddForce(fireDirection * fireForce, ForceMode.Impulse);
 
-        HasLaunched = true;
-
         trail.Clear();
         trail.emitting = true;
 
-        StartCoroutine(BrieflyDisableCollider(0.15f));
+        // Briefly disable arrow collider after firing
+        StartCoroutine(BrieflyDisableCollider(0.1f));
     }
 
-    // ... (Collision and IEnumerator code stays the same) ...
     private void OnCollisionEnter(Collision collision)
     {
 
@@ -162,15 +163,27 @@ public class Arrow : MonoBehaviour
                     transform.SetParent(mover.transform, true);
                 }
             }
+            // Start the blue/orange tracer if the arrow hits the target
+            if (collision.collider.CompareTag("TargetRing"))
+            {
+                activeTracer = Instantiate(arrowTracer, fletchingPoint.position, fletchingPoint.rotation, fletchingPoint);
+            }
+        }
+    }
 
-            Instantiate(arrowTracer, fletchingPoint.position, fletchingPoint.rotation, fletchingPoint);
+    // Disable tracer (for arrow retrieval)
+    public void DisableTracer()
+    {
+        if (activeTracer != null)
+        {
+            activeTracer.SetActive(false);
         }
     }
 
     // For point calculation
     private void OnTriggerEnter(Collider other)
     {
-        if (hasScored) return;
+        if (HasScored) return;
 
         if (other.CompareTag("TargetRing"))
         {
@@ -178,7 +191,7 @@ public class Arrow : MonoBehaviour
             if (ring != null)
             {
                 ScoreManager.instance.AddScore(ring.points);
-                hasScored = true; // Prevent multiple scoring from the same arrow
+                HasScored = true; // Prevent multiple scoring from the same arrow
             }
         }
     }
@@ -188,15 +201,6 @@ public class Arrow : MonoBehaviour
         col.enabled = false;
         yield return new WaitForSeconds(duration);
         col.enabled = true;
-    }
-
-    private void Update()
-    {
-        if (stickPoint != null)
-        {
-            transform.position = stickPoint.position;
-            transform.rotation = stickPoint.rotation;
-        }
     }
 
     private void FixedUpdate()
@@ -212,21 +216,6 @@ public class Arrow : MonoBehaviour
             // Smoothly apply the rotation
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.fixedDeltaTime * 15f);
         }
-
-        if (transform.position.y <= -20f)
-        {
-            transform.SetPositionAndRotation(respawnPoint, Quaternion.identity);
-            GetComponent<Rigidbody>().velocity = Vector3.zero;
-
-
-            HasLaunched = false;
-            IsHeldByHand = false;
-            IsNocked = false;
-            rb.useGravity = false;
-            rb.isKinematic = false;
-
-            Awake(); // can call to show what to do upon awakening
-        }
     }
 
     private void LateUpdate()
@@ -235,7 +224,6 @@ public class Arrow : MonoBehaviour
         {
             transform.position = nockTransform.position;
             transform.rotation = bowTransform.rotation * Quaternion.Euler(0, 270, 0);
-            //Debug.Log("I exist");
         }   
     }
 }

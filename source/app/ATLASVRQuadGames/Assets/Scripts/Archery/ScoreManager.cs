@@ -6,20 +6,19 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    public static ScoreManager instance;
-    public int score = 0;
-    public TextMeshProUGUI scoreText;
+    public static ScoreManager instance; // Global access point for updating score
+    public int score = 0; // Current player score
+    public TextMeshProUGUI scoreText; // UI element displaying score
     void Awake()
     {
+        // Assign instance and initialize score display
         instance = this;
-        // Initialize score text 
         UpdateScoreText();
     }
 
     public void AddScore(int points)
     {
         score += points;
-        // Update score text whenever score changes
         UpdateScoreText();
     }
 
