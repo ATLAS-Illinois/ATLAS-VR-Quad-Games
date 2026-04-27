@@ -68,6 +68,9 @@ public class QuiverScript : MonoBehaviour
         grabbable.WhenPointerEventRaised -= HandlePointerEvent;
     }
 
+    // QUIVER BUG: OCCASSIONALLY ABLE TO GRAB ARROWS OUT OF THE QUIVER THROUGH ITS SIDE BY MOVING CONTROLLER INTO QUIVER AND ORIENTING IT ALONG ARROW DIRECTION
+    // THE CODE BETWEEN THE DASHES IS USED FOR THE GRAB LOGIC 
+    // ---------------------------------------------------------------------------------
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Collider:" + other);
@@ -104,6 +107,7 @@ public class QuiverScript : MonoBehaviour
             }
         }
     }
+    // ---------------------------------------------------------------------------------
 
     public void HolsterSnap(Transform holster)
     {

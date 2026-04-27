@@ -15,6 +15,7 @@ public class Arrow : MonoBehaviour
     public Transform bowTransform = null;
     public Transform nockTransform = null;
     private Transform fletchingPoint; // Point on arrow where arrow tracer appears at
+    [HideInInspector] public Transform tip; // Point used to get distance calculation for scoring
 
     [HideInInspector] public TrailRenderer trail; // White arrow trail
     public GameObject arrowTracer; // Actual tracer prefab
@@ -38,7 +39,9 @@ public class Arrow : MonoBehaviour
         trail = GetComponentInChildren<TrailRenderer>();
         trail.emitting = false;
 
+        // Get these points from the children
         fletchingPoint = transform.Find("Fletching");
+        tip = transform.Find("Tip");
 
         rb.angularDrag = 1.0f; // Some angular drag for stability
         rb.drag = 0.1f; // Some linear drag to simulate air resistance
@@ -132,42 +135,42 @@ public class Arrow : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (!HasLaunched || IsNocked || rb.isKinematic)
+            return;
 
-        if (rb.velocity.magnitude > 0.5f && !IsNocked && !rb.isKinematic)
+        ContactPoint contact = collision.GetContact(0);
+        float penetrationDepth = 0.6f;
+
+        // Reset velocity and turn kinematic when colliding, also turn off arrow trail
+        rb.isKinematic = true;
+        rb.useGravity = false;
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        trail.emitting = false;
+
+        // Use contact point to orient embedded arrow
+        transform.position = contact.point + contact.normal * penetrationDepth;
+        transform.rotation = Quaternion.LookRotation(-contact.normal);
+
+        // Determine score on collision with target
+        TargetRing target = collision.collider.GetComponentInParent<TargetRing>();
+        if (target != null)
         {
-            rb.isKinematic = true;
-            rb.useGravity = false;
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
+            target.ProcessHit(contact.point);
+        }
 
-            trail.emitting = false;
+        // Find parent with no scaling and rotation
+        MovingTarget mover = collision.collider.GetComponentInParent<MovingTarget>();
+        if (mover != null)
+        {
+            // Parent to the clean parent
+            transform.SetParent(mover.transform, true);
+        }
 
-            // Raycast backwards along the arrow's flight path
-            Vector3 dir = transform.forward;
-            RaycastHit hit;
-
-            int layerMask = LayerMask.GetMask("Default"); // Ensure it only hits the environment and targets, not the arrow itself
-
-            if (Physics.Raycast(transform.position - dir * 0.2f, dir, out hit, 1f, layerMask))
-            {
-                float penetrationDepth = 0.55f;
-
-                transform.position = hit.point - dir * penetrationDepth;
-                transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
-
-                // Find parent with no scaling and rotation
-                MovingTarget mover = hit.collider.GetComponentInParent<MovingTarget>();
-                if (mover != null)
-                {
-                    // Parent to the clean parent
-                    transform.SetParent(mover.transform, true);
-                }
-            }
-            // Start the blue/orange tracer if the arrow hits the target
-            if (collision.collider.CompareTag("TargetRing"))
-            {
-                activeTracer = Instantiate(arrowTracer, fletchingPoint.position, fletchingPoint.rotation, fletchingPoint);
-            }
+        // Start the blue/orange tracer if the arrow hits the target
+        if (collision.collider.CompareTag("TargetRing"))
+        {
+            activeTracer = Instantiate(arrowTracer, fletchingPoint.position, fletchingPoint.rotation, fletchingPoint);
         }
     }
 
@@ -177,22 +180,6 @@ public class Arrow : MonoBehaviour
         if (activeTracer != null)
         {
             activeTracer.SetActive(false);
-        }
-    }
-
-    // For point calculation
-    private void OnTriggerEnter(Collider other)
-    {
-        if (HasScored) return;
-
-        if (other.CompareTag("TargetRing"))
-        {
-            TargetRing ring = other.GetComponent<TargetRing>();
-            if (ring != null)
-            {
-                ScoreManager.instance.AddScore(ring.points);
-                HasScored = true; // Prevent multiple scoring from the same arrow
-            }
         }
     }
 
