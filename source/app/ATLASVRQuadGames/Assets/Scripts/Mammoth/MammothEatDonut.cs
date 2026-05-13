@@ -34,6 +34,7 @@ public class MammothEatDonut : MonoBehaviour
     public void MammothGameOver()
     {
         mammothAI.enraged = false;
+        mammothAI.isReturningDonut = true;
         Debug.Log("NOOOOO THE MAMMOTH ATE THE DONUT!!!");
         goldenDonut.SetActive(false);
         donutOnMammothTusk.SetActive(true);

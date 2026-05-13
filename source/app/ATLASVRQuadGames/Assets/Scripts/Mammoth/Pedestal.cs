@@ -17,7 +17,7 @@ public class Pedestal : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.Distance(player.transform.position, transform.parent.transform.position) < 5f)
+        if (Vector3.Distance(player.transform.position, transform.parent.transform.position) < 2f)
         {
             signpost.Anger();
             mammothAI.enraged = true;            

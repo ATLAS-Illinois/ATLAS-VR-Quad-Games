@@ -17,15 +17,28 @@ public class NavMeshMovement : MonoBehaviour
     public float baitCooldownTime = 1f; // in seconds
 
     private float baseSpeed; // used to remember the speed of the NavMesh agent
+    private float baseAcceleration;
 
     [SerializeField]
     private Transform player;
 
     [SerializeField]
-    private Transform goldenDonut;
+    private GameObject goldenDonutIdol;
 
     [SerializeField]
-    private Transform bait;
+    private GameObject tuskCosmeticGoldenDonut;
+
+    [SerializeField]
+    private Transform goldenPedestal;
+
+    [SerializeField]
+    private BewareSignpost signpost;
+
+    [SerializeField]
+    private Transform mammothStand;
+
+    //[SerializeField]
+    //private Transform bait;
 
     private Animator animator;
     private NavMeshAgent agent;
@@ -41,9 +54,10 @@ public class NavMeshMovement : MonoBehaviour
 
     // because the player approached the mammoth's golden donut. Who wouldn't be angry?
     public bool enraged = false;
-    private int noFrames = 0;
+    public bool previouslyEnraged = false;
     public bool isReturningDonut = false;
     public bool isReturningToStart = false;
+    private int noFrames = 0;
 
     /// <summary>
     /// Start is called before the first frame update.
@@ -67,31 +81,34 @@ public class NavMeshMovement : MonoBehaviour
         }
 
         baseSpeed = agentSpeed;
+        baseAcceleration = agentAcceleration;   
         agent.speed = agentSpeed;
         agent.acceleration = agentAcceleration;
         agent.stoppingDistance = baitStopDistance;
         enraged = false;
+        previouslyEnraged = false;
 
         //currentCoroutine = StartCoroutine(Wander());
         //currentCoroutine = StartCoroutine(RunTowardsDonut());
     }
 
-    IEnumerator RunTowardsDonut()
+    IEnumerator RunTowardsDestination(Transform destination)
     {
-        Vector3 directionTowardsDonut = (transform.position - goldenDonut.position).normalized * -1;
-        agent.speed = baseSpeed;
+        Vector3 travelDirection = (transform.position - destination.position).normalized * -1;
 
-        Vector3 avoidTarget = transform.position + directionTowardsDonut * (avoidDistance);
+        if (enraged) agent.speed = baseSpeed;
+
+        Vector3 target = transform.position + travelDirection * (avoidDistance);
 
         NavMeshHit navHit;
-        NavMesh.SamplePosition(avoidTarget, out navHit, avoidDistance, NavMesh.AllAreas);
+        NavMesh.SamplePosition(target, out navHit, avoidDistance, NavMesh.AllAreas);
 
         if (animator != null)
         {
             animator.SetBool("Moving", true);
         }
 
-        Debug.Log("Chasing donut until position: " + navHit.position);
+        Debug.Log("Mammoth: Moving to position " + navHit.position + " to track down " + destination.name);
         agent.SetDestination(navHit.position);
 
         while (agent.pathPending || agent.remainingDistance > agent.stoppingDistance)
@@ -104,7 +121,10 @@ public class NavMeshMovement : MonoBehaviour
             animator.SetBool("Moving", false);
         }
     }
-    
+
+
+
+
     /// <summary>
     /// Update is called once per frame. It is used to check the distance between the player, 
     /// bait, and the GameObject.
@@ -116,30 +136,90 @@ public class NavMeshMovement : MonoBehaviour
         {
             if (currentCoroutine == null)
             {
-                currentCoroutine = StartCoroutine(RunTowardsDonut());
+                noFrames = 0;
+                currentCoroutine = StartCoroutine(RunTowardsDestination(goldenDonutIdol.transform));
             }
             else if (noFrames == 120)
             {
                 noFrames = 0;
                 StopCoroutine(currentCoroutine);
-                currentCoroutine = StartCoroutine(RunTowardsDonut());
+                currentCoroutine = StartCoroutine(RunTowardsDestination(goldenDonutIdol.transform));
             }
             else
             {
                 noFrames++;
             }
-        } 
+        }
         else
         {
             if (currentCoroutine != null)
             {
                 StopCoroutine(currentCoroutine);
             }
-            Vector3 directionTowardsPlayer = (transform.position - player.position).normalized * -1;
-            agent.SetDestination(transform.position + 0.001f * directionTowardsPlayer);
+
+            animator.SetBool("Moving", false);
+
+            if (!previouslyEnraged && Vector3.Distance(player.transform.position, goldenDonutIdol.transform.position) < 2f)
+            {
+                signpost.Anger();
+                enraged = true;
+                previouslyEnraged = true;
+            }
+            else
+            {
+                Vector3 directionTowardsPlayer = (transform.position - player.position).normalized * -1;
+                agent.SetDestination(transform.position + 0.001f * directionTowardsPlayer);
+            }
         }
-        
-        
+
+        //else if (isReturningDonut)
+        //{
+        //    currentCoroutine = StartCoroutine(RunTowardsDestination(goldenPedestal));
+        //    float distanceToTarget = Vector3.Distance(transform.position, goldenPedestal.position);
+        //    if (distanceToTarget > 5f)
+        //    {
+        //        agent.speed = baseSpeed;
+        //        agent.acceleration = baseAcceleration;
+        //    }
+        //    else
+        //    {
+        //        agent.speed = baseSpeed * (distanceToTarget / 5f);
+        //        agent.acceleration = baseAcceleration * 200;
+        //    }
+
+        //    if (Vector3.Distance(transform.position, goldenPedestal.position) < 2f)
+        //    {
+        //        isReturningDonut = false;
+        //        isReturningToStart = true;
+        //        tuskCosmeticGoldenDonut.SetActive(false);
+        //        goldenDonutIdol.transform.localPosition = new Vector3(-0.2f, 0f, 0f);
+        //        goldenDonutIdol.SetActive(true);
+        //        StopCoroutine(currentCoroutine);
+        //    }
+        //}
+        //else if (isReturningToStart)
+        //{
+        //    currentCoroutine = StartCoroutine(RunTowardsDestination(mammothStand));
+        //    float distanceToTarget = Vector3.Distance(transform.position, mammothStand.position);
+        //    if (distanceToTarget > 5f)
+        //    {
+        //        agent.speed = baseSpeed;
+        //        agent.acceleration = baseAcceleration;
+        //    }
+        //    else
+        //    {
+        //        agent.speed = baseSpeed * (distanceToTarget / 5f);
+        //        agent.acceleration = baseAcceleration * 200;
+        //    }
+
+        //    if (Vector3.Distance(transform.position, mammothStand.position) < 0.1f)
+        //    {
+        //        isReturningToStart = false;
+        //    }
+        //}
+
+
+
 
         //if (immobileFromBait)
         //{
@@ -186,6 +266,35 @@ public class NavMeshMovement : MonoBehaviour
         //}
     }
 }
+
+//IEnumerator RunTowardsDonut()
+//{
+//    Vector3 directionTowardsDonut = (transform.position - goldenDonutIdol.position).normalized * -1;
+//    agent.speed = baseSpeed;
+
+//    Vector3 avoidTarget = transform.position + directionTowardsDonut * (avoidDistance);
+
+//    NavMeshHit navHit;
+//    NavMesh.SamplePosition(avoidTarget, out navHit, avoidDistance, NavMesh.AllAreas);
+
+//    if (animator != null)
+//    {
+//        animator.SetBool("Moving", true);
+//    }
+
+//    Debug.Log("Chasing donut until position: " + navHit.position);
+//    agent.SetDestination(navHit.position);
+
+//    while (agent.pathPending || agent.remainingDistance > agent.stoppingDistance)
+//    {
+//        yield return null;
+//    }
+
+//    if (animator != null)
+//    {
+//        animator.SetBool("Moving", false);
+//    }
+//}
 
 
 ///// <summary>
