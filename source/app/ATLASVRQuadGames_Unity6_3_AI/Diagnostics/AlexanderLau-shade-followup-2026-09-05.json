@@ -1,0 +1,32 @@
+{
+  "date": "2026-09-05",
+  "scene": "Assets/Scenes/QuadProjectAlexanderLau.unity",
+  "userClarifications": {
+    "shade": "Tree shade too dark to see quiver, bow and arrows properly; may have caused failed interaction attempt.",
+    "assistant": "Camera reference intentionally unassigned; assistant works fine."
+  },
+  "method": "Read-only live Edit Mode inspection and local baseline comparison; Scene View framing changed, no scene assets saved.",
+  "ambientProbe": "[Log] AmbientProbe (0.00, 1.00, 0.00)=RGBA(0.000, 0.000, 0.000, 1.000)\n[Log] AmbientProbe (0.00, -1.00, 0.00)=RGBA(0.000, 0.000, 0.000, 1.000)\n[Log] AmbientProbe (-1.00, 0.00, 0.00)=RGBA(0.000, 0.000, 0.000, 1.000)\n[Log] AmbientProbe (1.00, 0.00, 0.00)=RGBA(0.000, 0.000, 0.000, 1.000)\n[Log] AmbientProbe (0.00, 0.00, 1.00)=RGBA(0.000, 0.000, 0.000, 1.000)\n[Log] AmbientProbe (0.00, 0.00, -1.00)=RGBA(0.000, 0.000, 0.000, 1.000)\n[Log] LightingData=NULL\n[Log] SkyboxShader=Skybox/Cubemap\n[Log] _Exposure=0.8\n[Log] _Rotation=202\n[Log] _Tint=RGBA(0.500, 0.500, 0.500, 0.500)\n[Log] SceneViewLighting=True",
+  "lighting": {
+    "ambientMode": "Skybox",
+    "ambientIntensity": 1,
+    "lightmaps": 0,
+    "lightProbeCount": 0,
+    "lightingDataAsset": null,
+    "sunShadowStrength": 1,
+    "sunIntensity": 1,
+    "materialShader": "Standard",
+    "quiverColor": [
+      0.31,
+      0.22,
+      0.173
+    ]
+  },
+  "interpretation": "Zero ambient probe is a strong explanation for black shaded surfaces. Saved settings and relevant assets match HEAD; Unity 2022 runtime lighting was not measured, so upgrade causation is unproven.",
+  "source": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/RenderSettings-ambientProbe.html",
+  "nextStep": "Restore valid ambient illumination and then repeat the headset visibility and quiver interaction checks.",
+  "maxAbsoluteAmbientProbeCoefficient": 0,
+  "finalState": {"playing": false, "sceneDirty": false, "consoleErrorRows": 1, "consoleWarningRows": 79},
+  "captureWarning": "The Scene View capture added: Releasing render texture that is set to be RenderTexture.active! No new gameplay error was recorded.",
+  "persistentGameplayChanges": []
+}

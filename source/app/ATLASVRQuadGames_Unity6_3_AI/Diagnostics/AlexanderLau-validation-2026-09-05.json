@@ -1,0 +1,709 @@
+{
+  "date": "2026-09-05",
+  "scene": "Assets/Scenes/QuadProjectAlexanderLau.unity",
+  "unity": "6000.3.15f1",
+  "execution": "Windows Unity Editor Play Mode with Quest 3 via Quest Link",
+  "scope": "Validation only; no gameplay fixes",
+  "userTestsAndAutomatedChecks": [
+    {
+      "feature": "Assistant conversation",
+      "method": "User headset check",
+      "result": "Pass"
+    },
+    {
+      "feature": "English to Spanish live translation",
+      "method": "User headset check",
+      "result": "Pass; microphone explicitly turned off"
+    },
+    {
+      "feature": "Archery firing",
+      "method": "User headset check",
+      "result": "Pass"
+    },
+    {
+      "feature": "Archery retrieval or quiver attachment",
+      "method": "User headset check plus Console/reference audit",
+      "result": "Manual result inconclusive: user clarified that deep tree shade prevented seeing the equipment properly. The independently logged null-parent exception and holster reference findings remain. Retest after visibility is corrected."
+    },
+    {
+      "feature": "Parkour movement/jumping, moving platform riding, checkpoint respawn",
+      "method": "User headset check",
+      "result": "Pass"
+    },
+    {
+      "feature": "Mammoth pursuit and donut capture",
+      "method": "User headset check plus runtime state",
+      "result": "Pass"
+    },
+    {
+      "feature": "Camera photo, Gallery display, Map landmark direction/distance",
+      "method": "User headset check",
+      "result": "Pass"
+    },
+    {
+      "feature": "Six logo assemblies and six wall slots",
+      "method": "Automated positioning through existing trigger/physics paths",
+      "result": "Pass for assembly/placement; manual grabbing and replay untested"
+    },
+    {
+      "feature": "Archery bullseye score and miss",
+      "method": "Synthetic calls to TargetRing.ProcessHit",
+      "result": "0 to 10 and fireworks; miss unchanged. Physical collision scoring not established"
+    },
+    {
+      "feature": "Quiver reset function",
+      "method": "Existing ResetQuiverArrows invoked at runtime",
+      "result": "20 of 20 arrows returned, with 40 kinematic velocity warnings from this invocation"
+    },
+    {
+      "feature": "Ring toss trigger/scoring",
+      "method": "Existing hoop positioned into scoring trigger; normal physics",
+      "result": "Score 0 to 1, stable at 1; one disabled scored collider and one active replacement scorer"
+    },
+    {
+      "feature": "Full scavenger progression",
+      "method": "Scene/source comparison only",
+      "result": "Present; complete chapters and ordered sensor flow untested"
+    },
+    {
+      "feature": "Assistant rendered-image and QR input",
+      "method": "Runtime reference inspection and source",
+      "result": "Intentional configuration, not a reported defect: user confirms the camera reference was deliberately unassigned and assistant works fine. Capture returning null is a code-path observation; end-to-end QR behavior was not independently tested."
+    }
+  ],
+  "console": {
+    "startup": {
+      "errorRows": 0,
+      "warningRows": 5
+    },
+    "final": {
+      "returnedRows": 79,
+      "errorRows": 1,
+      "warningRows": 78,
+      "countsAreReturnedRowsNotRepeatedOccurrences": true
+    },
+    "entries": [
+      {
+        "type": "Warning",
+        "timestamp": "[02:42:21]",
+        "message": "Not sending telemetry. User consent required.",
+        "projectStack": []
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:42:26]",
+        "message": "There can be only one active Event System.",
+        "projectStack": []
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:42:26]",
+        "message": "Local Dimming feature is not supported",
+        "projectStack": []
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:53:50]",
+        "message": "There are 2 event systems in the scene. Please ensure there is always exactly one event system in the scene",
+        "projectStack": []
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:42:52]",
+        "message": "Account API did not become accessible within 30 seconds. This may be due to network issues or editor focus.",
+        "projectStack": []
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:43:09]",
+        "message": "The character with Unicode value \\u65E5 was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+        "projectStack": []
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:43:09]",
+        "message": "The character with Unicode value \\u672C was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+        "projectStack": []
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:43:09]",
+        "message": "The character with Unicode value \\u8A9E was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+        "projectStack": []
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:43:09]",
+        "message": "The character with Unicode value \\u7FFB was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+        "projectStack": []
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:43:09]",
+        "message": "The character with Unicode value \\u8A33 was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+        "projectStack": []
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:43:09]",
+        "message": "The character with Unicode value \\u5143 was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+        "projectStack": []
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:43:09]",
+        "message": "The character with Unicode value \\uD55C was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+        "projectStack": []
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:43:09]",
+        "message": "The character with Unicode value \\uAD6D was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+        "projectStack": []
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:43:09]",
+        "message": "The character with Unicode value \\uC5B4 was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+        "projectStack": []
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:43:09]",
+        "message": "The character with Unicode value \\uC6D0 was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+        "projectStack": []
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:43:09]",
+        "message": "The character with Unicode value \\u4E2D was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+        "projectStack": []
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:43:09]",
+        "message": "The character with Unicode value \\u6587 was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+        "projectStack": []
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:43:09]",
+        "message": "The character with Unicode value \\u6E90 was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+        "projectStack": []
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:43:09]",
+        "message": "The character with Unicode value \\u8BED was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+        "projectStack": []
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:43:09]",
+        "message": "The character with Unicode value \\u8A00 was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+        "projectStack": []
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:43:12]",
+        "message": "The character with Unicode value \\u65E5 was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+        "projectStack": []
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:43:12]",
+        "message": "The character with Unicode value \\u672C was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+        "projectStack": []
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:43:12]",
+        "message": "The character with Unicode value \\u8A9E was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+        "projectStack": []
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:43:12]",
+        "message": "The character with Unicode value \\u7FFB was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+        "projectStack": []
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:43:12]",
+        "message": "The character with Unicode value \\u8A33 was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+        "projectStack": []
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:43:12]",
+        "message": "The character with Unicode value \\u5148 was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+        "projectStack": []
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:43:12]",
+        "message": "The character with Unicode value \\uD55C was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+        "projectStack": []
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:43:12]",
+        "message": "The character with Unicode value \\uAD6D was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+        "projectStack": []
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:43:12]",
+        "message": "The character with Unicode value \\uC5B4 was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+        "projectStack": []
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:43:12]",
+        "message": "The character with Unicode value \\uBC88 was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+        "projectStack": []
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:43:12]",
+        "message": "The character with Unicode value \\u4E2D was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+        "projectStack": []
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:43:12]",
+        "message": "The character with Unicode value \\u6587 was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+        "projectStack": []
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:43:12]",
+        "message": "The character with Unicode value \\u76EE was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+        "projectStack": []
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:43:12]",
+        "message": "The character with Unicode value \\u6807 was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+        "projectStack": []
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:43:12]",
+        "message": "The character with Unicode value \\u8BED was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+        "projectStack": []
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:43:12]",
+        "message": "The character with Unicode value \\u8A00 was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+        "projectStack": []
+      },
+      {
+        "type": "Error",
+        "timestamp": "[02:51:11]",
+        "message": "NullReferenceException: Object reference not set to an instance of an object",
+        "projectStack": [
+          "ArrowRetrieval.Update () (at Assets/Scripts/Archery/ArrowRetrieval.cs:22)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:46:20]",
+        "message": "Setting linear velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "Arrow:OnCollisionEnter (UnityEngine.Collision) (at Assets/Scripts/Archery/ArrowScript.cs:147)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:46:20]",
+        "message": "Setting angular velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "Arrow:OnCollisionEnter (UnityEngine.Collision) (at Assets/Scripts/Archery/ArrowScript.cs:148)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting linear velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:42)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting angular velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:43)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting linear velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:42)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting angular velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:43)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting linear velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:42)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting angular velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:43)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting linear velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:42)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting angular velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:43)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting linear velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:42)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting angular velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:43)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting linear velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:42)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting angular velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:43)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting linear velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:42)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting angular velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:43)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting linear velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:42)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting angular velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:43)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting linear velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:42)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting angular velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:43)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting linear velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:42)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting angular velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:43)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting linear velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:42)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting angular velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:43)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting linear velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:42)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting angular velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:43)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting linear velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:42)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting angular velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:43)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting linear velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:42)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting angular velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:43)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting linear velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:42)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting angular velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:43)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting linear velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:42)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting angular velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:43)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting linear velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:42)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting angular velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:43)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting linear velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:42)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting angular velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:43)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting linear velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:42)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting angular velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:43)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting linear velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:42)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      },
+      {
+        "type": "Warning",
+        "timestamp": "[02:51:11]",
+        "message": "Setting angular velocity of a kinematic body is not supported.",
+        "projectStack": [
+          "ArrowRetrieval:ReturnToQuiver () (at Assets/Scripts/Archery/ArrowRetrieval.cs:43)",
+          "QuiverScript:ResetQuiverArrows () (at Assets/Scripts/Archery/QuiverScript.cs:57)"
+        ]
+      }
+    ]
+  },
+  "observations": {
+    "alexander_reference_audit": "[Log] NavMeshMovement Mammoth Model active=True enabled=True\n[Log]   player=OVRPlayerController\n[Log]   goldenDonutIdol=Golden Donut\n[Log]   tuskCosmeticGoldenDonut=Cosmetic Golden Donut\n[Log]   goldenPedestal=Pedestal\n[Log]   signpost=Text (TMP)\n[Log]   mammothStand=Mammoth Standee\n[Log] MammothEatDonut Mammoth Model active=True enabled=True\n[Log]   goldenDonut=Golden Donut\n[Log]   donutOnMammothTusk=Cosmetic Golden Donut\n[Log] TargetRing Archery Game/Target1 active=True enabled=True\n[Log]   fireworks=Fireworks\n[Log]   bullseye=Bullseye\n[Log]   redring=Red Ring\n[Log]   bluering=Blue Ring\n[Log]   blackring=Black Ring\n[Log]   whitering=White Ring\n[Log] TargetRing Archery Game/Target2 active=True enabled=True\n[Log]   fireworks=Fireworks\n[Log]   bullseye=Bullseye\n[Log]   redring=Red Ring\n[Log]   bluering=Blue Ring\n[Log]   blackring=Black Ring\n[Log]   whitering=White Ring\n[Log] TargetRing Archery Game/Target3 active=True enabled=True\n[Log]   fireworks=Fireworks\n[Log]   bullseye=Bullseye\n[Log]   redring=Red Ring\n[Log]   bluering=Blue Ring\n[Log]   blackring=Black Ring\n[Log]   whitering=White Ring\n[Log] MissingScripts=0",
+    "alexander_runtime_missing_references": "[Log] AIManager object=AI Manager active=True\n[Log]   centerEyeCamera=NULL\n[Log]   debugPicture=NULL\n[Log] VRMapNavigator object=MapRoot active=True\n[Log]   playerCamera=CenterEyeAnchor\n[Log] SmoothFollow object=Quest Display UI active=True\n[Log]   target=CenterEyeAnchor\n[Log] QuiverScript object=Quiver active=True\n[Log]   holsterPoint=NULL\n[Log]   IsHeldByHand=False\n[Log]   IsInSnapZone=False\n[Log] AnchorFollow object=HipAnchor active=True\n[Log]   camera=NULL\n[Log]   rigRoot=NULL",
+    "alexander_snap_join_observation": "[Log] logo-i-middle[1] parent=logo-i[1] position=(-36.44, 1.22, -54.10) joints=0\n[Log] logo-i-top[1] parent=logo-i-middle[1] position=(-36.27, 1.21, -53.99) joints=1\n[Log]   connected=logo-i-middle[1]\n[Log] logo-i-bottom[1] parent=logo-i-middle[1] position=(-36.59, 1.22, -54.23) joints=1\n[Log]   connected=logo-i-middle[1]\n[Log] logo-i-middle[2] parent=logo-i[2] position=(-41.19, 1.15, -54.40) joints=0\n[Log] logo-i-top[2] parent=logo-i[2] position=(-40.49, 1.08, -53.69) joints=0\n[Log] logo-i-bottom[2] parent=logo-i-middle[2] position=(-40.99, 1.20, -54.40) joints=1\n[Log]   connected=logo-i-middle[2]\n[Log] logo-i-middle[3] parent=logo-i[3] position=(-38.60, 1.22, -54.10) joints=0\n[Log] logo-i-top[3] parent=logo-i-middle[3] position=(-38.43, 1.21, -53.98) joints=1\n[Log]   connected=logo-i-middle[3]\n[Log] logo-i-bottom[3] parent=logo-i-middle[3] position=(-38.75, 1.22, -54.23) joints=1\n[Log]   connected=logo-i-middle[3]\n[Log] logo-l-middle[1] parent=logo-l[1] position=(-37.54, 1.14, -53.39) joints=0\n[Log] logo-l-top[1] parent=logo-l-middle[1] position=(-37.58, 1.40, -53.43) joints=1\n[Log]   connected=logo-l-middle[1]\n[Log] logo-l-bottom[1] parent=logo-l-middle[1] position=(-37.40, 1.08, -53.29) joints=1\n[Log]   connected=logo-l-middle[1]\n[Log] logo-l-middle[2] parent=logo-l[2] position=(-35.77, 1.14, -53.39) joints=0\n[Log] logo-l-top[2] parent=logo-l-middle[2] position=(-35.82, 1.40, -53.43) joints=1\n[Log]   connected=logo-l-middle[2]\n[Log] logo-l-bottom[2] parent=logo-l-middle[2] position=(-35.64, 1.08, -53.29) joints=1\n[Log]   connected=logo-l-middle[2]\n[Log] logo-n-middle[1] parent=logo-n[1] position=(-39.74, 1.31, -53.38) joints=0\n[Log] logo-n-top[1] parent=logo-n-middle[1] position=(-39.54, 1.42, -53.27) joints=1\n[Log]   connected=logo-n-middle[1]\n[Log] logo-n-bottom[1] parent=logo-n-middle[1] position=(-39.94, 1.21, -53.49) joints=1\n[Log]   connected=logo-n-middle[1]",
+    "alexander_mammoth_and_snap_result": "[Log] Rainbow active=True playing=False\n[Log] Rainbow active=True playing=False\n[Log] Rainbow active=True playing=False\n[Log] Mammoth enraged=False\n[Log] Mammoth previouslyEnraged=True\n[Log] Mammoth isReturningDonut=True\n[Log] Mammoth pos=(95.34, 0.01, 85.81) onNavMesh=True\n[Log] goldenDonut active=False\n[Log] donutOnMammothTusk active=True\n[Log] Rainbow active=True playing=False\n[Log] Rainbow active=True playing=False\n[Log] Rainbow active=True playing=False\n[Log] WallLockedAssemblies=6\n[Log] ConsumedWallSlots=6",
+    "alexander_ring_final": "[Log] Playing=True\n[Log] Scene=Assets/Scenes/QuadProjectAlexanderLau.unity\n[Log] RingScoreText=1\n[Log] ActiveHoopScorers=1; DisabledHoopScorers=1",
+    "alexander_final_editor_state": "[Log] Playing=False; Compiling=False\n[Log] Unity=6000.3.15f1\n[Log] LoadedScene=Assets/Scenes/QuadProjectAlexanderLau.unity; Dirty=False\n[Log] ActiveOVRCameraRigs=1; MissingScripts=0\n[Log] RenderPipeline=Built-in\n[Log] ColorSpace=Linear; Gravity=(0.00, -4.90, 0.00)",
+    "archeryScoringReset": "[Log] SyntheticCenterHit scoreBefore=0 scoreAfter=10 expectedDelta10=True fireworksPlaying=True\n[Log] SyntheticMiss scoreUnchanged=True\n[Log] ResetFunction arrowsReturned=20/20"
+  },
+  "priorAndroidCheck": {
+    "report": "Unity6-upgrade-2026-09-05.md",
+    "rerunThisSession": false,
+    "result": "11 compiler diagnostics, 0 assemblies; offending source unchanged; no APK/native build tested"
+  },
+  "cleanup": {
+    "playModeStopped": true,
+    "sceneDirty": false,
+    "activeOVRCameraRigs": 1,
+    "missingScripts": 0,
+    "noSceneSave": true
+  }
+}
