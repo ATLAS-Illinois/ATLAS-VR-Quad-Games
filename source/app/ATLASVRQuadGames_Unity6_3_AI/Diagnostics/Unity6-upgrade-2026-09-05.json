@@ -1,0 +1,701 @@
+{
+  "date": "2026-09-05",
+  "project": "ATLASVRQuadGames",
+  "unity": "6000.3.15f1",
+  "baselineCommit": "5303983999b7ba50e651fc3328dc9ef8dbb93ed9",
+  "baselineUnity": "2022.3.18f1",
+  "baselineLimit": "Local main/origin/main; live remote lookup unavailable. Original Unity 2022 runtime was not executed.",
+  "headset": {
+    "model": "Quest 3",
+    "mode": "Quest Link",
+    "userConfirmed": [
+      "both-eye scene rendering",
+      "head tracking",
+      "both controllers visible",
+      "Paper 1 pages change normally"
+    ],
+    "notConfirmed": [
+      "walk/turn/jump flow",
+      "logo block assembly",
+      "full mini-game completion"
+    ]
+  },
+  "snapshots": [
+    {
+      "name": "MikeLee",
+      "errorEntries": 6,
+      "warningEntries": 36,
+      "logs": [
+        {
+          "type": "Warning",
+          "message": "Not sending telemetry. User consent required.",
+          "sourceFile": "./Library/PackageCache/com.meta.xr.sdk.voice.telemetry@83ab16e7f2dd/Scripts/Editor/Telemetry.cs",
+          "time": "[02:21:08]"
+        },
+        {
+          "type": "Warning",
+          "message": "Local Dimming feature is not supported",
+          "sourceFile": "./Library/PackageCache/com.meta.xr.sdk.core@fe30510a3e70/Scripts/OVRManager.cs",
+          "time": "[02:21:12]"
+        },
+        {
+          "type": "Error",
+          "message": "API_Secrets file not found! Did you run ATLAS VR -> API Setup?",
+          "sourceFile": "Assets/Scripts/XR Assistant/AIManager.cs",
+          "time": "[02:21:13]"
+        },
+        {
+          "type": "Error",
+          "message": "UnassignedReferenceException: The variable goldenDonut of MammothEatDonut has not been assigned.",
+          "sourceFile": "Assets/Scripts/Mammoth/MammothEatDonut.cs",
+          "time": "[02:21:13]"
+        },
+        {
+          "type": "Error",
+          "message": "UnassignedReferenceException: The variable goldenDonutIdol of NavMeshMovement has not been assigned.",
+          "sourceFile": "Assets/Scripts/General Quad/NavMeshMovement.cs",
+          "time": "[02:26:16]"
+        },
+        {
+          "type": "Warning",
+          "message": "Account API did not become accessible within 30 seconds. This may be due to network issues or editor focus.",
+          "sourceFile": "./Library/PackageCache/com.unity.ai.assistant@8d1e3e89e3a7/Modules/Unity.AI.Toolkit.Accounts/Services/States/ApiAccessibleState.cs",
+          "time": "[02:21:39]"
+        },
+        {
+          "type": "Warning",
+          "message": "PLAY",
+          "sourceFile": "Assets/Scripts/XR Assistant/SimpleAudioPlayer.cs",
+          "time": "[02:22:30]"
+        },
+        {
+          "type": "Warning",
+          "message": "PLAY",
+          "sourceFile": "Assets/Scripts/XR Assistant/SimpleAudioPlayer.cs",
+          "time": "[02:22:49]"
+        },
+        {
+          "type": "Error",
+          "message": "Gemini API key is missing.",
+          "sourceFile": "Assets/Scripts/XR Assistant/AIManager.cs",
+          "time": "[02:22:58]"
+        },
+        {
+          "type": "Error",
+          "message": "[LiveTranslationManager] API_Secrets file not found! Run ATLAS VR -> API Setup.",
+          "sourceFile": "Assets/Scripts/XR Assistant/LiveTranslationManager.cs",
+          "time": "[02:23:56]"
+        },
+        {
+          "type": "Error",
+          "message": "ApplicationException: Exception with an error code: 0x5",
+          "sourceFile": "Assets/Scripts/XR Assistant/LiveTranslationManager.cs",
+          "time": "[02:23:59]"
+        },
+        {
+          "type": "Warning",
+          "message": "The character with Unicode value \\u65E5 was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+          "sourceFile": "./Library/PackageCache/com.unity.ugui@23e8d17bfaf9/Runtime/TMP/TextMeshProUGUI.cs",
+          "time": "[02:24:05]"
+        },
+        {
+          "type": "Warning",
+          "message": "The character with Unicode value \\u672C was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+          "sourceFile": "./Library/PackageCache/com.unity.ugui@23e8d17bfaf9/Runtime/TMP/TextMeshProUGUI.cs",
+          "time": "[02:24:05]"
+        },
+        {
+          "type": "Warning",
+          "message": "The character with Unicode value \\u8A9E was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+          "sourceFile": "./Library/PackageCache/com.unity.ugui@23e8d17bfaf9/Runtime/TMP/TextMeshProUGUI.cs",
+          "time": "[02:24:05]"
+        },
+        {
+          "type": "Warning",
+          "message": "The character with Unicode value \\u7FFB was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+          "sourceFile": "./Library/PackageCache/com.unity.ugui@23e8d17bfaf9/Runtime/TMP/TextMeshProUGUI.cs",
+          "time": "[02:24:05]"
+        },
+        {
+          "type": "Warning",
+          "message": "The character with Unicode value \\u8A33 was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+          "sourceFile": "./Library/PackageCache/com.unity.ugui@23e8d17bfaf9/Runtime/TMP/TextMeshProUGUI.cs",
+          "time": "[02:24:05]"
+        },
+        {
+          "type": "Warning",
+          "message": "The character with Unicode value \\u5143 was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+          "sourceFile": "./Library/PackageCache/com.unity.ugui@23e8d17bfaf9/Runtime/TMP/TextMeshProUGUI.cs",
+          "time": "[02:24:05]"
+        },
+        {
+          "type": "Warning",
+          "message": "The character with Unicode value \\uD55C was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+          "sourceFile": "./Library/PackageCache/com.unity.ugui@23e8d17bfaf9/Runtime/TMP/TextMeshProUGUI.cs",
+          "time": "[02:24:05]"
+        },
+        {
+          "type": "Warning",
+          "message": "The character with Unicode value \\uAD6D was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+          "sourceFile": "./Library/PackageCache/com.unity.ugui@23e8d17bfaf9/Runtime/TMP/TextMeshProUGUI.cs",
+          "time": "[02:24:05]"
+        },
+        {
+          "type": "Warning",
+          "message": "The character with Unicode value \\uC5B4 was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+          "sourceFile": "./Library/PackageCache/com.unity.ugui@23e8d17bfaf9/Runtime/TMP/TextMeshProUGUI.cs",
+          "time": "[02:24:05]"
+        },
+        {
+          "type": "Warning",
+          "message": "The character with Unicode value \\uC6D0 was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+          "sourceFile": "./Library/PackageCache/com.unity.ugui@23e8d17bfaf9/Runtime/TMP/TextMeshProUGUI.cs",
+          "time": "[02:24:05]"
+        },
+        {
+          "type": "Warning",
+          "message": "The character with Unicode value \\u4E2D was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+          "sourceFile": "./Library/PackageCache/com.unity.ugui@23e8d17bfaf9/Runtime/TMP/TextMeshProUGUI.cs",
+          "time": "[02:24:05]"
+        },
+        {
+          "type": "Warning",
+          "message": "The character with Unicode value \\u6587 was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+          "sourceFile": "./Library/PackageCache/com.unity.ugui@23e8d17bfaf9/Runtime/TMP/TextMeshProUGUI.cs",
+          "time": "[02:24:05]"
+        },
+        {
+          "type": "Warning",
+          "message": "The character with Unicode value \\u6E90 was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+          "sourceFile": "./Library/PackageCache/com.unity.ugui@23e8d17bfaf9/Runtime/TMP/TextMeshProUGUI.cs",
+          "time": "[02:24:05]"
+        },
+        {
+          "type": "Warning",
+          "message": "The character with Unicode value \\u8BED was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+          "sourceFile": "./Library/PackageCache/com.unity.ugui@23e8d17bfaf9/Runtime/TMP/TextMeshProUGUI.cs",
+          "time": "[02:24:05]"
+        },
+        {
+          "type": "Warning",
+          "message": "The character with Unicode value \\u8A00 was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+          "sourceFile": "./Library/PackageCache/com.unity.ugui@23e8d17bfaf9/Runtime/TMP/TextMeshProUGUI.cs",
+          "time": "[02:24:05]"
+        },
+        {
+          "type": "Warning",
+          "message": "The character with Unicode value \\u65E5 was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+          "sourceFile": "./Library/PackageCache/com.unity.ugui@23e8d17bfaf9/Runtime/TMP/TextMeshProUGUI.cs",
+          "time": "[02:24:10]"
+        },
+        {
+          "type": "Warning",
+          "message": "The character with Unicode value \\u672C was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+          "sourceFile": "./Library/PackageCache/com.unity.ugui@23e8d17bfaf9/Runtime/TMP/TextMeshProUGUI.cs",
+          "time": "[02:24:10]"
+        },
+        {
+          "type": "Warning",
+          "message": "The character with Unicode value \\u8A9E was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+          "sourceFile": "./Library/PackageCache/com.unity.ugui@23e8d17bfaf9/Runtime/TMP/TextMeshProUGUI.cs",
+          "time": "[02:24:10]"
+        },
+        {
+          "type": "Warning",
+          "message": "The character with Unicode value \\u7FFB was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+          "sourceFile": "./Library/PackageCache/com.unity.ugui@23e8d17bfaf9/Runtime/TMP/TextMeshProUGUI.cs",
+          "time": "[02:24:10]"
+        },
+        {
+          "type": "Warning",
+          "message": "The character with Unicode value \\u8A33 was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+          "sourceFile": "./Library/PackageCache/com.unity.ugui@23e8d17bfaf9/Runtime/TMP/TextMeshProUGUI.cs",
+          "time": "[02:24:10]"
+        },
+        {
+          "type": "Warning",
+          "message": "The character with Unicode value \\u5148 was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+          "sourceFile": "./Library/PackageCache/com.unity.ugui@23e8d17bfaf9/Runtime/TMP/TextMeshProUGUI.cs",
+          "time": "[02:24:10]"
+        },
+        {
+          "type": "Warning",
+          "message": "The character with Unicode value \\uD55C was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+          "sourceFile": "./Library/PackageCache/com.unity.ugui@23e8d17bfaf9/Runtime/TMP/TextMeshProUGUI.cs",
+          "time": "[02:24:10]"
+        },
+        {
+          "type": "Warning",
+          "message": "The character with Unicode value \\uAD6D was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+          "sourceFile": "./Library/PackageCache/com.unity.ugui@23e8d17bfaf9/Runtime/TMP/TextMeshProUGUI.cs",
+          "time": "[02:24:10]"
+        },
+        {
+          "type": "Warning",
+          "message": "The character with Unicode value \\uC5B4 was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+          "sourceFile": "./Library/PackageCache/com.unity.ugui@23e8d17bfaf9/Runtime/TMP/TextMeshProUGUI.cs",
+          "time": "[02:24:10]"
+        },
+        {
+          "type": "Warning",
+          "message": "The character with Unicode value \\uBC88 was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+          "sourceFile": "./Library/PackageCache/com.unity.ugui@23e8d17bfaf9/Runtime/TMP/TextMeshProUGUI.cs",
+          "time": "[02:24:10]"
+        },
+        {
+          "type": "Warning",
+          "message": "The character with Unicode value \\u4E2D was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+          "sourceFile": "./Library/PackageCache/com.unity.ugui@23e8d17bfaf9/Runtime/TMP/TextMeshProUGUI.cs",
+          "time": "[02:24:10]"
+        },
+        {
+          "type": "Warning",
+          "message": "The character with Unicode value \\u6587 was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+          "sourceFile": "./Library/PackageCache/com.unity.ugui@23e8d17bfaf9/Runtime/TMP/TextMeshProUGUI.cs",
+          "time": "[02:24:10]"
+        },
+        {
+          "type": "Warning",
+          "message": "The character with Unicode value \\u76EE was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+          "sourceFile": "./Library/PackageCache/com.unity.ugui@23e8d17bfaf9/Runtime/TMP/TextMeshProUGUI.cs",
+          "time": "[02:24:10]"
+        },
+        {
+          "type": "Warning",
+          "message": "The character with Unicode value \\u6807 was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+          "sourceFile": "./Library/PackageCache/com.unity.ugui@23e8d17bfaf9/Runtime/TMP/TextMeshProUGUI.cs",
+          "time": "[02:24:10]"
+        },
+        {
+          "type": "Warning",
+          "message": "The character with Unicode value \\u8BED was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+          "sourceFile": "./Library/PackageCache/com.unity.ugui@23e8d17bfaf9/Runtime/TMP/TextMeshProUGUI.cs",
+          "time": "[02:24:10]"
+        },
+        {
+          "type": "Warning",
+          "message": "The character with Unicode value \\u8A00 was not found in the [LiberationSans SDF] font asset or any potential fallbacks. It was replaced by Unicode character \\u25A1 in text object [Item Label].",
+          "sourceFile": "./Library/PackageCache/com.unity.ugui@23e8d17bfaf9/Runtime/TMP/TextMeshProUGUI.cs",
+          "time": "[02:24:10]"
+        }
+      ]
+    },
+    {
+      "name": "Archery Scene",
+      "errorEntries": 9,
+      "warningEntries": 23,
+      "logs": [
+        {
+          "type": "Warning",
+          "message": "The referenced script (Unknown) on this Behaviour is missing!",
+          "sourceFile": "",
+          "time": "[02:26:48]"
+        },
+        {
+          "type": "Warning",
+          "message": "The referenced script (Unknown) on this Behaviour is missing!",
+          "sourceFile": "",
+          "time": "[02:26:48]"
+        },
+        {
+          "type": "Warning",
+          "message": "The referenced script (Unknown) on this Behaviour is missing!",
+          "sourceFile": "",
+          "time": "[02:26:48]"
+        },
+        {
+          "type": "Warning",
+          "message": "The referenced script (Unknown) on this Behaviour is missing!",
+          "sourceFile": "",
+          "time": "[02:26:48]"
+        },
+        {
+          "type": "Warning",
+          "message": "The referenced script (Unknown) on this Behaviour is missing!",
+          "sourceFile": "",
+          "time": "[02:26:48]"
+        },
+        {
+          "type": "Warning",
+          "message": "The referenced script (Unknown) on this Behaviour is missing!",
+          "sourceFile": "",
+          "time": "[02:26:48]"
+        },
+        {
+          "type": "Warning",
+          "message": "The referenced script (Unknown) on this Behaviour is missing!",
+          "sourceFile": "",
+          "time": "[02:26:48]"
+        },
+        {
+          "type": "Warning",
+          "message": "The referenced script (Unknown) on this Behaviour is missing!",
+          "sourceFile": "",
+          "time": "[02:26:48]"
+        },
+        {
+          "type": "Warning",
+          "message": "The referenced script (Unknown) on this Behaviour is missing!",
+          "sourceFile": "",
+          "time": "[02:26:48]"
+        },
+        {
+          "type": "Warning",
+          "message": "The referenced script (Unknown) on this Behaviour is missing!",
+          "sourceFile": "",
+          "time": "[02:26:48]"
+        },
+        {
+          "type": "Warning",
+          "message": "The referenced script (Unknown) on this Behaviour is missing!",
+          "sourceFile": "",
+          "time": "[02:26:48]"
+        },
+        {
+          "type": "Warning",
+          "message": "The referenced script (Unknown) on this Behaviour is missing!",
+          "sourceFile": "",
+          "time": "[02:26:48]"
+        },
+        {
+          "type": "Warning",
+          "message": "The referenced script (Unknown) on this Behaviour is missing!",
+          "sourceFile": "",
+          "time": "[02:26:48]"
+        },
+        {
+          "type": "Warning",
+          "message": "The referenced script (Unknown) on this Behaviour is missing!",
+          "sourceFile": "",
+          "time": "[02:26:48]"
+        },
+        {
+          "type": "Warning",
+          "message": "The referenced script (Unknown) on this Behaviour is missing!",
+          "sourceFile": "",
+          "time": "[02:26:48]"
+        },
+        {
+          "type": "Warning",
+          "message": "The referenced script (Unknown) on this Behaviour is missing!",
+          "sourceFile": "",
+          "time": "[02:26:48]"
+        },
+        {
+          "type": "Warning",
+          "message": "The referenced script (Unknown) on this Behaviour is missing!",
+          "sourceFile": "",
+          "time": "[02:26:48]"
+        },
+        {
+          "type": "Warning",
+          "message": "The referenced script (Unknown) on this Behaviour is missing!",
+          "sourceFile": "",
+          "time": "[02:26:48]"
+        },
+        {
+          "type": "Warning",
+          "message": "The referenced script (Unknown) on this Behaviour is missing!",
+          "sourceFile": "",
+          "time": "[02:26:48]"
+        },
+        {
+          "type": "Warning",
+          "message": "The referenced script (Unknown) on this Behaviour is missing!",
+          "sourceFile": "",
+          "time": "[02:26:48]"
+        },
+        {
+          "type": "Warning",
+          "message": "The referenced script (Unknown) on this Behaviour is missing!",
+          "sourceFile": "",
+          "time": "[02:26:48]"
+        },
+        {
+          "type": "Warning",
+          "message": "The referenced script (Unknown) on this Behaviour is missing!",
+          "sourceFile": "",
+          "time": "[02:26:48]"
+        },
+        {
+          "type": "Warning",
+          "message": "Local Dimming feature is not supported",
+          "sourceFile": "./Library/PackageCache/com.meta.xr.sdk.core@fe30510a3e70/Scripts/OVRManager.cs",
+          "time": "[02:26:49]"
+        },
+        {
+          "type": "Error",
+          "message": "UnassignedReferenceException: The variable bullseye of TargetRing has not been assigned.",
+          "sourceFile": "Assets/Scripts/Archery/TargetRing.cs",
+          "time": "[02:26:49]"
+        },
+        {
+          "type": "Error",
+          "message": "UnassignedReferenceException: The variable bullseye of TargetRing has not been assigned.",
+          "sourceFile": "Assets/Scripts/Archery/TargetRing.cs",
+          "time": "[02:26:49]"
+        },
+        {
+          "type": "Error",
+          "message": "UnassignedReferenceException: The variable bullseye of TargetRing has not been assigned.",
+          "sourceFile": "Assets/Scripts/Archery/TargetRing.cs",
+          "time": "[02:26:49]"
+        },
+        {
+          "type": "Error",
+          "message": "UnassignedReferenceException: The variable bullseye of TargetRing has not been assigned.",
+          "sourceFile": "Assets/Scripts/Archery/TargetRing.cs",
+          "time": "[02:26:49]"
+        },
+        {
+          "type": "Error",
+          "message": "UnassignedReferenceException: The variable bullseye of TargetRing has not been assigned.",
+          "sourceFile": "Assets/Scripts/Archery/TargetRing.cs",
+          "time": "[02:26:49]"
+        },
+        {
+          "type": "Error",
+          "message": "UnassignedReferenceException: The variable bullseye of TargetRing has not been assigned.",
+          "sourceFile": "Assets/Scripts/Archery/TargetRing.cs",
+          "time": "[02:26:49]"
+        },
+        {
+          "type": "Error",
+          "message": "UnassignedReferenceException: The variable bullseye of TargetRing has not been assigned.",
+          "sourceFile": "Assets/Scripts/Archery/TargetRing.cs",
+          "time": "[02:26:49]"
+        },
+        {
+          "type": "Error",
+          "message": "UnassignedReferenceException: The variable bullseye of TargetRing has not been assigned.",
+          "sourceFile": "Assets/Scripts/Archery/TargetRing.cs",
+          "time": "[02:26:49]"
+        },
+        {
+          "type": "Error",
+          "message": "UnassignedReferenceException: The variable bullseye of TargetRing has not been assigned.",
+          "sourceFile": "Assets/Scripts/Archery/TargetRing.cs",
+          "time": "[02:26:49]"
+        }
+      ]
+    },
+    {
+      "name": "VictorLiu",
+      "errorEntries": 1,
+      "warningEntries": 2,
+      "logs": [
+        {
+          "type": "Warning",
+          "message": "The referenced script (Unknown) on this Behaviour is missing!",
+          "sourceFile": "",
+          "time": "[02:27:10]"
+        },
+        {
+          "type": "Warning",
+          "message": "Local Dimming feature is not supported",
+          "sourceFile": "./Library/PackageCache/com.meta.xr.sdk.core@fe30510a3e70/Scripts/OVRManager.cs",
+          "time": "[02:27:11]"
+        },
+        {
+          "type": "Error",
+          "message": "UnassignedReferenceException: The variable goldenDonutIdol of NavMeshMovement has not been assigned.",
+          "sourceFile": "Assets/Scripts/General Quad/NavMeshMovement.cs",
+          "time": "[02:27:17]"
+        }
+      ]
+    },
+    {
+      "name": "CarltonWoo",
+      "errorEntries": 1,
+      "warningEntries": 1,
+      "logs": [
+        {
+          "type": "Warning",
+          "message": "Local Dimming feature is not supported",
+          "sourceFile": "./Library/PackageCache/com.meta.xr.sdk.core@fe30510a3e70/Scripts/OVRManager.cs",
+          "time": "[02:27:33]"
+        },
+        {
+          "type": "Error",
+          "message": "UnassignedReferenceException: The variable goldenDonutIdol of NavMeshMovement has not been assigned.",
+          "sourceFile": "Assets/Scripts/General Quad/NavMeshMovement.cs",
+          "time": "[02:27:45]"
+        }
+      ]
+    },
+    {
+      "name": "QuadDay-VictorLiu",
+      "errorEntries": 1,
+      "warningEntries": 1,
+      "logs": [
+        {
+          "type": "Warning",
+          "message": "Local Dimming feature is not supported",
+          "sourceFile": "./Library/PackageCache/com.meta.xr.sdk.core@fe30510a3e70/Scripts/OVRManager.cs",
+          "time": "[02:28:05]"
+        },
+        {
+          "type": "Error",
+          "message": "UnassignedReferenceException: The variable goldenDonutIdol of NavMeshMovement has not been assigned.",
+          "sourceFile": "Assets/Scripts/General Quad/NavMeshMovement.cs",
+          "time": "[02:28:09]"
+        }
+      ]
+    },
+    {
+      "name": "Scenes/SampleScene",
+      "errorEntries": 0,
+      "warningEntries": 0,
+      "logs": []
+    },
+    {
+      "name": "Assets/SampleScene",
+      "errorEntries": 0,
+      "warningEntries": 2,
+      "logs": [
+        {
+          "type": "Warning",
+          "message": "Local Dimming feature is not supported",
+          "sourceFile": "./Library/PackageCache/com.meta.xr.sdk.core@fe30510a3e70/Scripts/OVRManager.cs",
+          "time": "[02:28:35]"
+        },
+        {
+          "type": "Warning",
+          "message": "At GameObject <color=#3366ff><b>OVRControllerHands</b></color>. This prefab has been depecated. Consider using using the replacement provided or unpack the prefab before upgrading to a new version in order to avoid losing information.",
+          "sourceFile": "./Library/PackageCache/com.meta.xr.sdk.interaction@8593a0d3d865/Runtime/Scripts/Utils/DeprecatedPrefab.cs",
+          "time": "[02:28:36]"
+        }
+      ]
+    },
+    {
+      "name": "AlexanderLau",
+      "errorEntries": 1,
+      "warningEntries": 5,
+      "logs": [
+        {
+          "type": "Warning",
+          "message": "Not sending telemetry. User consent required.",
+          "sourceFile": "./Library/PackageCache/com.meta.xr.sdk.voice.telemetry@83ab16e7f2dd/Scripts/Editor/Telemetry.cs",
+          "time": "[02:28:48]"
+        },
+        {
+          "type": "Warning",
+          "message": "There can be only one active Event System.",
+          "sourceFile": "./Library/PackageCache/com.unity.ugui@23e8d17bfaf9/Runtime/UGUI/EventSystem/UIElements/UIToolkitInteroperabilityBridge.cs",
+          "time": "[02:28:52]"
+        },
+        {
+          "type": "Warning",
+          "message": "Local Dimming feature is not supported",
+          "sourceFile": "./Library/PackageCache/com.meta.xr.sdk.core@fe30510a3e70/Scripts/OVRManager.cs",
+          "time": "[02:28:52]"
+        },
+        {
+          "type": "Error",
+          "message": "API_Secrets file not found! Did you run ATLAS VR -> API Setup?",
+          "sourceFile": "Assets/Scripts/XR Assistant/AIManager.cs",
+          "time": "[02:28:53]"
+        },
+        {
+          "type": "Warning",
+          "message": "There are 2 event systems in the scene. Please ensure there is always exactly one event system in the scene",
+          "sourceFile": "./Library/PackageCache/com.unity.ugui@23e8d17bfaf9/Runtime/UGUI/EventSystem/EventSystem.cs",
+          "time": "[02:29:11]"
+        },
+        {
+          "type": "Warning",
+          "message": "Account API did not become accessible within 30 seconds. This may be due to network issues or editor focus.",
+          "sourceFile": "./Library/PackageCache/com.unity.ai.assistant@8d1e3e89e3a7/Modules/Unity.AI.Toolkit.Accounts/Services/States/ApiAccessibleState.cs",
+          "time": "[02:29:19]"
+        }
+      ]
+    },
+    {
+      "name": "Android managed compilation",
+      "errorEntries": 12,
+      "warningEntries": 0,
+      "logs": [
+        {
+          "type": "Error",
+          "message": "Assets\\Scripts\\Archery\\MultiShotBow.cs(4,19): error CS0234: The type or namespace name 'PackageManager' does not exist in the namespace 'UnityEditor' (are you missing an assembly reference?)",
+          "sourceFile": "Assets\\Scripts\\Archery\\MultiShotBow.cs",
+          "time": "[02:30:01]"
+        },
+        {
+          "type": "Error",
+          "message": "Assets\\Scripts\\Archery\\QuiverScript.cs(5,19): error CS0234: The type or namespace name 'Callbacks' does not exist in the namespace 'UnityEditor' (are you missing an assembly reference?)",
+          "sourceFile": "Assets\\Scripts\\Archery\\QuiverScript.cs",
+          "time": "[02:30:01]"
+        },
+        {
+          "type": "Error",
+          "message": "Assets\\Scripts\\General Quad\\NavMeshMovement.cs(2,32): error CS0234: The type or namespace name 'GraphView' does not exist in the namespace 'UnityEditor.Experimental' (are you missing an assembly reference?)",
+          "sourceFile": "Assets\\Scripts\\General Quad\\NavMeshMovement.cs",
+          "time": "[02:30:01]"
+        },
+        {
+          "type": "Error",
+          "message": "Assets\\Scripts\\Mammoth\\IsGoldenDonutGrabbed.cs(5,29): error CS0234: The type or namespace name 'VirtualTexturing' does not exist in the namespace 'UnityEngine.Rendering' (are you missing an assembly reference?)",
+          "sourceFile": "Assets\\Scripts\\Mammoth\\IsGoldenDonutGrabbed.cs",
+          "time": "[02:30:01]"
+        },
+        {
+          "type": "Error",
+          "message": "Assets\\Scripts\\XR Assistant\\APIConfigWindow.cs(5,32): error CS0246: The type or namespace name 'EditorWindow' could not be found (are you missing a using directive or an assembly reference?)",
+          "sourceFile": "Assets\\Scripts\\XR Assistant\\APIConfigWindow.cs",
+          "time": "[02:30:01]"
+        },
+        {
+          "type": "Error",
+          "message": "Assets\\Scripts\\XR Assistant\\APIConfigWindow.cs(11,6): error CS0246: The type or namespace name 'MenuItemAttribute' could not be found (are you missing a using directive or an assembly reference?)",
+          "sourceFile": "Assets\\Scripts\\XR Assistant\\APIConfigWindow.cs",
+          "time": "[02:30:01]"
+        },
+        {
+          "type": "Error",
+          "message": "Assets\\Scripts\\XR Assistant\\APIConfigWindow.cs(11,6): error CS0246: The type or namespace name 'MenuItem' could not be found (are you missing a using directive or an assembly reference?)",
+          "sourceFile": "Assets\\Scripts\\XR Assistant\\APIConfigWindow.cs",
+          "time": "[02:30:01]"
+        },
+        {
+          "type": "Error",
+          "message": "Assets\\Scripts\\XR Assistant\\Editor\\MapConfigWindow.cs(5,32): error CS0246: The type or namespace name 'EditorWindow' could not be found (are you missing a using directive or an assembly reference?)",
+          "sourceFile": "Assets\\Scripts\\XR Assistant\\Editor\\MapConfigWindow.cs",
+          "time": "[02:30:01]"
+        },
+        {
+          "type": "Error",
+          "message": "Assets\\Scripts\\XR Assistant\\Editor\\MapConfigWindow.cs(9,13): error CS0246: The type or namespace name 'SerializedObject' could not be found (are you missing a using directive or an assembly reference?)",
+          "sourceFile": "Assets\\Scripts\\XR Assistant\\Editor\\MapConfigWindow.cs",
+          "time": "[02:30:01]"
+        },
+        {
+          "type": "Error",
+          "message": "Assets\\Scripts\\XR Assistant\\Editor\\MapConfigWindow.cs(12,6): error CS0246: The type or namespace name 'MenuItemAttribute' could not be found (are you missing a using directive or an assembly reference?)",
+          "sourceFile": "Assets\\Scripts\\XR Assistant\\Editor\\MapConfigWindow.cs",
+          "time": "[02:30:01]"
+        },
+        {
+          "type": "Error",
+          "message": "Assets\\Scripts\\XR Assistant\\Editor\\MapConfigWindow.cs(12,6): error CS0246: The type or namespace name 'MenuItem' could not be found (are you missing a using directive or an assembly reference?)",
+          "sourceFile": "Assets\\Scripts\\XR Assistant\\Editor\\MapConfigWindow.cs",
+          "time": "[02:30:01]"
+        },
+        {
+          "type": "Error",
+          "message": "Failed to compile player scripts",
+          "sourceFile": "./Library/PackageCache/com.unity.ai.assistant@8d1e3e89e3a7/Editor/Assistant/RunCommand/AgentRunCommand.cs",
+          "time": "[02:30:01]"
+        }
+      ]
+    }
+  ],
+  "restoredState": "[Log] Restored=Assets/Scenes/QuadProjectMikeLee.unity Dirty=False Playing=False Target=Android Pipeline=Built-in Gravity=(0.00, -4.90, 0.00)",
+  "alexanderEventSystemsBeforeRestoration": ["[Log] EventSystem=XR Assistant Rig/PointableCanvasModule enabled=True active=True","[Log] EventSystem=EventSystem enabled=True active=True"],
+  "finalConsole": {"errorEntries":12,"warningEntries":0,"meaning":"11 Android compiler diagnostics plus the failed compilation summary"},
+  "scope": "Eight authored scenes opened and started; startup smoke tests, not complete gameplay coverage. Android managed player compilation only; no IL2CPP/Gradle/APK build or installation. Console counts are returned rows, not occurrence totals.",
+  "notes": [
+    "Source diagnostics only; no credentials, transcripts, or ordinary assistant logs included.",
+    "Transient Unity XR hand queries reported invalid; user nevertheless confirmed paper paging works, so this is not a confirmed gameplay failure."
+  ]
+}
