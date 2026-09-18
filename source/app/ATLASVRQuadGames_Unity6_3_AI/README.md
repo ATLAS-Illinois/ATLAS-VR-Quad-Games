@@ -19,7 +19,7 @@ This is the **Unity 6000.3.15f1** copy of ATLAS VR Quad Games for AI-assisted de
 
 ## Validation status and known limitations
 
-The copied upgrade was inspected in Unity 6000.3.15f1 on September 5, 2026. See [validation history](Diagnostics/README.md). Those checks were performed in the original local checkout before this folder split; they are not a claim that every flow has been rerun in a fresh clone.
+The copied upgrade was inspected in Unity 6000.3.15f1 on September 5, 2026. See [validation history](Diagnostics/README.md). Those gameplay checks were performed in the original local checkout before this folder split. [September 18 split validation](Diagnostics/Repository-split-2026-09-18.md) additionally generated the project script assemblies under both matching editor versions with zero recorded C# errors; full asset import and gameplay were not completed in that batch check.
 
 - The user confirmed conversational assistant, English-to-Spanish translation, photo/gallery/map, mammoth pursuit/capture, basic parkour and archery firing through Quest Link.
 - Automated positioning/handler checks exercised logo assembly/wall placement, ring scoring and archery scoring/reset. They do not replace controller-driven end-to-end tests.

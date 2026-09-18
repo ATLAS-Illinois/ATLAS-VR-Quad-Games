@@ -1,0 +1,31 @@
+{
+  "date": "2026-09-18",
+  "baselineCommit": "5303983999b7ba50e651fc3328dc9ef8dbb93ed9",
+  "preservedLegacyTree": "a7da77f797025bd7a1b8b8413df1ce6d7ba0be2a",
+  "sourceFilesHashVerifiedBeforePublicationAdjustments": 6617,
+  "editorChecks": [
+    {
+      "project": "ATLASVRQuadGames_Unity6_3_AI",
+      "editor": "6000.3.15f1",
+      "projectScriptsAssemblyGenerated": true,
+      "looseScriptsAssemblyGenerated": true,
+      "assemblyCount": 151,
+      "csharpErrorRows": 0,
+      "fullAssetImportCompleted": false,
+      "playModeTested": false
+    },
+    {
+      "project": "ATLASVRQuadGames",
+      "editor": "2022.3.18f1",
+      "projectScriptsAssemblyGenerated": true,
+      "looseScriptsAssemblyGenerated": true,
+      "assemblyCount": 104,
+      "csharpErrorRows": 0,
+      "fullAssetImportCompleted": false,
+      "playModeTested": false
+    }
+  ],
+  "scope": "Separate sibling project and documentation; no gameplay or lighting fixes.",
+  "credentials": "API secrets and Wit server config excluded; referenced Wit runtime asset retained with client token blank.",
+  "cleanup": "Temporary batch editors stopped after project script assemblies were generated. Full asset imports were not completed; import-generated tracked texture edits were restored from the committed snapshot."
+}

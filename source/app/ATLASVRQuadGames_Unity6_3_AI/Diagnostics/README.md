@@ -9,3 +9,7 @@ Read in this order:
 3. [Shade follow-up measurements](AlexanderLau-shade-followup-2026-09-05.json): zero ambient probe and unchanged saved lighting configuration.
 
 The associated JSON files contain sanitized observations. Current checkout configuration must be checked independently. API credentials used for historical tests are not distributed in this project; configure your own locally. Markdown source links now resolve within this sibling project.
+
+## Repository split checks
+
+[September 18 repository split validation](Repository-split-2026-09-18.md) separately records source preservation and fresh editor script-compilation checks for both versions. It does not replace the earlier gameplay reports.
