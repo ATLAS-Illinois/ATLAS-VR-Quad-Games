@@ -6,7 +6,7 @@ A University of Illinois campus VR experience with exploration, mini-games, and 
 
 | Project | Required Unity Editor | Purpose and status |
 | --- | --- | --- |
-| [ATLASVRQuadGames](source/app/ATLASVRQuadGames/) | **2022.3.18f1** | Preserved original project. This addition does not modify its tracked contents. |
+| [ATLASVRQuadGames](source/app/ATLASVRQuadGames/) | **2022.3.18f1** | Legacy campus project with a standalone Quest rendering backport. See the [Unity 2022 build instructions](source/app/README.md#building-the-unity-2022-campus). |
 | [ATLASVRQuadGames_Unity6_3_AI](source/app/ATLASVRQuadGames_Unity6_3_AI/) | **6000.3.15f1 (Unity 6.3)** | Unity 6.3 project for AI-assisted development, including Unity AI Assistant, Meta Unity MCP tooling, and project skills. Upgrade validation is ongoing. |
 
 Clone this repository, then add the desired project folder in Unity Hub and open it with the exact editor version above. The repository root and `source/app` are not Unity project roots. Each project has its own `Assets`, `Packages`, `ProjectSettings`, and generated `Library`.
