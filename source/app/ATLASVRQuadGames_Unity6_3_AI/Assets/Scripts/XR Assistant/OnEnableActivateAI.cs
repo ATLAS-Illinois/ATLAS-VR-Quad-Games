@@ -6,11 +6,12 @@ public class OnEnableActivateAI : MonoBehaviour
 
     private void OnEnable()
     {
-        wakeWordManager.Activate();
+        if (wakeWordManager != null) wakeWordManager.Activate();
     }
 
     private void OnDisable()
     {
-        wakeWordManager.DeActivate();
+        if (wakeWordManager != null) wakeWordManager.CancelListening();
+        AssistantMicrophoneLifetime.ReleaseIdleMicrophone();
     }
 }

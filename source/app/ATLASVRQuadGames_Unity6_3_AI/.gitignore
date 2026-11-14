@@ -76,3 +76,7 @@ crashlytics-build.properties
 [Aa]ssets/[Rr]esources/API_Secrets.asset.meta
 # Local Wit server authentication (never publish)
 /ProjectSettings/wit.config
+
+# Unity's local unsaved-scene backups
+/Assets/_Recovery/
+/Assets/_Recovery.meta

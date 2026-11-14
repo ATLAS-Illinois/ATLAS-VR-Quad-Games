@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Oculus.Interaction;
 using Oculus.Interaction.HandGrab;
-using UnityEditor.Callbacks;
 using UnityEngine;
 
 public class QuiverScript : MonoBehaviour

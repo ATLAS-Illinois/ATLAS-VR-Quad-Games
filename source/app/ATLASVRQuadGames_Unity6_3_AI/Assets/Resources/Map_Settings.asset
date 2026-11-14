@@ -14,8 +14,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   landmarks:
   - name: Alma Mater
-    position: {x: -3.22, y: 3.98, z: -77.57}
+    position: {x: -19.391598, y: 0.05, z: -68.97718}
   - name: Lincoln Statue Big
     position: {x: -36.15, y: 1.77, z: -149.83}
   - name: Lincoln Statue Small
     position: {x: -33.4746, y: 1.268, z: -54.7545}
+  - name: Illini Union
+    position: {x: -0.034370422, y: 0.05, z: 92.06293}
+  - name: English Building
+    position: {x: -47.816757, y: 0.05, z: -62.357567}
+  - name: Noyes Laboratory
+    position: {x: 58.241318, y: 0.05, z: 34.372097}
+  - name: Henry Administration Building
+    position: {x: -46.64693, y: 0.05, z: 31.011059}
+  - name: Wohlers Hall
+    position: {x: 66.351166, y: 0.05, z: -84.487366}
+  - name: Main Library
+    position: {x: 60.974808, y: 0.05, z: -246.98184}
+  - name: Colonel Wolf School
+    position: {x: -36.167095, y: 0.05, z: -125.63601}
+  - name: Foreign Languages Building
+    position: {x: -336.9728, y: 0.05, z: -191.1698}
+  - name: Archery Range
+    position: {x: 8.101, y: 0.05, z: -181.39699}
+  - name: Mammoth Tag
+    position: {x: 100.65927, y: 0.10966699, z: 86.43003}
+  - name: Block Snap Game
+    position: {x: -43.369698, y: 0.05, z: -53.85568}
+  - name: Parkour Entrance
+    position: {x: -41.955444, y: 0.05, z: 33.05}
+  - name: Scavenger Hunt Start
+    position: {x: 10.503485, y: 0.05, z: -202.24}
+  - name: Goose Sculpture
+    position: {x: 18.997784, y: 0.05, z: -7.470476}
+  - name: Green Street
+    position: {x: 4.611433, y: 0.09968774, z: 216.52075}
+  - name: Quad Respawn Point
+    position: {x: -42.38, y: 1.273948, z: -83.95}

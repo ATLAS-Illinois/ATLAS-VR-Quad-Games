@@ -7,9 +7,9 @@ public class SmoothFollow : MonoBehaviour
     public Transform target;
 
     [Header("Placement")]
-    [Tooltip("Meters in front of the target, projected on the horizontal plane")]
+    [Tooltip("Meters in front of the target; horizontal when Only Use Y Rotation is enabled")]
     public float distance = 1.5f;
-    [Tooltip("Vertical offset from the target position")]
+    [Tooltip("Offset along the target's up direction, or world up in yaw-only mode")]
     public float heightOffset = 0.0f;
 
     [Header("Smoothing")]
@@ -19,12 +19,13 @@ public class SmoothFollow : MonoBehaviour
     public float rotationLerpSpeed = 12f;
 
     [Header("Rotation")]
-    [Tooltip("Fixed local X euler tilt added after yaw so you can lean the canvas up or down")]
+    [Tooltip("Fixed local X tilt added after the followed rotation")]
     public float localXRotationOffset = 0.0f;
 
     [Header("Safety")]
     [Tooltip("If true, movement is disabled when no OVR headset is present")]
     public bool requireOVRHeadset = true;
+    [Tooltip("Follow heading on the horizontal plane. Disable to keep the display in the same head-relative position while looking up or down.")]
     public bool onlyUseYRotation = true;
 
     // internal state
@@ -50,32 +51,12 @@ public class SmoothFollow : MonoBehaviour
             return; // do not move or rotate
         }
 
-        // Compute horizontal forward from target
-        Vector3 flatForward = Vector3.forward;
-        
-        if(onlyUseYRotation)
-        {
-            flatForward = Vector3.ProjectOnPlane(target.forward, Vector3.up);
-        }
-        else
-        {
-            flatForward = target.forward;
-        }
-
-        if (flatForward.sqrMagnitude < 1e-6f)
-        {
-            flatForward = _lastFlatForward;
-        }
-        else
-        {
-            flatForward.Normalize();
-            _lastFlatForward = flatForward;
-        }
-
-        // Desired position: in front on the horizontal plane, with height offset
-        Vector3 basePos = target.position;
-        Vector3 desiredPos = basePos + flatForward * distance;
-        desiredPos.y = basePos.y + heightOffset;
+        Vector3 flatForward = onlyUseYRotation ? StableFlatForward() : Vector3.zero;
+        // Full-pose mode must retain both pitch and roll in the offset. Replacing
+        // world Y here collapses the panel into the user's head near vertical gaze.
+        Vector3 desiredPos = onlyUseYRotation
+            ? target.position + flatForward * distance + Vector3.up * heightOffset
+            : target.position + target.forward * distance + target.up * heightOffset;
 
         // Smooth position
         if (positionSmoothTime > 0f)
@@ -83,26 +64,20 @@ public class SmoothFollow : MonoBehaviour
         else
             transform.position = desiredPos;
 
-        // Yaw-only look at target
-        Vector3 toTarget = target.position - transform.position;
-        toTarget.y = 0f;
-        if (toTarget.sqrMagnitude < 1e-6f)
-        {
-            // Fallback to face along flatForward opposite direction
-            toTarget = -flatForward;
-        }
-
-        Quaternion yaw = Quaternion.LookRotation(-toTarget.normalized, Vector3.up);
-
-        // Apply local X tilt after yaw
-        Quaternion targetRot = Quaternion.identity;
+        Quaternion targetRot;
         if (onlyUseYRotation)
         {
-            targetRot = yaw * Quaternion.Euler(localXRotationOffset, 0f, 0f);
+            Vector3 fromTarget = transform.position - target.position;
+            fromTarget.y = 0f;
+            if (fromTarget.sqrMagnitude < 1e-6f) fromTarget = flatForward;
+            targetRot = Quaternion.LookRotation(fromTarget.normalized, Vector3.up)
+                * Quaternion.Euler(localXRotationOffset, 0f, 0f);
         }
         else
         {
-            targetRot = Quaternion.LookRotation(-toTarget.normalized, target.up);
+            // The authored tilt already accounts for the low display placement.
+            // Looking at the offset and adding that tilt again would double it.
+            targetRot = target.rotation * Quaternion.Euler(localXRotationOffset, 0f, 0f);
         }
 
         // Smooth rotation
@@ -115,6 +90,35 @@ public class SmoothFollow : MonoBehaviour
         {
             transform.rotation = targetRot;
         }
+    }
+
+    Vector3 StableFlatForward()
+    {
+        Vector3 forward = Vector3.ProjectOnPlane(target.forward, Vector3.up);
+        float horizontalLength = forward.magnitude;
+        Vector3 flatRight = Vector3.ProjectOnPlane(target.right, Vector3.up);
+        Vector3 sideForward = flatRight.sqrMagnitude > 1e-6f
+            ? Vector3.Cross(flatRight.normalized, Vector3.up)
+            : _lastFlatForward;
+
+        // At vertical gaze, projected forward vanishes and then reverses. The
+        // headset's lateral axis remains usable. Blend before the singularity,
+        // preserving the legacy heading everywhere below a steep viewing angle.
+        if (horizontalLength < 0.1f)
+            forward = sideForward;
+        else
+        {
+            forward /= horizontalLength;
+            float blend = 1f - Mathf.SmoothStep(0f, 1f, Mathf.InverseLerp(0.1f, 0.25f, horizontalLength));
+            if (blend > 0f)
+            {
+                float angle = Vector3.SignedAngle(forward, sideForward, Vector3.up);
+                forward = Quaternion.AngleAxis(angle * blend, Vector3.up) * forward;
+            }
+        }
+        if (forward.sqrMagnitude < 1e-6f) return _lastFlatForward;
+        _lastFlatForward = forward.normalized;
+        return _lastFlatForward;
     }
 
     // Basic OVR presence check

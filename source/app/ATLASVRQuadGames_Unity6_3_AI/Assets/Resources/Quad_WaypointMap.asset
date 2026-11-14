@@ -1,0 +1,1937 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4e48061bc86fb54094e59e8c2347278, type: 3}
+  m_Name: Quad_WaypointMap
+  m_EditorClassIdentifier: Scripts::QuadWaypointMap
+  scenePath: Assets/Scenes/QuadProjectAlexanderLau.unity
+  overheadMap: {fileID: 2800000, guid: 7489f35c70d73024fa70a3f6623ea666, type: 3}
+  worldRect:
+    serializedVersion: 2
+    x: -450
+    y: -340
+    width: 630
+    height: 590
+  blockedRegions:
+  - serializedVersion: 2
+    x: -45.25907
+    y: 94.06293
+    width: 90.4494
+    height: 104.54639
+  - serializedVersion: 2
+    x: -106.597824
+    y: -95.04366
+    width: 56.781067
+    height: 65.37219
+  - serializedVersion: 2
+    x: 60.241318
+    y: -1.0842781
+    width: 62.611694
+    height: 70.91275
+  - serializedVersion: 2
+    x: -118.242935
+    y: 0.93745804
+    width: 69.59601
+    height: 60.1472
+  - serializedVersion: 2
+    x: 68.351166
+    y: -146.20937
+    width: 51.78424
+    height: 123.444
+  - serializedVersion: 2
+    x: 62.974808
+    y: -309.42703
+    width: 92.04962
+    height: 124.89038
+  - serializedVersion: 2
+    x: -61.17645
+    y: -139.82687
+    width: 23.009354
+    height: 28.38173
+  - serializedVersion: 2
+    x: -412.9791
+    y: -215.42896
+    width: 74.00629
+    height: 48.51831
+  nodes:
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: -232}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: -222.08}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: -212.16}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: -202.24}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: -232}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: -222.08}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: -212.16}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: -202.24}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: -195.29234}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: -188.34467}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: -181.397}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: -195.29234}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: -188.34467}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: -181.397}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: -174.26466}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: -167.13234}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: -160}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: -174.26466}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: -167.13234}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: -160}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: -154.91501}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: -149.83}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: -154.91501}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: -149.83}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: -141.76534}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: -133.70067}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: -125.636}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: -141.76534}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: -133.70067}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: -125.636}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: -118.718}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: -111.8}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: -118.718}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: -111.8}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: -102.69567}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: -93.59133}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: -84.487}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: -102.69567}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: -93.59133}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: -84.487}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: -77.57}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: -77.57}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: -70.16}
+  - name: West walkway
+    position: {x: -26.3, y: 0.05, z: -62.75}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: -70.16}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: -62.75}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: -53.856}
+  - name: local detour
+    position: {x: -25.313925, y: 0.05, z: -62.583694}
+  - name: local detour
+    position: {x: -26.813925, y: 0.05, z: -53.689693}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: -53.856}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: -45.8248}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: -37.7936}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: -29.762398}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: -21.7312}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: -13.7}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: -45.8248}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: -37.7936}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: -29.762398}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: -21.7312}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: -13.7}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: -7.47}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: -7.47}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: 2.15025}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: 11.7705}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: 21.390749}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: 31.011}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: 2.15025}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: 11.7705}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: 21.390749}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: 31.011}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: 33.05}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: 33.05}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: 34.372}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: 34.372}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: 35.95}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: 35.95}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: 45.86}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: 55.77}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: 65.68}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: 75.590004}
+  - name: West walkway
+    position: {x: -27.8, y: 0.05, z: 85.5}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: 45.86}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: 55.77}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: 65.68}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: 75.590004}
+  - name: East walkway
+    position: {x: 42.4, y: 0.05, z: 85.5}
+  - name: Cross walkway
+    position: {x: -19.025, y: 0.05, z: -111.8}
+  - name: Cross walkway
+    position: {x: -10.249999, y: 0.05, z: -111.8}
+  - name: Cross walkway
+    position: {x: -1.474999, y: 0.05, z: -111.8}
+  - name: Cross walkway
+    position: {x: 7.300001, y: 0.05, z: -111.8}
+  - name: Cross walkway
+    position: {x: 16.075, y: 0.05, z: -111.8}
+  - name: Cross walkway
+    position: {x: 24.850002, y: 0.05, z: -111.8}
+  - name: Cross walkway
+    position: {x: 33.625, y: 0.05, z: -111.8}
+  - name: Cross walkway
+    position: {x: -19.025, y: 0.05, z: -13.7}
+  - name: Cross walkway
+    position: {x: -10.249999, y: 0.05, z: -13.7}
+  - name: Cross walkway
+    position: {x: -1.474999, y: 0.05, z: -13.7}
+  - name: Cross walkway
+    position: {x: 7.300001, y: 0.05, z: -13.7}
+  - name: Cross walkway
+    position: {x: 16.075, y: 0.05, z: -13.7}
+  - name: Cross walkway
+    position: {x: 24.850002, y: 0.05, z: -13.7}
+  - name: Cross walkway
+    position: {x: 33.625, y: 0.05, z: -13.7}
+  - name: Cross walkway
+    position: {x: -19.025, y: 0.05, z: 85.5}
+  - name: Cross walkway
+    position: {x: -10.249999, y: 0.05, z: 85.5}
+  - name: Cross walkway
+    position: {x: -1.474999, y: 0.05, z: 86.25}
+  - name: Cross walkway
+    position: {x: 16.075, y: 0.05, z: 85.5}
+  - name: Cross walkway
+    position: {x: 24.850002, y: 0.05, z: 85.5}
+  - name: Cross walkway
+    position: {x: 33.625, y: 0.05, z: 85.5}
+  - name: North diagonal
+    position: {x: -22.785713, y: 0.05, z: 78.41428}
+  - name: North diagonal
+    position: {x: -17.771427, y: 0.05, z: 71.32857}
+  - name: North diagonal
+    position: {x: -12.757142, y: 0.05, z: 64.24286}
+  - name: North diagonal
+    position: {x: -7.742856, y: 0.05, z: 57.157143}
+  - name: North diagonal
+    position: {x: -2.7285705, y: 0.05, z: 50.07143}
+  - name: North diagonal
+    position: {x: 2.2857149, y: 0.05, z: 42.985714}
+  - name: North diagonal
+    position: {x: 7.3, y: 0.05, z: 35.9}
+  - name: North diagonal
+    position: {x: 37.385715, y: 0.05, z: 78.41428}
+  - name: North diagonal
+    position: {x: 32.37143, y: 0.05, z: 71.32857}
+  - name: North diagonal
+    position: {x: 27.357143, y: 0.05, z: 64.24286}
+  - name: North diagonal
+    position: {x: 22.342857, y: 0.05, z: 57.157143}
+  - name: North diagonal
+    position: {x: 17.328571, y: 0.05, z: 50.07143}
+  - name: North diagonal
+    position: {x: 12.314286, y: 0.05, z: 42.985714}
+  - name: North diagonal
+    position: {x: -22.785713, y: 0.05, z: -6.614285}
+  - name: North diagonal
+    position: {x: -17.771427, y: 0.05, z: 0.47142977}
+  - name: North diagonal
+    position: {x: -12.757142, y: 0.05, z: 7.5571437}
+  - name: North diagonal
+    position: {x: -7.742856, y: 0.05, z: 14.642859}
+  - name: North diagonal
+    position: {x: -2.7285705, y: 0.05, z: 21.728573}
+  - name: North diagonal
+    position: {x: 2.2857149, y: 0.05, z: 28.814287}
+  - name: North diagonal
+    position: {x: 37.385715, y: 0.05, z: -6.614285}
+  - name: North diagonal
+    position: {x: 32.37143, y: 0.05, z: 0.47142977}
+  - name: North diagonal
+    position: {x: 27.357143, y: 0.05, z: 7.5571437}
+  - name: North diagonal
+    position: {x: 12.314286, y: 0.05, z: 28.814287}
+  - name: South diagonal
+    position: {x: -22.785713, y: 0.05, z: -20.707144}
+  - name: South diagonal
+    position: {x: -17.771427, y: 0.05, z: -27.714287}
+  - name: South diagonal
+    position: {x: -12.757142, y: 0.05, z: -34.721428}
+  - name: South diagonal
+    position: {x: -7.742856, y: 0.05, z: -41.728573}
+  - name: local detour
+    position: {x: -10.317455, y: 0.05, z: -32.975597}
+  - name: local detour
+    position: {x: -5.303169, y: 0.05, z: -39.982742}
+  - name: South diagonal
+    position: {x: -2.7285705, y: 0.05, z: -48.735714}
+  - name: South diagonal
+    position: {x: 2.2857149, y: 0.05, z: -55.74286}
+  - name: South diagonal
+    position: {x: 7.3, y: 0.05, z: -62.75}
+  - name: South diagonal
+    position: {x: 37.385715, y: 0.05, z: -20.707144}
+  - name: South diagonal
+    position: {x: 32.37143, y: 0.05, z: -27.714287}
+  - name: South diagonal
+    position: {x: 27.357143, y: 0.05, z: -34.721428}
+  - name: South diagonal
+    position: {x: 22.342857, y: 0.05, z: -41.728573}
+  - name: South diagonal
+    position: {x: 17.328571, y: 0.05, z: -48.735714}
+  - name: South diagonal
+    position: {x: 12.314286, y: 0.05, z: -55.74286}
+  - name: South diagonal
+    position: {x: -22.785713, y: 0.05, z: -104.79286}
+  - name: South diagonal
+    position: {x: -17.771427, y: 0.05, z: -97.78571}
+  - name: South diagonal
+    position: {x: -12.757142, y: 0.05, z: -90.77857}
+  - name: South diagonal
+    position: {x: -7.742856, y: 0.05, z: -83.77143}
+  - name: South diagonal
+    position: {x: -2.7285705, y: 0.05, z: -76.76428}
+  - name: South diagonal
+    position: {x: 2.2857149, y: 0.05, z: -69.75714}
+  - name: South diagonal
+    position: {x: 37.385715, y: 0.05, z: -104.79286}
+  - name: South diagonal
+    position: {x: 32.37143, y: 0.05, z: -97.78571}
+  - name: South diagonal
+    position: {x: 27.357143, y: 0.05, z: -90.77857}
+  - name: South diagonal
+    position: {x: 22.342857, y: 0.05, z: -83.77143}
+  - name: South diagonal
+    position: {x: 17.328571, y: 0.05, z: -76.76428}
+  - name: South diagonal
+    position: {x: 12.314286, y: 0.05, z: -69.75714}
+  - name: Union west approach
+    position: {x: -37.333332, y: 0.05, z: 85.5}
+  - name: Union west approach
+    position: {x: -46.866665, y: 0.05, z: 85.5}
+  - name: Union west approach
+    position: {x: -56.4, y: 0.05, z: 85.5}
+  - name: Union west approach
+    position: {x: -65.933334, y: 0.05, z: 85.5}
+  - name: Union west approach
+    position: {x: -75.46667, y: 0.05, z: 85.5}
+  - name: Union west approach
+    position: {x: -85, y: 0.05, z: 85.5}
+  - name: Union west perimeter
+    position: {x: -85, y: 0.05, z: 95.24077}
+  - name: Union west perimeter
+    position: {x: -85, y: 0.05, z: 104.98154}
+  - name: Union west perimeter
+    position: {x: -85, y: 0.05, z: 114.722305}
+  - name: Union west perimeter
+    position: {x: -85, y: 0.05, z: 124.46308}
+  - name: Union west perimeter
+    position: {x: -85, y: 0.05, z: 134.20384}
+  - name: Union west perimeter
+    position: {x: -85, y: 0.05, z: 143.94461}
+  - name: Union west perimeter
+    position: {x: -85, y: 0.05, z: 153.6854}
+  - name: Union west perimeter
+    position: {x: -85, y: 0.05, z: 163.42616}
+  - name: Union west perimeter
+    position: {x: -85, y: 0.05, z: 173.16693}
+  - name: Union west perimeter
+    position: {x: -85, y: 0.05, z: 182.9077}
+  - name: Union west perimeter
+    position: {x: -85, y: 0.05, z: 192.64847}
+  - name: Union west perimeter
+    position: {x: -85, y: 0.05, z: 202.38924}
+  - name: Union west perimeter
+    position: {x: -85, y: 0.05, z: 212.13}
+  - name: Green Street
+    position: {x: -75.043335, y: 0.05, z: 212.13}
+  - name: Green Street
+    position: {x: -65.08667, y: 0.05, z: 212.13}
+  - name: Green Street
+    position: {x: -55.129997, y: 0.05, z: 212.13}
+  - name: Green Street
+    position: {x: -45.173332, y: 0.05, z: 212.13}
+  - name: Green Street
+    position: {x: -35.216663, y: 0.05, z: 212.13}
+  - name: Green Street
+    position: {x: -25.259998, y: 0.05, z: 212.13}
+  - name: Green Street
+    position: {x: -15.303332, y: 0.05, z: 212.13}
+  - name: Green Street
+    position: {x: -5.346666, y: 0.05, z: 212.13}
+  - name: Green Street
+    position: {x: 4.61, y: 0.05, z: 212.13}
+  - name: Green Street
+    position: {x: 14.38, y: 0.05, z: 212.13}
+  - name: Green Street
+    position: {x: 24.150002, y: 0.05, z: 212.13}
+  - name: Green Street
+    position: {x: 33.920002, y: 0.05, z: 212.13}
+  - name: Green Street
+    position: {x: 43.690002, y: 0.05, z: 212.13}
+  - name: Green Street
+    position: {x: 53.460003, y: 0.05, z: 212.13}
+  - name: Green Street
+    position: {x: 63.229996, y: 0.05, z: 212.13}
+  - name: Green Street
+    position: {x: 73, y: 0.05, z: 212.13}
+  - name: Mammoth walkway
+    position: {x: 42.4, y: 0.05, z: 87.79}
+  - name: Mammoth walkway
+    position: {x: 52.11, y: 0.05, z: 87.79}
+  - name: local detour
+    position: {x: 42.4, y: 0.05, z: 81.79}
+  - name: local detour
+    position: {x: 52.11, y: 0.05, z: 81.79}
+  - name: Mammoth walkway
+    position: {x: 61.820004, y: 0.05, z: 87.79}
+  - name: Mammoth walkway
+    position: {x: 71.53, y: 0.05, z: 87.79}
+  - name: Mammoth walkway
+    position: {x: 81.240005, y: 0.05, z: 87.79}
+  - name: Mammoth walkway
+    position: {x: 90.950005, y: 0.05, z: 87.79}
+  - name: Mammoth walkway
+    position: {x: 100.66, y: 0.05, z: 87.79}
+  - name: West campus connector
+    position: {x: -36.5, y: 0.05, z: -160}
+  - name: West campus connector
+    position: {x: -45.2, y: 0.05, z: -160}
+  - name: West campus connector
+    position: {x: -53.9, y: 0.05, z: -160}
+  - name: West campus connector
+    position: {x: -62.600002, y: 0.05, z: -160}
+  - name: West campus connector
+    position: {x: -71.299995, y: 0.05, z: -160}
+  - name: West campus connector
+    position: {x: -80, y: 0.05, z: -160}
+  - name: West campus connector
+    position: {x: -88, y: 0.05, z: -163}
+  - name: West campus connector
+    position: {x: -96, y: 0.05, z: -166}
+  - name: West campus connector
+    position: {x: -104, y: 0.05, z: -169}
+  - name: West campus connector
+    position: {x: -112, y: 0.05, z: -172}
+  - name: West campus connector
+    position: {x: -120, y: 0.05, z: -175}
+  - name: West campus connector
+    position: {x: -130, y: 0.05, z: -175}
+  - name: West campus connector
+    position: {x: -140, y: 0.05, z: -175}
+  - name: West campus connector
+    position: {x: -150, y: 0.05, z: -175}
+  - name: West campus connector
+    position: {x: -160, y: 0.05, z: -175}
+  - name: West campus connector
+    position: {x: -170, y: 0.05, z: -175}
+  - name: West campus connector
+    position: {x: -180, y: 0.05, z: -175}
+  - name: West campus connector
+    position: {x: -190, y: 0.05, z: -175}
+  - name: West campus connector
+    position: {x: -200, y: 0.05, z: -175}
+  - name: West campus connector
+    position: {x: -210, y: 0.05, z: -175}
+  - name: West campus connector
+    position: {x: -220, y: 0.05, z: -175}
+  - name: West campus connector
+    position: {x: -230, y: 0.05, z: -175}
+  - name: West campus connector
+    position: {x: -240, y: 0.05, z: -175}
+  - name: West campus connector
+    position: {x: -250, y: 0.05, z: -175}
+  - name: West campus connector
+    position: {x: -260, y: 0.05, z: -175}
+  - name: West campus connector
+    position: {x: -270, y: 0.05, z: -175}
+  - name: West campus connector
+    position: {x: -280, y: 0.05, z: -175}
+  - name: West campus connector
+    position: {x: -290, y: 0.05, z: -175}
+  - name: West campus connector
+    position: {x: -300, y: 0.05, z: -175}
+  - name: Foreign Languages approach
+    position: {x: -307.5, y: 0.05, z: -179.0425}
+  - name: Foreign Languages approach
+    position: {x: -315, y: 0.05, z: -183.08499}
+  - name: Foreign Languages approach
+    position: {x: -322.5, y: 0.05, z: -187.1275}
+  - name: Foreign Languages approach
+    position: {x: -330, y: 0.05, z: -191.17}
+  - name: Alma Mater
+    position: {x: -19.391598, y: 0.05, z: -68.97718}
+  - name: Lincoln Statue Big
+    position: {x: -32.15, y: 0.05, z: -149.83}
+  - name: Lincoln Statue Small
+    position: {x: -30.474602, y: 0.05, z: -54.7545}
+  - name: Illini Union
+    position: {x: -20, y: 0.05, z: 85.5}
+  - name: English Building
+    position: {x: -47.816757, y: 0.05, z: -62.357567}
+  - name: local detour
+    position: {x: -47.45358, y: 0.05, z: -61.425846}
+  - name: local detour
+    position: {x: -40.781326, y: 0.05, z: -64.02666}
+  - name: local detour
+    position: {x: -34.109074, y: 0.05, z: -66.62747}
+  - name: local detour
+    position: {x: -27.43682, y: 0.05, z: -69.22829}
+  - name: Noyes Laboratory
+    position: {x: 58.241318, y: 0.05, z: 34.372097}
+  - name: Henry Administration Building
+    position: {x: -46.64693, y: 0.05, z: 31.011059}
+  - name: local detour
+    position: {x: -46.646935, y: 0.05, z: 30.011059}
+  - name: local detour
+    position: {x: -37.22347, y: 0.05, z: 30.011028}
+  - name: local detour
+    position: {x: -27.800003, y: 0.05, z: 30.011}
+  - name: Wohlers Hall
+    position: {x: 66.351166, y: 0.05, z: -84.487366}
+  - name: Main Library
+    position: {x: 60.974808, y: 0.05, z: -246.98184}
+  - name: Colonel Wolf School
+    position: {x: -36.167095, y: 0.05, z: -125.63601}
+  - name: Foreign Languages Building
+    position: {x: -336.9728, y: 0.05, z: -191.1698}
+  - name: Archery Range
+    position: {x: 8.101, y: 0.05, z: -181.39699}
+  - name: Mammoth Tag
+    position: {x: 100.65927, y: 0.05, z: 86.43003}
+  - name: Block Snap Game
+    position: {x: -43.369698, y: 0.05, z: -53.85568}
+  - name: Parkour Entrance
+    position: {x: -41.955444, y: 0.05, z: 33.05}
+  - name: Scavenger Hunt Start
+    position: {x: 10.503485, y: 0.05, z: -202.24}
+  - name: Goose Sculpture
+    position: {x: 18.997784, y: 0.05, z: -7.470476}
+  - name: Green Street
+    position: {x: 4.611433, y: 0.05, z: 216.52075}
+  - name: Quad Respawn Point
+    position: {x: -38.88, y: 0.05, z: -83.95}
+  edges:
+  - from: 0
+    to: 1
+    corners:
+    - {x: -27.8, y: 0.05, z: -232}
+    - {x: -27.8, y: 0.05, z: -222.08}
+  - from: 1
+    to: 2
+    corners:
+    - {x: -27.8, y: 0.05, z: -222.08}
+    - {x: -27.8, y: 0.05, z: -212.16}
+  - from: 2
+    to: 3
+    corners:
+    - {x: -27.8, y: 0.05, z: -212.16}
+    - {x: -27.8, y: 0.05, z: -202.24}
+  - from: 4
+    to: 5
+    corners:
+    - {x: 42.4, y: 0.05, z: -232}
+    - {x: 42.4, y: 0.05, z: -222.08}
+  - from: 5
+    to: 6
+    corners:
+    - {x: 42.4, y: 0.05, z: -222.08}
+    - {x: 42.4, y: 0.05, z: -212.16}
+  - from: 6
+    to: 7
+    corners:
+    - {x: 42.4, y: 0.05, z: -212.16}
+    - {x: 42.4, y: 0.05, z: -202.24}
+  - from: 3
+    to: 8
+    corners:
+    - {x: -27.8, y: 0.05, z: -202.24}
+    - {x: -27.8, y: 0.05, z: -195.29234}
+  - from: 8
+    to: 9
+    corners:
+    - {x: -27.8, y: 0.05, z: -195.29234}
+    - {x: -27.8, y: 0.05, z: -188.34467}
+  - from: 9
+    to: 10
+    corners:
+    - {x: -27.8, y: 0.05, z: -188.34467}
+    - {x: -27.8, y: 0.05, z: -181.397}
+  - from: 7
+    to: 11
+    corners:
+    - {x: 42.4, y: 0.05, z: -202.24}
+    - {x: 42.4, y: 0.05, z: -195.29234}
+  - from: 11
+    to: 12
+    corners:
+    - {x: 42.4, y: 0.05, z: -195.29234}
+    - {x: 42.4, y: 0.05, z: -188.34467}
+  - from: 12
+    to: 13
+    corners:
+    - {x: 42.4, y: 0.05, z: -188.34467}
+    - {x: 42.4, y: 0.05, z: -181.397}
+  - from: 10
+    to: 14
+    corners:
+    - {x: -27.8, y: 0.05, z: -181.397}
+    - {x: -27.8, y: 0.05, z: -174.26466}
+  - from: 14
+    to: 15
+    corners:
+    - {x: -27.8, y: 0.05, z: -174.26466}
+    - {x: -27.8, y: 0.05, z: -167.13234}
+  - from: 15
+    to: 16
+    corners:
+    - {x: -27.8, y: 0.05, z: -167.13234}
+    - {x: -27.8, y: 0.05, z: -160}
+  - from: 13
+    to: 17
+    corners:
+    - {x: 42.4, y: 0.05, z: -181.397}
+    - {x: 42.4, y: 0.05, z: -174.26466}
+  - from: 17
+    to: 18
+    corners:
+    - {x: 42.4, y: 0.05, z: -174.26466}
+    - {x: 42.4, y: 0.05, z: -167.13234}
+  - from: 18
+    to: 19
+    corners:
+    - {x: 42.4, y: 0.05, z: -167.13234}
+    - {x: 42.4, y: 0.05, z: -160}
+  - from: 16
+    to: 20
+    corners:
+    - {x: -27.8, y: 0.05, z: -160}
+    - {x: -27.8, y: 0.05, z: -154.91501}
+  - from: 20
+    to: 21
+    corners:
+    - {x: -27.8, y: 0.05, z: -154.91501}
+    - {x: -27.8, y: 0.05, z: -149.83}
+  - from: 19
+    to: 22
+    corners:
+    - {x: 42.4, y: 0.05, z: -160}
+    - {x: 42.4, y: 0.05, z: -154.91501}
+  - from: 22
+    to: 23
+    corners:
+    - {x: 42.4, y: 0.05, z: -154.91501}
+    - {x: 42.4, y: 0.05, z: -149.83}
+  - from: 21
+    to: 24
+    corners:
+    - {x: -27.8, y: 0.05, z: -149.83}
+    - {x: -27.8, y: 0.05, z: -141.76534}
+  - from: 24
+    to: 25
+    corners:
+    - {x: -27.8, y: 0.05, z: -141.76534}
+    - {x: -27.8, y: 0.05, z: -133.70067}
+  - from: 25
+    to: 26
+    corners:
+    - {x: -27.8, y: 0.05, z: -133.70067}
+    - {x: -27.8, y: 0.05, z: -125.636}
+  - from: 23
+    to: 27
+    corners:
+    - {x: 42.4, y: 0.05, z: -149.83}
+    - {x: 42.4, y: 0.05, z: -141.76534}
+  - from: 27
+    to: 28
+    corners:
+    - {x: 42.4, y: 0.05, z: -141.76534}
+    - {x: 42.4, y: 0.05, z: -133.70067}
+  - from: 28
+    to: 29
+    corners:
+    - {x: 42.4, y: 0.05, z: -133.70067}
+    - {x: 42.4, y: 0.05, z: -125.636}
+  - from: 26
+    to: 30
+    corners:
+    - {x: -27.8, y: 0.05, z: -125.636}
+    - {x: -27.8, y: 0.05, z: -118.718}
+  - from: 30
+    to: 31
+    corners:
+    - {x: -27.8, y: 0.05, z: -118.718}
+    - {x: -27.8, y: 0.05, z: -111.8}
+  - from: 29
+    to: 32
+    corners:
+    - {x: 42.4, y: 0.05, z: -125.636}
+    - {x: 42.4, y: 0.05, z: -118.718}
+  - from: 32
+    to: 33
+    corners:
+    - {x: 42.4, y: 0.05, z: -118.718}
+    - {x: 42.4, y: 0.05, z: -111.8}
+  - from: 31
+    to: 34
+    corners:
+    - {x: -27.8, y: 0.05, z: -111.8}
+    - {x: -27.8, y: 0.05, z: -102.69567}
+  - from: 34
+    to: 35
+    corners:
+    - {x: -27.8, y: 0.05, z: -102.69567}
+    - {x: -27.8, y: 0.05, z: -93.59133}
+  - from: 35
+    to: 36
+    corners:
+    - {x: -27.8, y: 0.05, z: -93.59133}
+    - {x: -27.8, y: 0.05, z: -84.487}
+  - from: 33
+    to: 37
+    corners:
+    - {x: 42.4, y: 0.05, z: -111.8}
+    - {x: 42.4, y: 0.05, z: -102.69567}
+  - from: 37
+    to: 38
+    corners:
+    - {x: 42.4, y: 0.05, z: -102.69567}
+    - {x: 42.4, y: 0.05, z: -93.59133}
+  - from: 38
+    to: 39
+    corners:
+    - {x: 42.4, y: 0.05, z: -93.59133}
+    - {x: 42.4, y: 0.05, z: -84.487}
+  - from: 36
+    to: 40
+    corners:
+    - {x: -27.8, y: 0.05, z: -84.487}
+    - {x: -27.8, y: 0.05, z: -77.57}
+  - from: 39
+    to: 41
+    corners:
+    - {x: 42.4, y: 0.05, z: -84.487}
+    - {x: 42.4, y: 0.05, z: -77.57}
+  - from: 40
+    to: 42
+    corners:
+    - {x: -27.8, y: 0.05, z: -77.57}
+    - {x: -27.8, y: 0.05, z: -70.16}
+  - from: 41
+    to: 44
+    corners:
+    - {x: 42.4, y: 0.05, z: -77.57}
+    - {x: 42.4, y: 0.05, z: -70.16}
+  - from: 44
+    to: 45
+    corners:
+    - {x: 42.4, y: 0.05, z: -70.16}
+    - {x: 42.4, y: 0.05, z: -62.75}
+  - from: 43
+    to: 47
+    corners:
+    - {x: -26.3, y: 0.05, z: -62.75}
+    - {x: -25.313925, y: 0.05, z: -62.583694}
+  - from: 47
+    to: 48
+    corners:
+    - {x: -25.313925, y: 0.05, z: -62.583694}
+    - {x: -26.813925, y: 0.05, z: -53.689693}
+  - from: 48
+    to: 46
+    corners:
+    - {x: -26.813925, y: 0.05, z: -53.689693}
+    - {x: -27.8, y: 0.05, z: -53.856}
+  - from: 45
+    to: 49
+    corners:
+    - {x: 42.4, y: 0.05, z: -62.75}
+    - {x: 42.4, y: 0.05, z: -53.856}
+  - from: 46
+    to: 50
+    corners:
+    - {x: -27.8, y: 0.05, z: -53.856}
+    - {x: -27.8, y: 0.05, z: -45.8248}
+  - from: 50
+    to: 51
+    corners:
+    - {x: -27.8, y: 0.05, z: -45.8248}
+    - {x: -27.8, y: 0.05, z: -37.7936}
+  - from: 51
+    to: 52
+    corners:
+    - {x: -27.8, y: 0.05, z: -37.7936}
+    - {x: -27.8, y: 0.05, z: -29.762398}
+  - from: 52
+    to: 53
+    corners:
+    - {x: -27.8, y: 0.05, z: -29.762398}
+    - {x: -27.8, y: 0.05, z: -21.7312}
+  - from: 53
+    to: 54
+    corners:
+    - {x: -27.8, y: 0.05, z: -21.7312}
+    - {x: -27.8, y: 0.05, z: -13.7}
+  - from: 49
+    to: 55
+    corners:
+    - {x: 42.4, y: 0.05, z: -53.856}
+    - {x: 42.4, y: 0.05, z: -45.8248}
+  - from: 55
+    to: 56
+    corners:
+    - {x: 42.4, y: 0.05, z: -45.8248}
+    - {x: 42.4, y: 0.05, z: -37.7936}
+  - from: 56
+    to: 57
+    corners:
+    - {x: 42.4, y: 0.05, z: -37.7936}
+    - {x: 42.4, y: 0.05, z: -29.762398}
+  - from: 57
+    to: 58
+    corners:
+    - {x: 42.4, y: 0.05, z: -29.762398}
+    - {x: 42.4, y: 0.05, z: -21.7312}
+  - from: 58
+    to: 59
+    corners:
+    - {x: 42.4, y: 0.05, z: -21.7312}
+    - {x: 42.4, y: 0.05, z: -13.7}
+  - from: 54
+    to: 60
+    corners:
+    - {x: -27.8, y: 0.05, z: -13.7}
+    - {x: -27.8, y: 0.05, z: -7.47}
+  - from: 59
+    to: 61
+    corners:
+    - {x: 42.4, y: 0.05, z: -13.7}
+    - {x: 42.4, y: 0.05, z: -7.47}
+  - from: 60
+    to: 62
+    corners:
+    - {x: -27.8, y: 0.05, z: -7.47}
+    - {x: -27.8, y: 0.05, z: 2.15025}
+  - from: 62
+    to: 63
+    corners:
+    - {x: -27.8, y: 0.05, z: 2.15025}
+    - {x: -27.8, y: 0.05, z: 11.7705}
+  - from: 63
+    to: 64
+    corners:
+    - {x: -27.8, y: 0.05, z: 11.7705}
+    - {x: -27.8, y: 0.05, z: 21.390749}
+  - from: 64
+    to: 65
+    corners:
+    - {x: -27.8, y: 0.05, z: 21.390749}
+    - {x: -27.8, y: 0.05, z: 31.011}
+  - from: 61
+    to: 66
+    corners:
+    - {x: 42.4, y: 0.05, z: -7.47}
+    - {x: 42.4, y: 0.05, z: 2.15025}
+  - from: 66
+    to: 67
+    corners:
+    - {x: 42.4, y: 0.05, z: 2.15025}
+    - {x: 42.4, y: 0.05, z: 11.7705}
+  - from: 67
+    to: 68
+    corners:
+    - {x: 42.4, y: 0.05, z: 11.7705}
+    - {x: 42.4, y: 0.05, z: 21.390749}
+  - from: 68
+    to: 69
+    corners:
+    - {x: 42.4, y: 0.05, z: 21.390749}
+    - {x: 42.4, y: 0.05, z: 31.011}
+  - from: 65
+    to: 70
+    corners:
+    - {x: -27.8, y: 0.05, z: 31.011}
+    - {x: -27.8, y: 0.05, z: 33.05}
+  - from: 69
+    to: 71
+    corners:
+    - {x: 42.4, y: 0.05, z: 31.011}
+    - {x: 42.4, y: 0.05, z: 33.05}
+  - from: 70
+    to: 72
+    corners:
+    - {x: -27.8, y: 0.05, z: 33.05}
+    - {x: -27.8, y: 0.05, z: 34.372}
+  - from: 71
+    to: 73
+    corners:
+    - {x: 42.4, y: 0.05, z: 33.05}
+    - {x: 42.4, y: 0.05, z: 34.372}
+  - from: 72
+    to: 74
+    corners:
+    - {x: -27.8, y: 0.05, z: 34.372}
+    - {x: -27.8, y: 0.05, z: 35.95}
+  - from: 73
+    to: 75
+    corners:
+    - {x: 42.4, y: 0.05, z: 34.372}
+    - {x: 42.4, y: 0.05, z: 35.95}
+  - from: 74
+    to: 76
+    corners:
+    - {x: -27.8, y: 0.05, z: 35.95}
+    - {x: -27.8, y: 0.05, z: 45.86}
+  - from: 76
+    to: 77
+    corners:
+    - {x: -27.8, y: 0.05, z: 45.86}
+    - {x: -27.8, y: 0.05, z: 55.77}
+  - from: 77
+    to: 78
+    corners:
+    - {x: -27.8, y: 0.05, z: 55.77}
+    - {x: -27.8, y: 0.05, z: 65.68}
+  - from: 78
+    to: 79
+    corners:
+    - {x: -27.8, y: 0.05, z: 65.68}
+    - {x: -27.8, y: 0.05, z: 75.590004}
+  - from: 79
+    to: 80
+    corners:
+    - {x: -27.8, y: 0.05, z: 75.590004}
+    - {x: -27.8, y: 0.05, z: 85.5}
+  - from: 75
+    to: 81
+    corners:
+    - {x: 42.4, y: 0.05, z: 35.95}
+    - {x: 42.4, y: 0.05, z: 45.86}
+  - from: 81
+    to: 82
+    corners:
+    - {x: 42.4, y: 0.05, z: 45.86}
+    - {x: 42.4, y: 0.05, z: 55.77}
+  - from: 82
+    to: 83
+    corners:
+    - {x: 42.4, y: 0.05, z: 55.77}
+    - {x: 42.4, y: 0.05, z: 65.68}
+  - from: 83
+    to: 84
+    corners:
+    - {x: 42.4, y: 0.05, z: 65.68}
+    - {x: 42.4, y: 0.05, z: 75.590004}
+  - from: 84
+    to: 85
+    corners:
+    - {x: 42.4, y: 0.05, z: 75.590004}
+    - {x: 42.4, y: 0.05, z: 85.5}
+  - from: 31
+    to: 86
+    corners:
+    - {x: -27.8, y: 0.05, z: -111.8}
+    - {x: -19.025, y: 0.05, z: -111.8}
+  - from: 86
+    to: 87
+    corners:
+    - {x: -19.025, y: 0.05, z: -111.8}
+    - {x: -10.249999, y: 0.05, z: -111.8}
+  - from: 87
+    to: 88
+    corners:
+    - {x: -10.249999, y: 0.05, z: -111.8}
+    - {x: -1.474999, y: 0.05, z: -111.8}
+  - from: 88
+    to: 89
+    corners:
+    - {x: -1.474999, y: 0.05, z: -111.8}
+    - {x: 7.300001, y: 0.05, z: -111.8}
+  - from: 89
+    to: 90
+    corners:
+    - {x: 7.300001, y: 0.05, z: -111.8}
+    - {x: 16.075, y: 0.05, z: -111.8}
+  - from: 90
+    to: 91
+    corners:
+    - {x: 16.075, y: 0.05, z: -111.8}
+    - {x: 24.850002, y: 0.05, z: -111.8}
+  - from: 91
+    to: 92
+    corners:
+    - {x: 24.850002, y: 0.05, z: -111.8}
+    - {x: 33.625, y: 0.05, z: -111.8}
+  - from: 92
+    to: 33
+    corners:
+    - {x: 33.625, y: 0.05, z: -111.8}
+    - {x: 42.4, y: 0.05, z: -111.8}
+  - from: 54
+    to: 93
+    corners:
+    - {x: -27.8, y: 0.05, z: -13.7}
+    - {x: -19.025, y: 0.05, z: -13.7}
+  - from: 93
+    to: 94
+    corners:
+    - {x: -19.025, y: 0.05, z: -13.7}
+    - {x: -10.249999, y: 0.05, z: -13.7}
+  - from: 94
+    to: 95
+    corners:
+    - {x: -10.249999, y: 0.05, z: -13.7}
+    - {x: -1.474999, y: 0.05, z: -13.7}
+  - from: 95
+    to: 96
+    corners:
+    - {x: -1.474999, y: 0.05, z: -13.7}
+    - {x: 7.300001, y: 0.05, z: -13.7}
+  - from: 96
+    to: 97
+    corners:
+    - {x: 7.300001, y: 0.05, z: -13.7}
+    - {x: 16.075, y: 0.05, z: -13.7}
+  - from: 97
+    to: 98
+    corners:
+    - {x: 16.075, y: 0.05, z: -13.7}
+    - {x: 24.850002, y: 0.05, z: -13.7}
+  - from: 98
+    to: 99
+    corners:
+    - {x: 24.850002, y: 0.05, z: -13.7}
+    - {x: 33.625, y: 0.05, z: -13.7}
+  - from: 99
+    to: 59
+    corners:
+    - {x: 33.625, y: 0.05, z: -13.7}
+    - {x: 42.4, y: 0.05, z: -13.7}
+  - from: 80
+    to: 100
+    corners:
+    - {x: -27.8, y: 0.05, z: 85.5}
+    - {x: -19.025, y: 0.05, z: 85.5}
+  - from: 100
+    to: 101
+    corners:
+    - {x: -19.025, y: 0.05, z: 85.5}
+    - {x: -10.249999, y: 0.05, z: 85.5}
+  - from: 101
+    to: 102
+    corners:
+    - {x: -10.249999, y: 0.05, z: 85.5}
+    - {x: -1.474999, y: 0.05, z: 86.25}
+  - from: 103
+    to: 104
+    corners:
+    - {x: 16.075, y: 0.05, z: 85.5}
+    - {x: 24.850002, y: 0.05, z: 85.5}
+  - from: 104
+    to: 105
+    corners:
+    - {x: 24.850002, y: 0.05, z: 85.5}
+    - {x: 33.625, y: 0.05, z: 85.5}
+  - from: 105
+    to: 85
+    corners:
+    - {x: 33.625, y: 0.05, z: 85.5}
+    - {x: 42.4, y: 0.05, z: 85.5}
+  - from: 80
+    to: 106
+    corners:
+    - {x: -27.8, y: 0.05, z: 85.5}
+    - {x: -22.785713, y: 0.05, z: 78.41428}
+  - from: 106
+    to: 107
+    corners:
+    - {x: -22.785713, y: 0.05, z: 78.41428}
+    - {x: -17.771427, y: 0.05, z: 71.32857}
+  - from: 107
+    to: 108
+    corners:
+    - {x: -17.771427, y: 0.05, z: 71.32857}
+    - {x: -12.757142, y: 0.05, z: 64.24286}
+  - from: 108
+    to: 109
+    corners:
+    - {x: -12.757142, y: 0.05, z: 64.24286}
+    - {x: -7.742856, y: 0.05, z: 57.157143}
+  - from: 109
+    to: 110
+    corners:
+    - {x: -7.742856, y: 0.05, z: 57.157143}
+    - {x: -2.7285705, y: 0.05, z: 50.07143}
+  - from: 110
+    to: 111
+    corners:
+    - {x: -2.7285705, y: 0.05, z: 50.07143}
+    - {x: 2.2857149, y: 0.05, z: 42.985714}
+  - from: 111
+    to: 112
+    corners:
+    - {x: 2.2857149, y: 0.05, z: 42.985714}
+    - {x: 7.3, y: 0.05, z: 35.9}
+  - from: 85
+    to: 113
+    corners:
+    - {x: 42.4, y: 0.05, z: 85.5}
+    - {x: 37.385715, y: 0.05, z: 78.41428}
+  - from: 113
+    to: 114
+    corners:
+    - {x: 37.385715, y: 0.05, z: 78.41428}
+    - {x: 32.37143, y: 0.05, z: 71.32857}
+  - from: 114
+    to: 115
+    corners:
+    - {x: 32.37143, y: 0.05, z: 71.32857}
+    - {x: 27.357143, y: 0.05, z: 64.24286}
+  - from: 115
+    to: 116
+    corners:
+    - {x: 27.357143, y: 0.05, z: 64.24286}
+    - {x: 22.342857, y: 0.05, z: 57.157143}
+  - from: 116
+    to: 117
+    corners:
+    - {x: 22.342857, y: 0.05, z: 57.157143}
+    - {x: 17.328571, y: 0.05, z: 50.07143}
+  - from: 117
+    to: 118
+    corners:
+    - {x: 17.328571, y: 0.05, z: 50.07143}
+    - {x: 12.314286, y: 0.05, z: 42.985714}
+  - from: 118
+    to: 112
+    corners:
+    - {x: 12.314286, y: 0.05, z: 42.985714}
+    - {x: 7.3, y: 0.05, z: 35.9}
+  - from: 54
+    to: 119
+    corners:
+    - {x: -27.8, y: 0.05, z: -13.7}
+    - {x: -22.785713, y: 0.05, z: -6.614285}
+  - from: 119
+    to: 120
+    corners:
+    - {x: -22.785713, y: 0.05, z: -6.614285}
+    - {x: -17.771427, y: 0.05, z: 0.47142977}
+  - from: 120
+    to: 121
+    corners:
+    - {x: -17.771427, y: 0.05, z: 0.47142977}
+    - {x: -12.757142, y: 0.05, z: 7.5571437}
+  - from: 121
+    to: 122
+    corners:
+    - {x: -12.757142, y: 0.05, z: 7.5571437}
+    - {x: -7.742856, y: 0.05, z: 14.642859}
+  - from: 122
+    to: 123
+    corners:
+    - {x: -7.742856, y: 0.05, z: 14.642859}
+    - {x: -2.7285705, y: 0.05, z: 21.728573}
+  - from: 123
+    to: 124
+    corners:
+    - {x: -2.7285705, y: 0.05, z: 21.728573}
+    - {x: 2.2857149, y: 0.05, z: 28.814287}
+  - from: 124
+    to: 112
+    corners:
+    - {x: 2.2857149, y: 0.05, z: 28.814287}
+    - {x: 7.3, y: 0.05, z: 35.9}
+  - from: 59
+    to: 125
+    corners:
+    - {x: 42.4, y: 0.05, z: -13.7}
+    - {x: 37.385715, y: 0.05, z: -6.614285}
+  - from: 125
+    to: 126
+    corners:
+    - {x: 37.385715, y: 0.05, z: -6.614285}
+    - {x: 32.37143, y: 0.05, z: 0.47142977}
+  - from: 126
+    to: 127
+    corners:
+    - {x: 32.37143, y: 0.05, z: 0.47142977}
+    - {x: 27.357143, y: 0.05, z: 7.5571437}
+  - from: 128
+    to: 112
+    corners:
+    - {x: 12.314286, y: 0.05, z: 28.814287}
+    - {x: 7.3, y: 0.05, z: 35.9}
+  - from: 54
+    to: 129
+    corners:
+    - {x: -27.8, y: 0.05, z: -13.7}
+    - {x: -22.785713, y: 0.05, z: -20.707144}
+  - from: 129
+    to: 130
+    corners:
+    - {x: -22.785713, y: 0.05, z: -20.707144}
+    - {x: -17.771427, y: 0.05, z: -27.714287}
+  - from: 130
+    to: 131
+    corners:
+    - {x: -17.771427, y: 0.05, z: -27.714287}
+    - {x: -12.757142, y: 0.05, z: -34.721428}
+  - from: 131
+    to: 133
+    corners:
+    - {x: -12.757142, y: 0.05, z: -34.721428}
+    - {x: -10.317455, y: 0.05, z: -32.975597}
+  - from: 133
+    to: 134
+    corners:
+    - {x: -10.317455, y: 0.05, z: -32.975597}
+    - {x: -5.303169, y: 0.05, z: -39.982742}
+  - from: 134
+    to: 132
+    corners:
+    - {x: -5.303169, y: 0.05, z: -39.982742}
+    - {x: -7.742856, y: 0.05, z: -41.728573}
+  - from: 132
+    to: 135
+    corners:
+    - {x: -7.742856, y: 0.05, z: -41.728573}
+    - {x: -2.7285705, y: 0.05, z: -48.735714}
+  - from: 135
+    to: 136
+    corners:
+    - {x: -2.7285705, y: 0.05, z: -48.735714}
+    - {x: 2.2857149, y: 0.05, z: -55.74286}
+  - from: 136
+    to: 137
+    corners:
+    - {x: 2.2857149, y: 0.05, z: -55.74286}
+    - {x: 7.3, y: 0.05, z: -62.75}
+  - from: 59
+    to: 138
+    corners:
+    - {x: 42.4, y: 0.05, z: -13.7}
+    - {x: 37.385715, y: 0.05, z: -20.707144}
+  - from: 138
+    to: 139
+    corners:
+    - {x: 37.385715, y: 0.05, z: -20.707144}
+    - {x: 32.37143, y: 0.05, z: -27.714287}
+  - from: 139
+    to: 140
+    corners:
+    - {x: 32.37143, y: 0.05, z: -27.714287}
+    - {x: 27.357143, y: 0.05, z: -34.721428}
+  - from: 140
+    to: 141
+    corners:
+    - {x: 27.357143, y: 0.05, z: -34.721428}
+    - {x: 22.342857, y: 0.05, z: -41.728573}
+  - from: 141
+    to: 142
+    corners:
+    - {x: 22.342857, y: 0.05, z: -41.728573}
+    - {x: 17.328571, y: 0.05, z: -48.735714}
+  - from: 142
+    to: 143
+    corners:
+    - {x: 17.328571, y: 0.05, z: -48.735714}
+    - {x: 12.314286, y: 0.05, z: -55.74286}
+  - from: 143
+    to: 137
+    corners:
+    - {x: 12.314286, y: 0.05, z: -55.74286}
+    - {x: 7.3, y: 0.05, z: -62.75}
+  - from: 31
+    to: 144
+    corners:
+    - {x: -27.8, y: 0.05, z: -111.8}
+    - {x: -22.785713, y: 0.05, z: -104.79286}
+  - from: 144
+    to: 145
+    corners:
+    - {x: -22.785713, y: 0.05, z: -104.79286}
+    - {x: -17.771427, y: 0.05, z: -97.78571}
+  - from: 145
+    to: 146
+    corners:
+    - {x: -17.771427, y: 0.05, z: -97.78571}
+    - {x: -12.757142, y: 0.05, z: -90.77857}
+  - from: 146
+    to: 147
+    corners:
+    - {x: -12.757142, y: 0.05, z: -90.77857}
+    - {x: -7.742856, y: 0.05, z: -83.77143}
+  - from: 147
+    to: 148
+    corners:
+    - {x: -7.742856, y: 0.05, z: -83.77143}
+    - {x: -2.7285705, y: 0.05, z: -76.76428}
+  - from: 148
+    to: 149
+    corners:
+    - {x: -2.7285705, y: 0.05, z: -76.76428}
+    - {x: 2.2857149, y: 0.05, z: -69.75714}
+  - from: 149
+    to: 137
+    corners:
+    - {x: 2.2857149, y: 0.05, z: -69.75714}
+    - {x: 7.3, y: 0.05, z: -62.75}
+  - from: 33
+    to: 150
+    corners:
+    - {x: 42.4, y: 0.05, z: -111.8}
+    - {x: 37.385715, y: 0.05, z: -104.79286}
+  - from: 150
+    to: 151
+    corners:
+    - {x: 37.385715, y: 0.05, z: -104.79286}
+    - {x: 32.37143, y: 0.05, z: -97.78571}
+  - from: 151
+    to: 152
+    corners:
+    - {x: 32.37143, y: 0.05, z: -97.78571}
+    - {x: 27.357143, y: 0.05, z: -90.77857}
+  - from: 152
+    to: 153
+    corners:
+    - {x: 27.357143, y: 0.05, z: -90.77857}
+    - {x: 22.342857, y: 0.05, z: -83.77143}
+  - from: 153
+    to: 154
+    corners:
+    - {x: 22.342857, y: 0.05, z: -83.77143}
+    - {x: 17.328571, y: 0.05, z: -76.76428}
+  - from: 154
+    to: 155
+    corners:
+    - {x: 17.328571, y: 0.05, z: -76.76428}
+    - {x: 12.314286, y: 0.05, z: -69.75714}
+  - from: 155
+    to: 137
+    corners:
+    - {x: 12.314286, y: 0.05, z: -69.75714}
+    - {x: 7.3, y: 0.05, z: -62.75}
+  - from: 80
+    to: 156
+    corners:
+    - {x: -27.8, y: 0.05, z: 85.5}
+    - {x: -37.333332, y: 0.05, z: 85.5}
+  - from: 156
+    to: 157
+    corners:
+    - {x: -37.333332, y: 0.05, z: 85.5}
+    - {x: -46.866665, y: 0.05, z: 85.5}
+  - from: 157
+    to: 158
+    corners:
+    - {x: -46.866665, y: 0.05, z: 85.5}
+    - {x: -56.4, y: 0.05, z: 85.5}
+  - from: 158
+    to: 159
+    corners:
+    - {x: -56.4, y: 0.05, z: 85.5}
+    - {x: -65.933334, y: 0.05, z: 85.5}
+  - from: 159
+    to: 160
+    corners:
+    - {x: -65.933334, y: 0.05, z: 85.5}
+    - {x: -75.46667, y: 0.05, z: 85.5}
+  - from: 160
+    to: 161
+    corners:
+    - {x: -75.46667, y: 0.05, z: 85.5}
+    - {x: -85, y: 0.05, z: 85.5}
+  - from: 161
+    to: 162
+    corners:
+    - {x: -85, y: 0.05, z: 85.5}
+    - {x: -85, y: 0.05, z: 95.24077}
+  - from: 162
+    to: 163
+    corners:
+    - {x: -85, y: 0.05, z: 95.24077}
+    - {x: -85, y: 0.05, z: 104.98154}
+  - from: 163
+    to: 164
+    corners:
+    - {x: -85, y: 0.05, z: 104.98154}
+    - {x: -85, y: 0.05, z: 114.722305}
+  - from: 164
+    to: 165
+    corners:
+    - {x: -85, y: 0.05, z: 114.722305}
+    - {x: -85, y: 0.05, z: 124.46308}
+  - from: 165
+    to: 166
+    corners:
+    - {x: -85, y: 0.05, z: 124.46308}
+    - {x: -85, y: 0.05, z: 134.20384}
+  - from: 166
+    to: 167
+    corners:
+    - {x: -85, y: 0.05, z: 134.20384}
+    - {x: -85, y: 0.05, z: 143.94461}
+  - from: 167
+    to: 168
+    corners:
+    - {x: -85, y: 0.05, z: 143.94461}
+    - {x: -85, y: 0.05, z: 153.6854}
+  - from: 168
+    to: 169
+    corners:
+    - {x: -85, y: 0.05, z: 153.6854}
+    - {x: -85, y: 0.05, z: 163.42616}
+  - from: 169
+    to: 170
+    corners:
+    - {x: -85, y: 0.05, z: 163.42616}
+    - {x: -85, y: 0.05, z: 173.16693}
+  - from: 170
+    to: 171
+    corners:
+    - {x: -85, y: 0.05, z: 173.16693}
+    - {x: -85, y: 0.05, z: 182.9077}
+  - from: 171
+    to: 172
+    corners:
+    - {x: -85, y: 0.05, z: 182.9077}
+    - {x: -85, y: 0.05, z: 192.64847}
+  - from: 172
+    to: 173
+    corners:
+    - {x: -85, y: 0.05, z: 192.64847}
+    - {x: -85, y: 0.05, z: 202.38924}
+  - from: 173
+    to: 174
+    corners:
+    - {x: -85, y: 0.05, z: 202.38924}
+    - {x: -85, y: 0.05, z: 212.13}
+  - from: 174
+    to: 175
+    corners:
+    - {x: -85, y: 0.05, z: 212.13}
+    - {x: -75.043335, y: 0.05, z: 212.13}
+  - from: 175
+    to: 176
+    corners:
+    - {x: -75.043335, y: 0.05, z: 212.13}
+    - {x: -65.08667, y: 0.05, z: 212.13}
+  - from: 176
+    to: 177
+    corners:
+    - {x: -65.08667, y: 0.05, z: 212.13}
+    - {x: -55.129997, y: 0.05, z: 212.13}
+  - from: 177
+    to: 178
+    corners:
+    - {x: -55.129997, y: 0.05, z: 212.13}
+    - {x: -45.173332, y: 0.05, z: 212.13}
+  - from: 178
+    to: 179
+    corners:
+    - {x: -45.173332, y: 0.05, z: 212.13}
+    - {x: -35.216663, y: 0.05, z: 212.13}
+  - from: 179
+    to: 180
+    corners:
+    - {x: -35.216663, y: 0.05, z: 212.13}
+    - {x: -25.259998, y: 0.05, z: 212.13}
+  - from: 180
+    to: 181
+    corners:
+    - {x: -25.259998, y: 0.05, z: 212.13}
+    - {x: -15.303332, y: 0.05, z: 212.13}
+  - from: 181
+    to: 182
+    corners:
+    - {x: -15.303332, y: 0.05, z: 212.13}
+    - {x: -5.346666, y: 0.05, z: 212.13}
+  - from: 182
+    to: 183
+    corners:
+    - {x: -5.346666, y: 0.05, z: 212.13}
+    - {x: 4.61, y: 0.05, z: 212.13}
+  - from: 183
+    to: 184
+    corners:
+    - {x: 4.61, y: 0.05, z: 212.13}
+    - {x: 14.38, y: 0.05, z: 212.13}
+  - from: 184
+    to: 185
+    corners:
+    - {x: 14.38, y: 0.05, z: 212.13}
+    - {x: 24.150002, y: 0.05, z: 212.13}
+  - from: 185
+    to: 186
+    corners:
+    - {x: 24.150002, y: 0.05, z: 212.13}
+    - {x: 33.920002, y: 0.05, z: 212.13}
+  - from: 186
+    to: 187
+    corners:
+    - {x: 33.920002, y: 0.05, z: 212.13}
+    - {x: 43.690002, y: 0.05, z: 212.13}
+  - from: 187
+    to: 188
+    corners:
+    - {x: 43.690002, y: 0.05, z: 212.13}
+    - {x: 53.460003, y: 0.05, z: 212.13}
+  - from: 188
+    to: 189
+    corners:
+    - {x: 53.460003, y: 0.05, z: 212.13}
+    - {x: 63.229996, y: 0.05, z: 212.13}
+  - from: 189
+    to: 190
+    corners:
+    - {x: 63.229996, y: 0.05, z: 212.13}
+    - {x: 73, y: 0.05, z: 212.13}
+  - from: 85
+    to: 191
+    corners:
+    - {x: 42.4, y: 0.05, z: 85.5}
+    - {x: 42.4, y: 0.05, z: 87.79}
+  - from: 191
+    to: 193
+    corners:
+    - {x: 42.4, y: 0.05, z: 87.79}
+    - {x: 42.4, y: 0.05, z: 81.79}
+  - from: 193
+    to: 194
+    corners:
+    - {x: 42.4, y: 0.05, z: 81.79}
+    - {x: 52.11, y: 0.05, z: 81.79}
+  - from: 194
+    to: 192
+    corners:
+    - {x: 52.11, y: 0.05, z: 81.79}
+    - {x: 52.11, y: 0.05, z: 87.79}
+  - from: 192
+    to: 195
+    corners:
+    - {x: 52.11, y: 0.05, z: 87.79}
+    - {x: 61.820004, y: 0.05, z: 87.79}
+  - from: 195
+    to: 196
+    corners:
+    - {x: 61.820004, y: 0.05, z: 87.79}
+    - {x: 71.53, y: 0.05, z: 87.79}
+  - from: 196
+    to: 197
+    corners:
+    - {x: 71.53, y: 0.05, z: 87.79}
+    - {x: 81.240005, y: 0.05, z: 87.79}
+  - from: 197
+    to: 198
+    corners:
+    - {x: 81.240005, y: 0.05, z: 87.79}
+    - {x: 90.950005, y: 0.05, z: 87.79}
+  - from: 198
+    to: 199
+    corners:
+    - {x: 90.950005, y: 0.05, z: 87.79}
+    - {x: 100.66, y: 0.05, z: 87.79}
+  - from: 16
+    to: 200
+    corners:
+    - {x: -27.8, y: 0.05, z: -160}
+    - {x: -36.5, y: 0.05, z: -160}
+  - from: 200
+    to: 201
+    corners:
+    - {x: -36.5, y: 0.05, z: -160}
+    - {x: -45.2, y: 0.05, z: -160}
+  - from: 201
+    to: 202
+    corners:
+    - {x: -45.2, y: 0.05, z: -160}
+    - {x: -53.9, y: 0.05, z: -160}
+  - from: 202
+    to: 203
+    corners:
+    - {x: -53.9, y: 0.05, z: -160}
+    - {x: -62.600002, y: 0.05, z: -160}
+  - from: 203
+    to: 204
+    corners:
+    - {x: -62.600002, y: 0.05, z: -160}
+    - {x: -71.299995, y: 0.05, z: -160}
+  - from: 204
+    to: 205
+    corners:
+    - {x: -71.299995, y: 0.05, z: -160}
+    - {x: -80, y: 0.05, z: -160}
+  - from: 205
+    to: 206
+    corners:
+    - {x: -80, y: 0.05, z: -160}
+    - {x: -88, y: 0.05, z: -163}
+  - from: 206
+    to: 207
+    corners:
+    - {x: -88, y: 0.05, z: -163}
+    - {x: -96, y: 0.05, z: -166}
+  - from: 207
+    to: 208
+    corners:
+    - {x: -96, y: 0.05, z: -166}
+    - {x: -104, y: 0.05, z: -169}
+  - from: 208
+    to: 209
+    corners:
+    - {x: -104, y: 0.05, z: -169}
+    - {x: -112, y: 0.05, z: -172}
+  - from: 209
+    to: 210
+    corners:
+    - {x: -112, y: 0.05, z: -172}
+    - {x: -120, y: 0.05, z: -175}
+  - from: 210
+    to: 211
+    corners:
+    - {x: -120, y: 0.05, z: -175}
+    - {x: -130, y: 0.05, z: -175}
+  - from: 211
+    to: 212
+    corners:
+    - {x: -130, y: 0.05, z: -175}
+    - {x: -140, y: 0.05, z: -175}
+  - from: 212
+    to: 213
+    corners:
+    - {x: -140, y: 0.05, z: -175}
+    - {x: -150, y: 0.05, z: -175}
+  - from: 213
+    to: 214
+    corners:
+    - {x: -150, y: 0.05, z: -175}
+    - {x: -160, y: 0.05, z: -175}
+  - from: 214
+    to: 215
+    corners:
+    - {x: -160, y: 0.05, z: -175}
+    - {x: -170, y: 0.05, z: -175}
+  - from: 215
+    to: 216
+    corners:
+    - {x: -170, y: 0.05, z: -175}
+    - {x: -180, y: 0.05, z: -175}
+  - from: 216
+    to: 217
+    corners:
+    - {x: -180, y: 0.05, z: -175}
+    - {x: -190, y: 0.05, z: -175}
+  - from: 217
+    to: 218
+    corners:
+    - {x: -190, y: 0.05, z: -175}
+    - {x: -200, y: 0.05, z: -175}
+  - from: 218
+    to: 219
+    corners:
+    - {x: -200, y: 0.05, z: -175}
+    - {x: -210, y: 0.05, z: -175}
+  - from: 219
+    to: 220
+    corners:
+    - {x: -210, y: 0.05, z: -175}
+    - {x: -220, y: 0.05, z: -175}
+  - from: 220
+    to: 221
+    corners:
+    - {x: -220, y: 0.05, z: -175}
+    - {x: -230, y: 0.05, z: -175}
+  - from: 221
+    to: 222
+    corners:
+    - {x: -230, y: 0.05, z: -175}
+    - {x: -240, y: 0.05, z: -175}
+  - from: 222
+    to: 223
+    corners:
+    - {x: -240, y: 0.05, z: -175}
+    - {x: -250, y: 0.05, z: -175}
+  - from: 223
+    to: 224
+    corners:
+    - {x: -250, y: 0.05, z: -175}
+    - {x: -260, y: 0.05, z: -175}
+  - from: 224
+    to: 225
+    corners:
+    - {x: -260, y: 0.05, z: -175}
+    - {x: -270, y: 0.05, z: -175}
+  - from: 225
+    to: 226
+    corners:
+    - {x: -270, y: 0.05, z: -175}
+    - {x: -280, y: 0.05, z: -175}
+  - from: 226
+    to: 227
+    corners:
+    - {x: -280, y: 0.05, z: -175}
+    - {x: -290, y: 0.05, z: -175}
+  - from: 227
+    to: 228
+    corners:
+    - {x: -290, y: 0.05, z: -175}
+    - {x: -300, y: 0.05, z: -175}
+  - from: 228
+    to: 229
+    corners:
+    - {x: -300, y: 0.05, z: -175}
+    - {x: -307.5, y: 0.05, z: -179.0425}
+  - from: 229
+    to: 230
+    corners:
+    - {x: -307.5, y: 0.05, z: -179.0425}
+    - {x: -315, y: 0.05, z: -183.08499}
+  - from: 230
+    to: 231
+    corners:
+    - {x: -315, y: 0.05, z: -183.08499}
+    - {x: -322.5, y: 0.05, z: -187.1275}
+  - from: 231
+    to: 232
+    corners:
+    - {x: -322.5, y: 0.05, z: -187.1275}
+    - {x: -330, y: 0.05, z: -191.17}
+  - from: 233
+    to: 241
+    corners:
+    - {x: -19.391598, y: 0.05, z: -68.97718}
+    - {x: -27.43682, y: 0.05, z: -69.22829}
+  - from: 234
+    to: 21
+    corners:
+    - {x: -32.15, y: 0.05, z: -149.83}
+    - {x: -27.8, y: 0.05, z: -149.83}
+  - from: 235
+    to: 46
+    corners:
+    - {x: -30.474602, y: 0.05, z: -54.7545}
+    - {x: -27.8, y: 0.05, z: -53.856}
+  - from: 236
+    to: 100
+    corners:
+    - {x: -20, y: 0.05, z: 85.5}
+    - {x: -19.025, y: 0.05, z: 85.5}
+  - from: 237
+    to: 238
+    corners:
+    - {x: -47.816757, y: 0.05, z: -62.357567}
+    - {x: -47.45358, y: 0.05, z: -61.425846}
+  - from: 238
+    to: 239
+    corners:
+    - {x: -47.45358, y: 0.05, z: -61.425846}
+    - {x: -40.781326, y: 0.05, z: -64.02666}
+  - from: 239
+    to: 240
+    corners:
+    - {x: -40.781326, y: 0.05, z: -64.02666}
+    - {x: -34.109074, y: 0.05, z: -66.62747}
+  - from: 240
+    to: 241
+    corners:
+    - {x: -34.109074, y: 0.05, z: -66.62747}
+    - {x: -27.43682, y: 0.05, z: -69.22829}
+  - from: 241
+    to: 42
+    corners:
+    - {x: -27.43682, y: 0.05, z: -69.22829}
+    - {x: -27.8, y: 0.05, z: -70.16}
+  - from: 242
+    to: 73
+    corners:
+    - {x: 58.241318, y: 0.05, z: 34.372097}
+    - {x: 42.4, y: 0.05, z: 34.372}
+  - from: 243
+    to: 244
+    corners:
+    - {x: -46.64693, y: 0.05, z: 31.011059}
+    - {x: -46.646935, y: 0.05, z: 30.011059}
+  - from: 244
+    to: 245
+    corners:
+    - {x: -46.646935, y: 0.05, z: 30.011059}
+    - {x: -37.22347, y: 0.05, z: 30.011028}
+  - from: 245
+    to: 246
+    corners:
+    - {x: -37.22347, y: 0.05, z: 30.011028}
+    - {x: -27.800003, y: 0.05, z: 30.011}
+  - from: 246
+    to: 65
+    corners:
+    - {x: -27.800003, y: 0.05, z: 30.011}
+    - {x: -27.8, y: 0.05, z: 31.011}
+  - from: 247
+    to: 39
+    corners:
+    - {x: 66.351166, y: 0.05, z: -84.487366}
+    - {x: 42.4, y: 0.05, z: -84.487}
+  - from: 248
+    to: 4
+    corners:
+    - {x: 60.974808, y: 0.05, z: -246.98184}
+    - {x: 42.4, y: 0.05, z: -232}
+  - from: 249
+    to: 26
+    corners:
+    - {x: -36.167095, y: 0.05, z: -125.63601}
+    - {x: -27.8, y: 0.05, z: -125.636}
+  - from: 250
+    to: 232
+    corners:
+    - {x: -336.9728, y: 0.05, z: -191.1698}
+    - {x: -330, y: 0.05, z: -191.17}
+  - from: 251
+    to: 13
+    corners:
+    - {x: 8.101, y: 0.05, z: -181.39699}
+    - {x: 42.4, y: 0.05, z: -181.397}
+  - from: 252
+    to: 199
+    corners:
+    - {x: 100.65927, y: 0.05, z: 86.43003}
+    - {x: 100.66, y: 0.05, z: 87.79}
+  - from: 253
+    to: 238
+    corners:
+    - {x: -43.369698, y: 0.05, z: -53.85568}
+    - {x: -47.45358, y: 0.05, z: -61.425846}
+  - from: 254
+    to: 244
+    corners:
+    - {x: -41.955444, y: 0.05, z: 33.05}
+    - {x: -46.646935, y: 0.05, z: 30.011059}
+  - from: 255
+    to: 7
+    corners:
+    - {x: 10.503485, y: 0.05, z: -202.24}
+    - {x: 42.4, y: 0.05, z: -202.24}
+  - from: 256
+    to: 97
+    corners:
+    - {x: 18.997784, y: 0.05, z: -7.470476}
+    - {x: 16.075, y: 0.05, z: -13.7}
+  - from: 257
+    to: 183
+    corners:
+    - {x: 4.611433, y: 0.05, z: 216.52075}
+    - {x: 4.61, y: 0.05, z: 212.13}
+  - from: 258
+    to: 36
+    corners:
+    - {x: -38.88, y: 0.05, z: -83.95}
+    - {x: -27.8, y: 0.05, z: -84.487}
+  destinations:
+  - landmarkName: Alma Mater
+    nodeIndex: 233
+  - landmarkName: Lincoln Statue Big
+    nodeIndex: 234
+  - landmarkName: Lincoln Statue Small
+    nodeIndex: 235
+  - landmarkName: Illini Union
+    nodeIndex: 236
+  - landmarkName: English Building
+    nodeIndex: 237
+  - landmarkName: Noyes Laboratory
+    nodeIndex: 242
+  - landmarkName: Henry Administration Building
+    nodeIndex: 243
+  - landmarkName: Wohlers Hall
+    nodeIndex: 247
+  - landmarkName: Main Library
+    nodeIndex: 248
+  - landmarkName: Colonel Wolf School
+    nodeIndex: 249
+  - landmarkName: Foreign Languages Building
+    nodeIndex: 250
+  - landmarkName: Archery Range
+    nodeIndex: 251
+  - landmarkName: Mammoth Tag
+    nodeIndex: 252
+  - landmarkName: Block Snap Game
+    nodeIndex: 253
+  - landmarkName: Parkour Entrance
+    nodeIndex: 254
+  - landmarkName: Scavenger Hunt Start
+    nodeIndex: 255
+  - landmarkName: Goose Sculpture
+    nodeIndex: 256
+  - landmarkName: Green Street
+    nodeIndex: 257
+  - landmarkName: Quad Respawn Point
+    nodeIndex: 258
