@@ -3,11 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public static class GalleryDataManager
-{
-    public static List<Texture2D> SavedPhotos = new List<Texture2D>();
-}
-
 public class VRCameraCapture : MonoBehaviour
 {
     [Header("Camera Components")]
@@ -64,7 +59,7 @@ public class VRCameraCapture : MonoBehaviour
 
     private void Update()
     {
-        if (snapshotCamera.gameObject.activeInHierarchy && centerEyeAnchor != null)
+        if (snapshotCamera != null && snapshotCamera.gameObject.activeInHierarchy && centerEyeAnchor != null)
         {
             snapshotCamera.transform.position = centerEyeAnchor.position;
             snapshotCamera.transform.rotation = centerEyeAnchor.rotation;
@@ -96,6 +91,8 @@ public class VRCameraCapture : MonoBehaviour
 
     private void TakeSnapshot()
     {
+        if (targetRT == null || !targetRT.IsCreated()) return;
+        if (GalleryDataManager.SavedPhotos.Count >= GalleryDataManager.Capacity) return;
         StartCoroutine(CaptureRoutine());
     }
 
@@ -103,14 +100,41 @@ public class VRCameraCapture : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
 
-        RenderTexture.active = targetRT;
-        Texture2D photo = new Texture2D(targetRT.width, targetRT.height, TextureFormat.RGB24, false);
-        photo.ReadPixels(new Rect(0, 0, targetRT.width, targetRT.height), 0, 0);
-        photo.Apply();
-        RenderTexture.active = null;
+        if (targetRT == null || !targetRT.IsCreated()) yield break;
+        RenderTexture previousTarget = RenderTexture.active;
+        RenderTexture boundedTarget = null;
+        Texture2D photo = null;
+        try
+        {
+            float scale = Mathf.Min(1f, (float)GalleryDataManager.MaxPhotoEdge / Mathf.Max(targetRT.width, targetRT.height));
+            int width = Mathf.Max(1, Mathf.RoundToInt(targetRT.width * scale));
+            int height = Mathf.Max(1, Mathf.RoundToInt(targetRT.height * scale));
+            boundedTarget = RenderTexture.GetTemporary(width, height, 0, RenderTextureFormat.ARGB32);
+            Graphics.Blit(targetRT, boundedTarget);
+            RenderTexture.active = boundedTarget;
+            photo = new Texture2D(width, height, TextureFormat.RGB24, false);
+            photo.ReadPixels(new Rect(0, 0, width, height), 0, 0);
+            photo.Apply();
+        }
+        catch
+        {
+            if (photo != null) Destroy(photo);
+            throw;
+        }
+        finally
+        {
+            RenderTexture.active = previousTarget;
+            if (boundedTarget != null) RenderTexture.ReleaseTemporary(boundedTarget);
+        }
 
-        GalleryDataManager.SavedPhotos.Add(photo);
+        if (!GalleryDataManager.TrySave(photo, out string saveStatus))
+        {
+            Destroy(photo);
+            Debug.LogWarning("[VRCameraCapture] " + saveStatus);
+            yield break;
+        }
 
+        RayBanLocalNotifications.Publish(QuadNotificationKind.PhotoSaved, "Photo saved", "Your capture is available in Photos.");
         if (recentPhotoPreview != null) recentPhotoPreview.texture = photo;
         if (audioSource != null && shutterSound != null) audioSource.PlayOneShot(shutterSound);
         if (flashPanel != null) StartCoroutine(FlashEffect());

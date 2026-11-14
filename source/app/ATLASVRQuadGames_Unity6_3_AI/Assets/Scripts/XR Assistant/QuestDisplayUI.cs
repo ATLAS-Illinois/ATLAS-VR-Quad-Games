@@ -12,6 +12,7 @@ public class MenuEntry
     public Button button;          // The button that opens this page
 }
 
+[DefaultExecutionOrder(-2000)]
 public class QuestDisplayUI : MonoBehaviour
 {
     [Header("References")]
@@ -19,6 +20,9 @@ public class QuestDisplayUI : MonoBehaviour
     public GameObject mainMenuRoot;
     public List<MenuEntry> entries = new List<MenuEntry>();
     public CanvasGroup canvasGroup; // assign the parent CanvasGroup here in Inspector
+
+    [Header("Ray-Ban display")]
+    public RayBanDisplayShell visualShell;
 
     [Header("Fade Settings")]
     [Tooltip("Duration of fade transitions in seconds.")]
@@ -28,11 +32,36 @@ public class QuestDisplayUI : MonoBehaviour
 
     // Tracks if the global UI is visible or hidden
     private bool isUIVisible = true;
+    private int lastPreviewHideFrame = -1;
+    public bool IsUIVisible => UsesVisualShell ? visualShell.IsVisible : isUIVisible;
+    private bool UsesVisualShell => visualShell != null && visualShell.OwnsPreview;
+
+    void Awake()
+    {
+        if (canvasGroup == null) canvasGroup = GetComponent<CanvasGroup>();
+        if (visualShell != null && visualShell.InitializePreview())
+        {
+            DeactivateAllPages();
+            if (mainMenuRoot != null) mainMenuRoot.SetActive(false);
+        }
+    }
 
     void Start()
     {
         if (canvasGroup == null)
             canvasGroup = GetComponent<CanvasGroup>();
+
+        if (UsesVisualShell)
+        {
+            isUIVisible = showMainMenuOnStart;
+            if (showMainMenuOnStart)
+            {
+                ShowMainMenu();
+                visualShell.ShowStartupTutorialIfNeeded();
+            }
+            else HideMainMenu();
+            return;
+        }
 
         if (showMainMenuOnStart)
         {
@@ -66,14 +95,22 @@ public class QuestDisplayUI : MonoBehaviour
 
     public void ToggleEntireUI()
     {
-        if (isUIVisible) CloseEntireUI();
+        if (IsUIVisible) CloseEntireUI();
         else OpenEntireUI();
     }
 
     public void CloseEntireUI()
     {
-        if (!isUIVisible) return;
+        if (!IsUIVisible) return;
         isUIVisible = false;
+
+        // Hiding the feature tree also stops its voice/translation leases now,
+        // rather than leaving recording alive behind a transparent CanvasGroup.
+        if (UsesVisualShell)
+        {
+            lastPreviewHideFrame = Time.frameCount;
+            visualShell.Hide();
+        }
 
         if (fadeRoutine != null) StopCoroutine(fadeRoutine);
         fadeRoutine = StartCoroutine(FadeEntireUI(0f));
@@ -81,8 +118,10 @@ public class QuestDisplayUI : MonoBehaviour
 
     public void OpenEntireUI()
     {
-        if (isUIVisible) return;
+        if (IsUIVisible) return;
         isUIVisible = true;
+
+        if (UsesVisualShell) visualShell.ShowLauncher();
 
         if (fadeRoutine != null) StopCoroutine(fadeRoutine);
         fadeRoutine = StartCoroutine(FadeEntireUI(1f));
@@ -128,10 +167,18 @@ public class QuestDisplayUI : MonoBehaviour
             return;
         }
 
+        if (UsesVisualShell)
+        {
+            CancelFade();
+            SetVisibleFlags(true);
+            visualShell.ShowLegacyPage(index);
+            return;
+        }
+
         if (fadeRoutine != null) StopCoroutine(fadeRoutine);
         fadeRoutine = StartCoroutine(FadeTransition(() =>
         {
-            mainMenuRoot.SetActive(false);
+            if (mainMenuRoot != null) mainMenuRoot.SetActive(false);
             DeactivateAllPages();
 
             var selected = entries[index]?.page;
@@ -142,35 +189,55 @@ public class QuestDisplayUI : MonoBehaviour
 
     public void ShowMainMenuIfHidden()
     {
+        if (UsesVisualShell)
+        {
+            if (!visualShell.IsVisible && lastPreviewHideFrame != Time.frameCount) ShowMainMenu();
+            return;
+        }
         bool isShowing = false;
         for (int i = 0; i < entries.Count; i++)
         {
             var page = entries[i]?.page;
-            if (page.activeSelf)
+            if (page != null && page.activeSelf)
                 isShowing = true;
         }
 
-        if (!isShowing && !mainMenuRoot.activeSelf)
+        if (!isShowing && mainMenuRoot != null && !mainMenuRoot.activeSelf)
             ShowMainMenu();
     }
 
     public void ShowMainMenu()
     {
+        if (UsesVisualShell)
+        {
+            CancelFade();
+            SetVisibleFlags(true);
+            visualShell.ShowLauncher();
+            return;
+        }
         if (fadeRoutine != null) StopCoroutine(fadeRoutine);
         fadeRoutine = StartCoroutine(FadeTransition(() =>
         {
             DeactivateAllPages();
-            mainMenuRoot.SetActive(true);
+            if (mainMenuRoot != null) mainMenuRoot.SetActive(true);
         }));
     }
 
     public void HideMainMenu()
     {
+        if (UsesVisualShell)
+        {
+            CancelFade();
+            lastPreviewHideFrame = Time.frameCount;
+            visualShell.Hide();
+            SetVisibleFlags(false);
+            return;
+        }
         if (fadeRoutine != null) StopCoroutine(fadeRoutine);
         fadeRoutine = StartCoroutine(FadeTransition(() =>
         {
             DeactivateAllPages();
-            mainMenuRoot.SetActive(false);
+            if (mainMenuRoot != null) mainMenuRoot.SetActive(false);
         }));
     }
 
@@ -205,6 +272,21 @@ public class QuestDisplayUI : MonoBehaviour
             var page = entries[i]?.page;
             if (page != null) page.SetActive(false);
         }
+    }
+
+    private void CancelFade()
+    {
+        if (fadeRoutine != null) StopCoroutine(fadeRoutine);
+        fadeRoutine = null;
+    }
+
+    private void SetVisibleFlags(bool visible)
+    {
+        isUIVisible = visible;
+        if (canvasGroup == null) return;
+        canvasGroup.alpha = visible ? 1f : 0f;
+        canvasGroup.interactable = visible;
+        canvasGroup.blocksRaycasts = visible;
     }
 
     private IEnumerator FadeTransition(Action onMidTransition)

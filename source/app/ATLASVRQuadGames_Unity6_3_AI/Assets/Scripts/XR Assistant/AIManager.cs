@@ -3,6 +3,7 @@ using UnityEngine.Networking;
 using System;
 using System.Text;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Meta.WitAi.Json;
 using Meta.WitAi;
@@ -33,6 +34,7 @@ public class AIManager : MonoBehaviour
 
     [Header("Scene References")]
     public WakeWordManager wakeWordManager;
+    [Tooltip("Existing monoscopic gameplay snapshot camera, not the headset's stereo eye camera.")]
     public Camera centerEyeCamera;
     public Toggle micToggle;
 
@@ -50,6 +52,28 @@ public class AIManager : MonoBehaviour
     public bool scanForQRCodes = true;
 
     private Texture2D picture;
+    private Texture2D capturePicture;
+    private Transform snapshotHead;
+    private Texture2D responsePicture;
+    private CancellationTokenSource responseCancellation;
+    private BufferedAssistantSpeech responseSpeech;
+    private bool responseInProgress;
+    private bool externalPresentation;
+    private bool externalPresentationVisible;
+    public bool IsResponding => responseInProgress;
+    public bool IsInitialized { get; private set; }
+    public bool IsConfigured => !string.IsNullOrWhiteSpace(geminiApiKey);
+    private bool IsAssistantVisible => externalPresentation ? externalPresentationVisible :
+        aiResponseText == null || aiResponseText.gameObject.activeInHierarchy;
+
+    public void SetExternalPresentation(bool enabled, bool visible)
+    {
+        externalPresentation = enabled;
+        externalPresentationVisible = enabled && visible;
+        if (!IsAssistantVisible) CancelCurrentResponse();
+    }
+
+    public void CancelResponse() => CancelCurrentResponse();
 
     // Memory bank
     private readonly List<string> conversationHistory = new List<string>();
@@ -69,6 +93,7 @@ public class AIManager : MonoBehaviour
         if (wakeWordManager != null)
         {
             wakeWordManager.OnResponseDetected.AddListener(HandleResponse);
+            wakeWordManager.OnWakeWordDetected.AddListener(CancelCurrentResponse);
         }
 
         if (aiResponseText != null)
@@ -76,76 +101,113 @@ public class AIManager : MonoBehaviour
 
         if (describePicture != null)
             describePicture.enabled = false;
+        IsInitialized = true;
     }
 
     private void OnDestroy()
     {
+        // OnDisable already stopped playback. SDK62 may destroy its speaker
+        // first and clear the queue before this callback, even while Unity's
+        // object reference still compares non-null. Only cancel managed work.
+        CancelCurrentResponse(false);
         if (wakeWordManager != null)
         {
             wakeWordManager.OnResponseDetected.RemoveListener(HandleResponse);
+            wakeWordManager.OnWakeWordDetected.RemoveListener(CancelCurrentResponse);
         }
+        if (capturePicture != null) Destroy(capturePicture);
+        if (responsePicture != null) Destroy(responsePicture);
     }
 
     public async void HandleResponse(WitResponseNode response)
     {
-        if (response == null)
-            return;
-
-        if (micToggle != null)
-            micToggle.SetIsOnWithoutNotify(false);
-
-        if (aiResponseText != null)
-            aiResponseText.text = "Loading...";
-
-        if (describePicture != null)
-            describePicture.enabled = false;
-
-        string rawResult = await DescribeGemini(response.GetTranscription());
-
-        string spokenText = rawResult;
-        string imagePrompt = "";
-
-        int imageTagIndex = rawResult.IndexOf("[IMAGE:", StringComparison.OrdinalIgnoreCase);
-        if (imageTagIndex != -1)
+        // A new deliberate mic activation cancels the older request via its
+        // OnWakeWordDetected event. Duplicate completion callbacks cannot speak
+        // the same answer over itself while the current request is still active.
+        if (response == null || responseInProgress || !IsAssistantVisible) return;
+        string input = response.GetTranscription();
+        if (string.IsNullOrWhiteSpace(input)) return;
+        CancellationTokenSource owner = BeginResponse();
+        CancellationToken token = owner.Token;
+        bool answerDisplayed = false;
+        try
         {
-            spokenText = rawResult.Substring(0, imageTagIndex).Trim();
+            if (micToggle != null) micToggle.SetIsOnWithoutNotify(false);
+            if (wakeWordManager != null) wakeWordManager.DeActivate();
+            UpdateResultUI("loading...", null);
 
-            int endBracketIndex = rawResult.IndexOf("]", imageTagIndex, StringComparison.Ordinal);
-            if (endBracketIndex != -1)
+            string rawResult = await DescribeGemini(input, token);
+            CheckResponseActive(token);
+            string spokenText = rawResult;
+            string imagePrompt = "";
+            int imageTagIndex = rawResult.IndexOf("[IMAGE:", StringComparison.Ordinal);
+            if (imageTagIndex != -1)
             {
-                imagePrompt = rawResult.Substring(imageTagIndex + 7, endBracketIndex - imageTagIndex - 7).Trim();
+                spokenText = rawResult.Substring(0, imageTagIndex).Trim();
+                int endBracketIndex = rawResult.IndexOf("]", imageTagIndex, StringComparison.Ordinal);
+                if (endBracketIndex != -1)
+                    imagePrompt = rawResult.Substring(imageTagIndex + 7, endBracketIndex - imageTagIndex - 7).Trim();
+            }
+
+            // The readable answer survives image or speech service failures.
+            UpdateResultUI(spokenText, null);
+            answerDisplayed = true;
+            if (!string.IsNullOrEmpty(imagePrompt))
+            {
+                Texture2D image = null;
+                try
+                {
+                    image = await FetchImageFromWeb(imagePrompt, token);
+                }
+                catch (OperationCanceledException) { throw; }
+                catch (Exception error)
+                {
+                    Debug.LogWarning("[AIManager] Answer illustration unavailable (" + error.GetType().Name + ").");
+                }
+                try
+                {
+                    CheckResponseActive(token);
+                    if (responsePicture != null) Destroy(responsePicture);
+                    responsePicture = image;
+                    image = null; // Ownership transfers only while this request is current.
+                    UpdateResultUI(spokenText, responsePicture);
+                }
+                finally
+                {
+                    if (image != null) Destroy(image);
+                }
+            }
+
+            if (ttsSpeaker != null && !string.IsNullOrWhiteSpace(spokenText))
+            {
+                responseSpeech = new BufferedAssistantSpeech(ttsSpeaker);
+                await responseSpeech.SpeakAsync(spokenText, () => CheckResponseActive(token));
+            }
+            CheckResponseActive(token);
+            // Never listen to the Assistant's own audio. This is deliberately
+            // after successful playback, not immediately after queuing speech.
+            if (activateVoiceAfterResponse && wakeWordManager != null)
+                wakeWordManager.Activate();
+        }
+        catch (OperationCanceledException) { }
+        catch (Exception error)
+        {
+            if (!token.IsCancellationRequested && this != null && IsAssistantVisible)
+            {
+                if (aiResponseText != null)
+                    aiResponseText.text = answerDisplayed
+                        ? aiResponseText.text + "\n\nVoice playback is unavailable. You can read the response or ask again."
+                        : "The response could not be completed. Please try again.";
+                Debug.LogWarning("[AIManager] Assistant request stopped (" + error.GetType().Name + ").");
             }
         }
-
-        Debug.Log("GEMINI SPOKEN TEXT: " + spokenText);
-        Debug.Log("GEMINI REQUESTED IMAGE: " + imagePrompt);
-
-        Texture2D dynamicImage = null;
-        if (!string.IsNullOrWhiteSpace(imagePrompt))
+        finally
         {
-            if (aiResponseText != null)
-                aiResponseText.text = "Loading image...";
-
-            dynamicImage = await FetchImageFromWeb(imagePrompt);
-        }
-
-        UpdateResultUI(spokenText, dynamicImage);
-
-        if (ttsSpeaker != null && !string.IsNullOrWhiteSpace(spokenText))
-        {
-            ttsSpeaker.Speak(spokenText);
-        }
-
-        if (activateVoiceAfterResponse && wakeWordManager != null)
-        {
-            wakeWordManager.Activate();
-
-            if (micToggle != null)
-                micToggle.SetIsOnWithoutNotify(true);
+            EndResponse(owner);
         }
     }
 
-    private async Task<Texture2D> FetchImageFromWeb(string prompt)
+    private async Task<Texture2D> FetchImageFromWeb(string prompt, CancellationToken token)
     {
         string encodedPrompt = UnityWebRequest.EscapeURL(prompt);
         string searchUrl =
@@ -157,9 +219,8 @@ public class AIManager : MonoBehaviour
         {
             searchRequest.SetRequestHeader("User-Agent", "ATLASVRQuadGames-XRAssistant/1.0");
 
-            var operation = searchRequest.SendWebRequest();
-            while (!operation.isDone)
-                await Task.Yield();
+            searchRequest.timeout = 8;
+            await SendRequest(searchRequest, token);
 
             if (searchRequest.result == UnityWebRequest.Result.Success)
             {
@@ -192,9 +253,8 @@ public class AIManager : MonoBehaviour
 
         using (UnityWebRequest imageRequest = UnityWebRequestTexture.GetTexture(imageUrl))
         {
-            var operation = imageRequest.SendWebRequest();
-            while (!operation.isDone)
-                await Task.Yield();
+            imageRequest.timeout = 8;
+            await SendRequest(imageRequest, token);
 
             if (imageRequest.result == UnityWebRequest.Result.Success)
             {
@@ -243,6 +303,14 @@ public class AIManager : MonoBehaviour
         if (centerEyeCamera == null)
             return null;
 
+        if (snapshotHead == null)
+        {
+            var rig = FindFirstObjectByType<OVRCameraRig>();
+            if (rig != null) snapshotHead = rig.centerEyeAnchor;
+        }
+        if (snapshotHead == null || centerEyeCamera.transform == snapshotHead)
+            return null;
+
         int width = centerEyeCamera.pixelWidth > 0 ? centerEyeCamera.pixelWidth : Screen.width;
         int height = centerEyeCamera.pixelHeight > 0 ? centerEyeCamera.pixelHeight : Screen.height;
 
@@ -252,23 +320,33 @@ public class AIManager : MonoBehaviour
         RenderTexture tempRT = RenderTexture.GetTemporary(width, height, 24, RenderTextureFormat.ARGB32);
         RenderTexture previousActive = RenderTexture.active;
         RenderTexture previousTarget = centerEyeCamera.targetTexture;
+        Vector3 previousPosition = centerEyeCamera.transform.position;
+        Quaternion previousRotation = centerEyeCamera.transform.rotation;
+        float previousFov = centerEyeCamera.fieldOfView;
+        StereoTargetEyeMask previousStereo = centerEyeCamera.stereoTargetEye;
 
         try
         {
+            // The Camera screen may be closed or zoomed. Capture the current
+            // head view without opening that screen or redirecting an XR eye.
+            centerEyeCamera.transform.SetPositionAndRotation(snapshotHead.position, snapshotHead.rotation);
+            centerEyeCamera.fieldOfView = 60f;
+            centerEyeCamera.stereoTargetEye = StereoTargetEyeMask.None;
             centerEyeCamera.targetTexture = tempRT;
             centerEyeCamera.Render();
 
             RenderTexture.active = tempRT;
 
-            if (picture == null || picture.width != width || picture.height != height)
+            if (capturePicture == null || capturePicture.width != width || capturePicture.height != height)
             {
-                picture = new Texture2D(width, height, TextureFormat.RGB24, false);
+                if (capturePicture != null) Destroy(capturePicture);
+                capturePicture = new Texture2D(width, height, TextureFormat.RGB24, false);
             }
 
-            picture.ReadPixels(new Rect(0, 0, width, height), 0, 0, false);
-            picture.Apply(false, false);
+            capturePicture.ReadPixels(new Rect(0, 0, width, height), 0, 0, false);
+            capturePicture.Apply(false, false);
 
-            return picture;
+            return capturePicture;
         }
         catch (Exception e)
         {
@@ -278,6 +356,9 @@ public class AIManager : MonoBehaviour
         finally
         {
             centerEyeCamera.targetTexture = previousTarget;
+            centerEyeCamera.stereoTargetEye = previousStereo;
+            centerEyeCamera.fieldOfView = previousFov;
+            centerEyeCamera.transform.SetPositionAndRotation(previousPosition, previousRotation);
             RenderTexture.active = previousActive;
             RenderTexture.ReleaseTemporary(tempRT);
         }
@@ -285,6 +366,7 @@ public class AIManager : MonoBehaviour
 
     public void ResetUI()
     {
+        CancelCurrentResponse();
         if (describePicture != null)
             describePicture.enabled = false;
 
@@ -297,6 +379,7 @@ public class AIManager : MonoBehaviour
 
     public void ClearMemory()
     {
+        CancelCurrentResponse();
         conversationHistory.Clear();
         Debug.Log("AI memory cleared.");
     }
@@ -349,8 +432,12 @@ public class AIManager : MonoBehaviour
         return await DescribeGemini(input);
     }
 
-    public async Task<string> DescribeGemini(string input)
+    public Task<string> DescribeGemini(string input) => DescribeGemini(input, CancellationToken.None);
+
+    private async Task<string> DescribeGemini(string input, CancellationToken token)
     {
+        CheckResponseActive(token);
+        picture = null; // Never reuse an earlier image when capture is unavailable.
         Color32[] pixels = null;
         int imgWidth = 0;
         int imgHeight = 0;
@@ -393,7 +480,7 @@ public class AIManager : MonoBehaviour
             string qrData = DecodeQRCode(pixels, imgWidth, imgHeight);
             if (!string.IsNullOrEmpty(qrData))
             {
-                Debug.Log("QR Code Detected: " + qrData);
+                // QR contents are external input and must not be logged.
                 input +=
                     $" \n[IMPORTANT SYSTEM COMMAND: The user is looking at a QR code containing this exact URL/Data: '{qrData}'. You MUST use your Google Search tool to identify exactly what it is. Do NOT guess.]";
             }
@@ -455,7 +542,8 @@ public class AIManager : MonoBehaviour
             ]{toolsJson}
         }}";
 
-        string responseText = await SendGeminiRequest(jsonPayload);
+        string responseText = await SendGeminiRequest(jsonPayload, token);
+        CheckResponseActive(token);
 
         if (!responseText.StartsWith("Sorry") &&
             !responseText.StartsWith("Could not") &&
@@ -469,7 +557,7 @@ public class AIManager : MonoBehaviour
         return responseText;
     }
 
-    private async Task<string> SendGeminiRequest(string jsonPayload, int retryCount = 0)
+    private async Task<string> SendGeminiRequest(string jsonPayload, CancellationToken token, int retryCount = 0)
     {
         if (string.IsNullOrEmpty(geminiApiKey))
         {
@@ -483,6 +571,8 @@ public class AIManager : MonoBehaviour
             return "No Gemini models configured.";
         }
 
+        CheckResponseActive(token);
+        currentModelIndex = Mathf.Clamp(currentModelIndex, 0, fallbackModels.Length - 1);
         string currentModel = fallbackModels[currentModelIndex];
         string url =
             $"https://generativelanguage.googleapis.com/v1beta/models/{currentModel}:generateContent?key={geminiApiKey}";
@@ -494,9 +584,8 @@ public class AIManager : MonoBehaviour
             request.downloadHandler = new DownloadHandlerBuffer();
             request.SetRequestHeader("Content-Type", "application/json");
 
-            var operation = request.SendWebRequest();
-            while (!operation.isDone)
-                await Task.Yield();
+            request.timeout = 30;
+            await SendRequest(request, token);
 
             if (request.result == UnityWebRequest.Result.Success)
             {
@@ -525,17 +614,91 @@ public class AIManager : MonoBehaviour
                         currentModelIndex = (currentModelIndex + 1) % fallbackModels.Length;
                         Debug.LogWarning(
                             $"[AIManager] {oldModel} failed (Error {request.responseCode}). Switching to {fallbackModels[currentModelIndex]} and retrying...");
-                        return await SendGeminiRequest(jsonPayload, retryCount + 1);
+                        return await SendGeminiRequest(jsonPayload, token, retryCount + 1);
                     }
 
                     Debug.LogError("[AIManager] All fallback models failed.");
                     return "Sorry, I have run out of available models or requests right now.";
                 }
 
-                Debug.LogError($"Gemini API Error: {request.error}\nResponse: {request.downloadHandler.text}");
+                Debug.LogWarning($"[AIManager] Gemini request failed (HTTP {request.responseCode}).");
                 return "Sorry, I encountered a network error.";
             }
         }
+    }
+
+    private CancellationTokenSource BeginResponse()
+    {
+        CancelCurrentResponse();
+        responseCancellation = new CancellationTokenSource();
+        responseInProgress = true;
+        return responseCancellation;
+    }
+
+    private void EndResponse(CancellationTokenSource owner)
+    {
+        if (!ReferenceEquals(responseCancellation, owner)) return;
+        responseSpeech?.Stop();
+        responseSpeech = null;
+        responseInProgress = false;
+        responseCancellation = null;
+        owner.Dispose();
+    }
+
+    private void CancelCurrentResponse() => CancelCurrentResponse(true);
+
+    private void CancelCurrentResponse(bool releaseSpeech)
+    {
+        CancellationTokenSource previous = responseCancellation;
+        responseCancellation = null;
+        responseInProgress = false;
+        previous?.Cancel();
+        responseSpeech?.Stop(releaseSpeech);
+        responseSpeech = null;
+        previous?.Dispose();
+        if (releaseSpeech && ttsSpeaker != null && ttsSpeaker.isActiveAndEnabled) ttsSpeaker.Stop();
+    }
+
+    private void CheckResponseActive(CancellationToken token)
+    {
+        token.ThrowIfCancellationRequested();
+        if (this == null || !isActiveAndEnabled || !Application.isPlaying || !IsAssistantVisible)
+            throw new OperationCanceledException();
+    }
+
+    private async Task SendRequest(UnityWebRequest request, CancellationToken token)
+    {
+        CheckResponseActive(token);
+        var operation = request.SendWebRequest();
+        float deadline = Time.realtimeSinceStartup + request.timeout + 2f;
+        try
+        {
+            while (!operation.isDone)
+            {
+                CheckResponseActive(token);
+                if (Time.realtimeSinceStartup >= deadline)
+                    throw new TimeoutException("Assistant web request timed out.");
+                await Task.Yield();
+            }
+            CheckResponseActive(token);
+        }
+        catch
+        {
+            request.Abort();
+            throw;
+        }
+    }
+
+    private void Update()
+    {
+        if (responseInProgress && !IsAssistantVisible) CancelCurrentResponse();
+    }
+
+    private void OnDisable() => CancelCurrentResponse();
+
+    private void OnApplicationPause(bool paused)
+    {
+        if (paused) CancelCurrentResponse();
     }
 
     private string EscapeString(string str)

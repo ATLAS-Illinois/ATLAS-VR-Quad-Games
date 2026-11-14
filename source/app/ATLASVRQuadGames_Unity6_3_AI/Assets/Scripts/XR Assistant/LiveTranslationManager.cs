@@ -1,208 +1,252 @@
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.CognitiveServices.Speech;
 using Microsoft.CognitiveServices.Speech.Translation;
-using System.Threading.Tasks;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
+// The original Azure caption backend, shared by the legacy page and display adapter.
 public class LiveTranslationManager : MonoBehaviour
 {
-    [Header("Azure Credentials")]
-    private string subscriptionKey;
-    private string region;
-
+    private string subscriptionKey, region;
     [Header("UI References")]
     public Toggle micToggle;
-    public TextMeshProUGUI liveTranscriptionText;
-    public TextMeshProUGUI captionHistoryText;
+    public TextMeshProUGUI liveTranscriptionText, captionHistoryText;
     public ScrollRect historyScrollView;
-
     [Header("Translation Controls")]
-    public TMP_Dropdown sourceLanguageDropdown; // What you speak
-    public TMP_Dropdown targetLanguageDropdown; // What it translates to
-    public Toggle viewModeToggle; // ON = Show Translation, OFF = Show Original
+    public TMP_Dropdown sourceLanguageDropdown, targetLanguageDropdown;
+    public Toggle viewModeToggle;
 
-    private TranslationRecognizer recognizer;
-    private bool isListening = false;
+    public static readonly string[] LanguageNames = { "Spanish", "English", "Chinese", "Korean", "Japanese" };
+    private static readonly string[] SourceCodes = { "es-ES", "en-US", "zh-CN", "ko-KR", "ja-JP" };
+    private static readonly string[] TargetCodes = { "es", "en", "zh-Hans", "ko", "ja" };
+    public bool IsListening { get; private set; }
+    public bool IsBusy { get; private set; }
+    public string Status { get; private set; } = "Choose Start captions.";
+    public int SourceIndex => sourceLanguageDropdown != null ? Mathf.Clamp(sourceLanguageDropdown.value, 0, 4) : sourceIndex;
+    public int TargetIndex => targetLanguageDropdown != null ? Mathf.Clamp(targetLanguageDropdown.value, 0, 4) : targetIndex;
+    public bool ShowTranslation => viewModeToggle == null ? translationView : viewModeToggle.isOn;
+    public string CurrentText { get { lock (threadLocker) return ShowTranslation ? currentTranslation : currentOriginal; } }
+    public string History => ShowTranslation ? translatedHistory : originalHistory;
+    public bool IsConfigured => !string.IsNullOrWhiteSpace(subscriptionKey) && !string.IsNullOrWhiteSpace(region);
 
-    private string originalHistory = "";
-    private string translatedHistory = "";
-
-    // What Azure LISTENS for
-    private string[] sourceLanguageCodes = new string[] { "es-ES", "en-US", "zh-CN", "ko-KR", "ja-JP" };
-
-    // What Azure TRANSLATES into
-    private string[] targetLanguageCodes = new string[] { "es", "en", "zh-Hans", "ko", "ja" };
-
-    // Thread-safe variables
+    private volatile TranslationRecognizer recognizer;
     private readonly object threadLocker = new object();
-    private string currentTargetLanguageCode = "en"; // Cached for background thread
-    private string currentOriginal = "";
-    private string currentTranslation = "";
-    private bool needsHistoryUpdate = false;
-    private string newOriginalSentence = "";
-    private string newTranslatedSentence = "";
+    private readonly SemaphoreSlim transition = new SemaphoreSlim(1, 1);
+    private readonly Queue<KeyValuePair<string, string>> pending = new Queue<KeyValuePair<string, string>>();
+    private string currentOriginal = "", currentTranslation = "", originalHistory = "", translatedHistory = "";
+    private string callbackTarget = "en", pendingFailure;
+    private int generation, sourceIndex = 1, targetIndex;
+    private volatile bool wantsListening, destroyed;
+    private bool translationView = true;
 
     private void Awake()
     {
-        APIConfig config = Resources.Load<APIConfig>("API_Secrets");
-        if (config != null)
-        {
-            // FIX: Using the correct variable names that exist in your script
-            subscriptionKey = config.azureSubscriptionKey;
-            region = config.azureRegion;
-        }
-        else
-        {
-            Debug.LogError("[LiveTranslationManager] API_Secrets file not found! Run ATLAS VR -> API Setup.");
-        }
+        var config = Resources.Load<APIConfig>("API_Secrets");
+        if (config != null) { subscriptionKey = config.azureSubscriptionKey; region = config.azureRegion; }
     }
 
     private void Start()
     {
-        liveTranscriptionText.text = "Waiting for speech...";
-        captionHistoryText.text = "";
-
-        if (micToggle != null) micToggle.onValueChanged.AddListener(OnMicToggle);
+        // A bridge can receive a deliberate start before Unity dispatches Start.
+        if (micToggle != null) { micToggle.SetIsOnWithoutNotify(wantsListening); micToggle.onValueChanged.AddListener(OnMicToggle); }
         if (viewModeToggle != null) viewModeToggle.onValueChanged.AddListener(OnViewModeChanged);
         if (sourceLanguageDropdown != null) sourceLanguageDropdown.onValueChanged.AddListener(OnDropdownChanged);
         if (targetLanguageDropdown != null) targetLanguageDropdown.onValueChanged.AddListener(OnDropdownChanged);
+        Render();
     }
 
-    private async void OnMicToggle(bool isOn)
+    private void OnMicToggle(bool value) => SetListening(value);
+    private void OnViewModeChanged(bool value) => Render();
+    private void OnDropdownChanged(int value)
     {
-        if (isOn) await StartTranslation();
-        else await StopTranslation();
+        // Changes while stopped never open the microphone.
+        if (wantsListening) SetListening(true);
     }
 
-    private async void OnDropdownChanged(int index)
+    public void SetLanguages(int source, int target)
     {
-        // Restart the mic stream if they change languages while speaking
-        if (isListening)
+        sourceIndex = Mathf.Clamp(source, 0, 4); targetIndex = Mathf.Clamp(target, 0, 4);
+        if (sourceLanguageDropdown != null) sourceLanguageDropdown.SetValueWithoutNotify(sourceIndex);
+        if (targetLanguageDropdown != null) targetLanguageDropdown.SetValueWithoutNotify(targetIndex);
+        OnDropdownChanged(0);
+    }
+
+    public void SetTranslationView(bool translated)
+    {
+        translationView = translated;
+        if (viewModeToggle != null) viewModeToggle.SetIsOnWithoutNotify(translated);
+        Render();
+    }
+
+    public void ClearHistory()
+    {
+        originalHistory = translatedHistory = "";
+        lock (threadLocker) { currentOriginal = currentTranslation = ""; pending.Clear(); }
+        Render();
+    }
+
+    public void SetListening(bool value)
+    {
+        if (value && SourceIndex == TargetIndex)
         {
-            await StopTranslation();
-            await StartTranslation();
+            SetListening(false);
+            Status = "Choose a different target language, then start captions.";
+            Render();
+            return;
+        }
+#if UNITY_ANDROID && !UNITY_EDITOR
+        if (value && !UnityEngine.Android.Permission.HasUserAuthorizedPermission(UnityEngine.Android.Permission.Microphone))
+        {
+            Status = "Allow microphone access, then choose Start captions.";
+            UnityEngine.Android.Permission.RequestUserPermission(UnityEngine.Android.Permission.Microphone);
+            return;
+        }
+#endif
+        wantsListening = value && !destroyed && isActiveAndEnabled;
+        int version = ++generation;
+        if (micToggle != null) micToggle.SetIsOnWithoutNotify(wantsListening);
+        if (!wantsListening)
+        {
+            IsListening = false; Status = "Captions paused.";
+            // Closing the page must release the microphone even while Azure's start is pending.
+            var closing = recognizer;
+            recognizer = null;
+            DisposeRecognizer(closing);
+            lock (threadLocker) { currentOriginal = currentTranslation = ""; pending.Clear(); pendingFailure = null; }
+        }
+        _ = Reconcile(version, SourceIndex, TargetIndex);
+    }
+
+    private async Task Reconcile(int version, int source, int target)
+    {
+        await transition.WaitAsync();
+        try
+        {
+            if (version != generation) return;
+            IsBusy = true;
+            var old = recognizer;
+            recognizer = null;
+            IsListening = false;
+            DisposeRecognizer(old);
+            if (version != generation || !wantsListening || destroyed || !isActiveAndEnabled) return;
+            if (!IsConfigured) { wantsListening = false; Status = "Caption service is not configured."; return; }
+            Status = "Starting captions…";
+            var config = SpeechTranslationConfig.FromSubscription(subscriptionKey, region);
+            config.SpeechRecognitionLanguage = SourceCodes[source];
+            config.AddTargetLanguage(TargetCodes[target]);
+            var next = new TranslationRecognizer(config);
+            lock (threadLocker) { callbackTarget = TargetCodes[target]; currentOriginal = currentTranslation = ""; pending.Clear(); pendingFailure = null; }
+            recognizer = next;
+            next.Recognizing += OnRecognizing; next.Recognized += OnRecognized; next.Canceled += OnCanceled;
+            Task start = next.StartContinuousRecognitionAsync();
+            if (await Task.WhenAny(start, Task.Delay(10000)) != start)
+            {
+                _ = start.ContinueWith(t => { var ignored = t.Exception; }, TaskContinuationOptions.OnlyOnFaulted);
+                throw new TimeoutException();
+            }
+            await start;
+            if (version == generation && wantsListening && !destroyed && isActiveAndEnabled)
+            { IsListening = true; Status = "Listening in " + LanguageNames[source] + "…"; }
+            // A newer queued transition owns cancellation if this start completed late.
+        }
+        catch
+        {
+            if (version == generation)
+            { wantsListening = false; IsListening = false; Status = "Captions unavailable. Check microphone, internet and speech service."; }
+            var failed = recognizer; recognizer = null;
+            DisposeRecognizer(failed);
+        }
+        finally
+        {
+            IsBusy = false;
+            transition.Release();
+            if (!destroyed) { if (micToggle != null) micToggle.SetIsOnWithoutNotify(wantsListening); Render(); }
         }
     }
 
-    private async Task StartTranslation()
+    private void DisposeRecognizer(TranslationRecognizer value)
     {
-        if (isListening) return;
-
-        var config = SpeechTranslationConfig.FromSubscription(subscriptionKey, region);
-
-        string sourceLang = sourceLanguageCodes[sourceLanguageDropdown.value];
-        currentTargetLanguageCode = targetLanguageCodes[targetLanguageDropdown.value];
-
-        config.SpeechRecognitionLanguage = sourceLang;
-        config.AddTargetLanguage(currentTargetLanguageCode);
-
-        recognizer = new TranslationRecognizer(config);
-        recognizer.Recognizing += OnRecognizing;
-        recognizer.Recognized += OnRecognized;
-        recognizer.Canceled += OnCanceled;
-
-        await recognizer.StartContinuousRecognitionAsync();
-        isListening = true;
-
-        lock (threadLocker) currentOriginal = "";
-        liveTranscriptionText.text = $"Listening in {sourceLanguageDropdown.options[sourceLanguageDropdown.value].text}...";
+        if (value == null) return;
+        value.Recognizing -= OnRecognizing; value.Recognized -= OnRecognized; value.Canceled -= OnCanceled;
+        try { value.Dispose(); } catch { }
     }
 
-    private async Task StopTranslation()
+    private void OnRecognizing(object sender, TranslationRecognitionEventArgs args)
     {
-        if (!isListening || recognizer == null) return;
-
-        await recognizer.StopContinuousRecognitionAsync();
-        recognizer.Dispose();
-        recognizer = null;
-        isListening = false;
-        liveTranscriptionText.text = "Captions Paused.";
-    }
-
-    private void OnRecognizing(object sender, TranslationRecognitionEventArgs e)
-    {
-        // Safely pull the translation using our cached target code
-        string translated = e.Result.Translations.ContainsKey(currentTargetLanguageCode) ? e.Result.Translations[currentTargetLanguageCode] : "";
         lock (threadLocker)
         {
-            currentOriginal = e.Result.Text;
-            currentTranslation = translated;
+            if (!ReferenceEquals(sender, recognizer) || !wantsListening) return;
+            currentOriginal = args.Result.Text;
+            currentTranslation = args.Result.Translations.TryGetValue(callbackTarget, out var value) ? value : "";
         }
     }
 
-    private void OnRecognized(object sender, TranslationRecognitionEventArgs e)
+    private void OnRecognized(object sender, TranslationRecognitionEventArgs args)
     {
-        if (e.Result.Reason == ResultReason.TranslatedSpeech)
+        lock (threadLocker)
         {
-            lock (threadLocker)
-            {
-                newOriginalSentence = e.Result.Text;
-                newTranslatedSentence = e.Result.Translations.ContainsKey(currentTargetLanguageCode) ? e.Result.Translations[currentTargetLanguageCode] : "";
-                needsHistoryUpdate = true;
-            }
+            if (!ReferenceEquals(sender, recognizer) || !wantsListening || args.Result.Reason != ResultReason.TranslatedSpeech) return;
+            string translated = args.Result.Translations.TryGetValue(callbackTarget, out var value) ? value : "";
+            if (pending.Count >= 16) pending.Dequeue();
+            pending.Enqueue(new KeyValuePair<string, string>(args.Result.Text, translated));
+            currentOriginal = currentTranslation = "";
         }
     }
 
-    private void OnCanceled(object sender, TranslationRecognitionCanceledEventArgs e)
+    private void OnCanceled(object sender, TranslationRecognitionCanceledEventArgs args)
     {
-        Debug.LogWarning($"Azure Translation Canceled: {e.Reason}");
+        lock (threadLocker)
+            if (ReferenceEquals(sender, recognizer) && wantsListening) pendingFailure = "Caption service stopped. Choose Start to retry.";
     }
 
     private void Update()
     {
+        string failure;
         lock (threadLocker)
         {
-            if (!string.IsNullOrEmpty(currentOriginal) && !needsHistoryUpdate)
+            while (pending.Count > 0)
             {
-                liveTranscriptionText.text = viewModeToggle.isOn ? currentTranslation : currentOriginal;
+                var sentence = pending.Dequeue();
+                originalHistory = AppendBounded(originalHistory, sentence.Key);
+                translatedHistory = AppendBounded(translatedHistory, sentence.Value);
             }
-
-            if (needsHistoryUpdate)
-            {
-                originalHistory += newOriginalSentence + "\n\n";
-                translatedHistory += newTranslatedSentence + "\n\n";
-
-                currentOriginal = "";
-                currentTranslation = "";
-                needsHistoryUpdate = false;
-
-                UpdateHistoryText();
-                liveTranscriptionText.text = isListening ? "Listening..." : "Captions Paused.";
-
-                if (gameObject.activeInHierarchy && historyScrollView != null && historyScrollView.verticalNormalizedPosition < 0.05f)
-                {
-                    StartCoroutine(ScrollToBottom());
-                }
-            }
+            failure = pendingFailure; pendingFailure = null;
         }
+        if (failure != null) { SetListening(false); Status = failure; }
+        Render();
     }
 
-    private void OnViewModeChanged(bool isTranslationMode)
+    private static string AppendBounded(string history, string sentence)
     {
-        UpdateHistoryText();
-        lock (threadLocker)
-        {
-            if (!string.IsNullOrEmpty(currentOriginal))
-            {
-                liveTranscriptionText.text = viewModeToggle.isOn ? currentTranslation : currentOriginal;
-            }
-        }
+        if (string.IsNullOrWhiteSpace(sentence)) return history;
+        string result = history + sentence + "\n\n";
+        if (result.Length <= 6000) return result;
+        int start = result.Length - 6000;
+        if (char.IsLowSurrogate(result[start])) start++;
+        return result.Substring(start);
     }
 
-    private void UpdateHistoryText()
+    private void Render()
     {
-        captionHistoryText.text = viewModeToggle.isOn ? translatedHistory : originalHistory;
+        if (destroyed) return;
+        string current = CurrentText;
+        if (liveTranscriptionText != null) { liveTranscriptionText.richText = false; liveTranscriptionText.text = string.IsNullOrEmpty(current) ? Status : current; }
+        if (captionHistoryText != null) { captionHistoryText.richText = false; captionHistoryText.text = History; }
     }
 
-    private System.Collections.IEnumerator ScrollToBottom()
-    {
-        yield return new WaitForEndOfFrame();
-        if (historyScrollView != null) historyScrollView.verticalNormalizedPosition = 0f;
-    }
-
+    private void OnApplicationPause(bool paused) { if (paused) SetListening(false); }
+    private void OnDisable() => SetListening(false);
     private void OnDestroy()
     {
-        if (isListening) _ = StopTranslation();
+        destroyed = true;
+        SetListening(false);
+        if (micToggle != null) micToggle.onValueChanged.RemoveListener(OnMicToggle);
+        if (viewModeToggle != null) viewModeToggle.onValueChanged.RemoveListener(OnViewModeChanged);
+        if (sourceLanguageDropdown != null) sourceLanguageDropdown.onValueChanged.RemoveListener(OnDropdownChanged);
+        if (targetLanguageDropdown != null) targetLanguageDropdown.onValueChanged.RemoveListener(OnDropdownChanged);
     }
 }
