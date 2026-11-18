@@ -21,6 +21,11 @@ public class IsGoldenDonutGrabbed : MonoBehaviour
     private void OnDisable()
     {
         _grabInteractable.WhenStateChanged -= HandleStateChanged;
+
+        // The donut gets deactivated while held on game over / reset. Once we unsubscribe
+        // we never hear the "released" event, so clear the flag here; otherwise the mammoth
+        // touching the player later would count as another game over.
+        donutIsGrabbed = false;
     }
 
     private void HandleStateChanged(InteractableStateChangeArgs args)

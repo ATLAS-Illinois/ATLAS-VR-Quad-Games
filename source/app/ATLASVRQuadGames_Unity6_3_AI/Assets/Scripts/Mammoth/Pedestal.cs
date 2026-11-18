@@ -17,6 +17,9 @@ public class Pedestal : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Ignore the player while the game-over cutscene is walking the donut back.
+        if (mammothAI == null || mammothAI.IsResetting) return;
+
         if (Vector3.Distance(player.transform.position, transform.parent.transform.position) < 2f)
         {
             signpost.Anger();

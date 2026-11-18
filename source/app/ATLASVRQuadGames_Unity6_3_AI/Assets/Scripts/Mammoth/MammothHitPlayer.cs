@@ -10,7 +10,24 @@ public class MammothHitPlayer : MonoBehaviour
 
     void OnTriggerEnter(Collider obj)
     {
-        if (obj.gameObject.name == "Mammoth Model" && igdg.donutIsGrabbed)
+        CheckForCatch(obj);
+    }
+
+    // Enter alone can be missed (e.g. the player was already overlapping the mammoth
+    // when they grabbed the donut), so keep checking while the two overlap.
+    void OnTriggerStay(Collider obj)
+    {
+        CheckForCatch(obj);
+    }
+
+    private void CheckForCatch(Collider obj)
+    {
+        if (med == null || igdg == null || !igdg.donutIsGrabbed) return;
+
+        bool isMammoth = obj.gameObject.name == "Mammoth Model"
+                         || obj.GetComponentInParent<MammothEatDonut>() != null;
+
+        if (isMammoth)
         {
             Debug.Log("OOOOH NO");
             med.MammothGameOver();
