@@ -29,14 +29,20 @@ public class MammothEatDonut : MonoBehaviour
         }
     }
 
-    // Contrary to its name, this script can trigger multiple times
-    // depending on whether you start Mammoth Tag over again.
+    // Can trigger once per round. While the game-over cutscene is playing
+    // (mammoth walking the donut back), further calls are ignored; the round
+    // re-arms when NavMeshMovement finishes its reset.
     public void MammothGameOver()
     {
-        mammothAI.enraged = false;
-        mammothAI.isReturningDonut = true;
+        if (mammothAI != null && mammothAI.IsResetting) return;
+
         Debug.Log("NOOOOO THE MAMMOTH ATE THE DONUT!!!");
         goldenDonut.SetActive(false);
         donutOnMammothTusk.SetActive(true);
+
+        if (mammothAI != null)
+        {
+            mammothAI.BeginGameOverSequence();
+        }
     }
 }
